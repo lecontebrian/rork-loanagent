@@ -296,7 +296,7 @@ export default function SubscriptionScreen() {
           
           <Text style={styles.termsText}>
             By continuing, you agree to our Terms. Subscriptions auto-renew.{' '}
-            <Text style={styles.termsLink}>Cancel anytime</Text>.
+            <Text style={styles.termsLink}>Cancel anytime.</Text>
           </Text>
         </LinearGradient>
       </View>
