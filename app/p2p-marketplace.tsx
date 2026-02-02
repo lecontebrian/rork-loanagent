@@ -404,13 +404,14 @@ export default function P2PMarketplaceScreen() {
       <Stack.Screen options={{ headerShown: false }} />
       <View style={styles.root}>
         <LinearGradient
-          colors={["#050607", "#0B0D10", "#050607"]}
+          colors={["#F5F5F7", "#FAFAFA", "#F0F0F2"]}
           style={StyleSheet.absoluteFill}
           start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
+          end={{ x: 0, y: 1 }}
         />
         <View style={styles.bgOrb1} pointerEvents="none" />
         <View style={styles.bgOrb2} pointerEvents="none" />
+        <View style={styles.bgOrb3} pointerEvents="none" />
 
         <View style={[styles.container, { paddingTop: insets.top }]}>
           <View style={styles.header}>
@@ -419,7 +420,7 @@ export default function P2PMarketplaceScreen() {
             onPress={() => router.back()}
             activeOpacity={0.7}
           >
-            <ArrowLeft color={colors.text} size={24} strokeWidth={2} />
+            <ArrowLeft color="#1D1D1F" size={24} strokeWidth={2} />
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
             <Text style={styles.headerTitle}>P2P Lending</Text>
@@ -463,7 +464,7 @@ export default function P2PMarketplaceScreen() {
             onPress={() => setActiveTab('invest')}
             activeOpacity={0.7}
           >
-            <PiggyBank color={activeTab === 'invest' ? colors.white : colors.textSecondary} size={18} strokeWidth={2} />
+            <PiggyBank color={activeTab === 'invest' ? '#1D1D1F' : '#86868B'} size={18} strokeWidth={2} />
             <Text style={[styles.tabText, activeTab === 'invest' && styles.tabTextActive]}>
               Invest
             </Text>
@@ -473,7 +474,7 @@ export default function P2PMarketplaceScreen() {
             onPress={() => setActiveTab('borrow')}
             activeOpacity={0.7}
           >
-            <HandCoins color={activeTab === 'borrow' ? colors.white : colors.textSecondary} size={18} strokeWidth={2} />
+            <HandCoins color={activeTab === 'borrow' ? '#1D1D1F' : '#86868B'} size={18} strokeWidth={2} />
             <Text style={[styles.tabText, activeTab === 'borrow' && styles.tabTextActive]}>
               Borrow
             </Text>
@@ -675,21 +676,30 @@ const styles = StyleSheet.create({
   },
   bgOrb1: {
     position: 'absolute',
-    top: -120,
-    left: -120,
-    width: 280,
-    height: 280,
-    borderRadius: 140,
-    backgroundColor: 'rgba(29, 155, 240, 0.18)',
+    top: -80,
+    left: -60,
+    width: 220,
+    height: 220,
+    borderRadius: 110,
+    backgroundColor: 'rgba(0, 122, 255, 0.06)',
   },
   bgOrb2: {
     position: 'absolute',
-    bottom: -160,
-    right: -120,
-    width: 340,
-    height: 340,
-    borderRadius: 170,
-    backgroundColor: 'rgba(25, 197, 52, 0.16)',
+    bottom: -100,
+    right: -80,
+    width: 280,
+    height: 280,
+    borderRadius: 140,
+    backgroundColor: 'rgba(52, 199, 89, 0.05)',
+  },
+  bgOrb3: {
+    position: 'absolute',
+    top: '40%',
+    right: -40,
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    backgroundColor: 'rgba(175, 82, 222, 0.04)',
   },
   container: {
     flex: 1,
@@ -707,12 +717,16 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(22, 24, 28, 0.72)',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderWidth: 1,
-    borderColor: 'rgba(47, 51, 54, 0.6)',
+    borderColor: 'rgba(0, 0, 0, 0.06)',
     alignItems: 'center',
     justifyContent: 'center',
-    ...colors.shadowMedium,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 2,
   },
   headerTitleContainer: {
     alignItems: 'center',
@@ -720,60 +734,63 @@ const styles = StyleSheet.create({
   headerSubtitle: {
     marginTop: 3,
     fontSize: 12,
-    fontWeight: '600' as const,
-    color: colors.textSecondary,
+    fontWeight: '500' as const,
+    color: '#86868B',
     letterSpacing: -0.1,
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: '#1D1D1F',
     letterSpacing: -0.4,
   },
   tabContainer: {
     flexDirection: 'row',
     marginHorizontal: 20,
-    backgroundColor: 'rgba(14, 16, 20, 0.92)',
-    borderRadius: 18,
-    padding: 6,
+    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    borderRadius: 14,
+    padding: 4,
     marginBottom: 16,
     position: 'relative',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: 'rgba(0, 0, 0, 0.04)',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.35,
-    shadowRadius: 16,
-    elevation: 8,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 4,
   },
   tabIndicator: {
     position: 'absolute',
-    top: 6,
-    left: 6,
+    top: 4,
+    left: 4,
     width: 0,
-    height: 44,
-    backgroundColor: 'rgba(25, 197, 52, 0.16)',
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: 'rgba(25, 197, 52, 0.28)',
+    height: 40,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
   },
   tab: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
+    paddingVertical: 10,
     gap: 8,
     zIndex: 1,
-    borderRadius: 14,
+    borderRadius: 10,
   },
   tabText: {
     fontSize: 15,
     fontWeight: '600' as const,
-    color: colors.textSecondary,
+    color: '#86868B',
   },
   tabTextActive: {
-    color: colors.white,
+    color: '#1D1D1F',
   },
   scrollContent: {
     paddingHorizontal: 20,
