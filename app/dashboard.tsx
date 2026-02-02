@@ -10,6 +10,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { generateLoanOffers } from '@/mocks/loanData';
 import { LoanOffer } from '@/types';
 import IntegrationPrompt from '@/components/IntegrationPrompt';
+import { formatCompactNumber } from '@/utils/formatters';
 import ReviewPrompt from '@/components/ReviewPrompt';
 
 const { width } = Dimensions.get('window');
@@ -222,7 +223,7 @@ export default function DashboardScreen() {
                 <DollarSign color={colors.success} size={20} strokeWidth={2.5} />
               </View>
               <Text style={styles.metricLabel}>Borrowing Power</Text>
-              <Text style={styles.metricValue}>${(borrowingPower / 1000).toFixed(0)}K</Text>
+              <Text style={styles.metricValue}>${formatCompactNumber(borrowingPower)}</Text>
               <View style={styles.metricFactors}>
                 <View style={[styles.metricFactorDot, { backgroundColor: colors.success }]} />
                 <Text style={styles.metricFactorText}>Based on your profile</Text>
