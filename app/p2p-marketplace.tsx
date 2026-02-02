@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Animat
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft, Search, TrendingUp, Shield, Clock, Users, ChevronRight, Plus, Wallet, CreditCard, Building2, X, CheckCircle, PiggyBank, HandCoins, Coins, Zap } from 'lucide-react-native';
-import colors from '@/constants/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useP2PWallet, P2PLoanRequest } from '@/contexts/P2PWalletContext';
@@ -10,6 +9,13 @@ import { useApp } from '@/contexts/AppContext';
 
 type TabType = 'invest' | 'borrow';
 type PaymentMethod = 'wallet' | 'bank' | 'card';
+
+const CK_GREEN = '#5BDE00';
+const CK_GREEN_DARK = '#2B8000';
+const CK_TEXT = '#111827';
+const CK_TEXT_SECONDARY = '#6B7280';
+const CK_BORDER = '#E5E7EB';
+const CK_BG = '#F9FAFB';
 
 export default function P2PMarketplaceScreen() {
   const router = useRouter();
@@ -57,10 +63,10 @@ export default function P2PMarketplaceScreen() {
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
-      case 'low': return colors.success;
-      case 'medium': return colors.warning;
-      case 'high': return colors.error;
-      default: return colors.textSecondary;
+      case 'low': return '#22C55E';
+      case 'medium': return '#F59E0B';
+      case 'high': return '#EF4444';
+      default: return CK_TEXT_SECONDARY;
     }
   };
 
@@ -130,10 +136,10 @@ export default function P2PMarketplaceScreen() {
       >
         <Animated.View style={[styles.statsContainer, { opacity: fadeAnim }]}>
           <LinearGradient
-            colors={['#0A84FF', '#5E5CE6']}
+            colors={[CK_GREEN_DARK, CK_GREEN]}
             style={styles.statsGradient}
             start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
+            end={{ x: 1, y: 0 }}
           >
             <View style={styles.statsHeaderRow}>
               <Text style={styles.statsHeaderText}>My Portfolio</Text>
@@ -144,19 +150,19 @@ export default function P2PMarketplaceScreen() {
             </View>
             <View style={styles.statsRow}>
               <View style={styles.statItem}>
-                <Wallet color={colors.white} size={20} strokeWidth={2.5} />
+                <Wallet color="#FFFFFF" size={20} strokeWidth={2.5} />
                 <Text style={styles.statValue}>${balance.toFixed(0)}</Text>
                 <Text style={styles.statLabel}>Wallet Balance</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <TrendingUp color={colors.white} size={20} strokeWidth={2.5} />
+                <TrendingUp color="#FFFFFF" size={20} strokeWidth={2.5} />
                 <Text style={styles.statValue}>${totalInvested.toLocaleString()}</Text>
                 <Text style={styles.statLabel}>Invested</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <Users color={colors.white} size={20} strokeWidth={2.5} />
+                <Users color="#FFFFFF" size={20} strokeWidth={2.5} />
                 <Text style={styles.statValue}>{availableListings.length}</Text>
                 <Text style={styles.statLabel}>Available</Text>
               </View>
@@ -172,23 +178,23 @@ export default function P2PMarketplaceScreen() {
       >
         <View style={styles.addFundsContent}>
           <View style={styles.addFundsIcon}>
-            <Plus color={colors.primary} size={22} strokeWidth={2.5} />
+            <Plus color={CK_GREEN_DARK} size={22} strokeWidth={2.5} />
           </View>
           <View style={styles.addFundsTextContainer}>
             <Text style={styles.addFundsTitle}>Add Funds to Invest</Text>
             <Text style={styles.addFundsSubtitle}>Link a card or bank account</Text>
           </View>
-          <ChevronRight color={colors.textSecondary} size={20} strokeWidth={2} />
+          <ChevronRight color={CK_TEXT_SECONDARY} size={20} strokeWidth={2} />
         </View>
       </TouchableOpacity>
 
       <View style={styles.searchContainer}>
         <View style={styles.searchInputContainer}>
-          <Search color={colors.textTertiary} size={18} strokeWidth={2} />
+          <Search color={CK_TEXT_SECONDARY} size={18} strokeWidth={2} />
           <TextInput
             style={styles.searchInput}
             placeholder="Search loan listings..."
-            placeholderTextColor={colors.textTertiary}
+            placeholderTextColor={CK_TEXT_SECONDARY}
             value={searchQuery}
             onChangeText={setSearchQuery}
           />
@@ -217,7 +223,7 @@ export default function P2PMarketplaceScreen() {
         <Text style={styles.sectionTitle}>Investment Opportunities</Text>
         {availableListings.length === 0 ? (
           <View style={styles.emptyState}>
-            <PiggyBank color={colors.textTertiary} size={48} strokeWidth={1.5} />
+            <PiggyBank color={CK_TEXT_SECONDARY} size={48} strokeWidth={1.5} />
             <Text style={styles.emptyStateTitle}>No loans available</Text>
             <Text style={styles.emptyStateText}>Check back soon for new investment opportunities</Text>
           </View>
@@ -241,13 +247,13 @@ export default function P2PMarketplaceScreen() {
                     <View style={styles.borrowerNameRow}>
                       <Text style={styles.borrowerName}>{listing.borrowerName}</Text>
                       {listing.verified && (
-                        <Shield color={colors.primary} size={14} strokeWidth={2.5} />
+                        <Shield color={CK_GREEN} size={14} strokeWidth={2.5} />
                       )}
                     </View>
                     <Text style={styles.creditScore}>Credit Score: {listing.creditScore}</Text>
                   </View>
                 </View>
-                <View style={[styles.riskBadge, { backgroundColor: getRiskColor(listing.riskLevel) + '20' }]}>
+                <View style={[styles.riskBadge, { backgroundColor: getRiskColor(listing.riskLevel) + '15' }]}>
                   <Text style={[styles.riskText, { color: getRiskColor(listing.riskLevel) }]}>
                     {listing.riskLevel.toUpperCase()}
                   </Text>
@@ -259,15 +265,15 @@ export default function P2PMarketplaceScreen() {
 
               <View style={styles.loanDetails}>
                 <View style={styles.loanDetailItem}>
-                  <Text style={styles.loanDetailLabel}>Amount</Text>
+                  <Text style={styles.loanDetailLabel}>AMOUNT</Text>
                   <Text style={styles.loanDetailValue}>${listing.amount.toLocaleString()}</Text>
                 </View>
                 <View style={styles.loanDetailItem}>
-                  <Text style={styles.loanDetailLabel}>Return</Text>
-                  <Text style={[styles.loanDetailValue, { color: colors.success }]}>{listing.interestRate}%</Text>
+                  <Text style={styles.loanDetailLabel}>RETURN</Text>
+                  <Text style={[styles.loanDetailValue, { color: CK_GREEN_DARK }]}>{listing.interestRate}%</Text>
                 </View>
                 <View style={styles.loanDetailItem}>
-                  <Text style={styles.loanDetailLabel}>Term</Text>
+                  <Text style={styles.loanDetailLabel}>TERM</Text>
                   <Text style={styles.loanDetailValue}>{listing.termMonths}mo</Text>
                 </View>
               </View>
@@ -292,7 +298,7 @@ export default function P2PMarketplaceScreen() {
                     ${listing.fundingProgress.toLocaleString()} of ${listing.fundingGoal.toLocaleString()}
                   </Text>
                   <View style={styles.timeRemaining}>
-                    <Clock color={colors.textSecondary} size={12} strokeWidth={2} />
+                    <Clock color={CK_TEXT_SECONDARY} size={12} strokeWidth={2} />
                     <Text style={styles.timeRemainingText}>{listing.remainingTime} left</Text>
                   </View>
                 </View>
@@ -300,11 +306,11 @@ export default function P2PMarketplaceScreen() {
 
               <View style={styles.investButtonSmall}>
                 <View style={styles.investButtonCost}>
-                  <Coins color="#34C759" size={12} strokeWidth={2.5} />
+                  <Coins color={CK_GREEN_DARK} size={12} strokeWidth={2.5} />
                   <Text style={styles.investButtonCostText}>1 token</Text>
                 </View>
                 <Text style={styles.investButtonSmallText}>Tap to Invest</Text>
-                <ChevronRight color={colors.primary} size={16} strokeWidth={2.5} />
+                <ChevronRight color={CK_GREEN_DARK} size={16} strokeWidth={2.5} />
               </View>
             </TouchableOpacity>
           ))
@@ -321,14 +327,14 @@ export default function P2PMarketplaceScreen() {
         onPress={() => router.push('/p2p/request-loan' as any)}
       >
         <LinearGradient
-          colors={['#FF9500', '#FF6B35']}
+          colors={[CK_GREEN_DARK, '#45A000']}
           style={styles.requestLoanGradient}
           start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
+          end={{ x: 1, y: 0 }}
         >
           <View style={styles.requestLoanContent}>
             <View style={styles.requestLoanIcon}>
-              <HandCoins color={colors.white} size={32} strokeWidth={2} />
+              <HandCoins color="#FFFFFF" size={32} strokeWidth={2} />
             </View>
             <View style={styles.requestLoanTextContainer}>
               <Text style={styles.requestLoanTitle}>Request a Loan</Text>
@@ -339,13 +345,13 @@ export default function P2PMarketplaceScreen() {
           </View>
           <View style={styles.requestLoanButton}>
             <Text style={styles.requestLoanButtonText}>Start Request</Text>
-            <ChevronRight color={colors.white} size={18} strokeWidth={2.5} />
+            <ChevronRight color="#FFFFFF" size={18} strokeWidth={2.5} />
           </View>
         </LinearGradient>
       </TouchableOpacity>
 
       <View style={styles.infoCard}>
-        <Shield color={colors.primary} size={20} strokeWidth={2.5} />
+        <Shield color={CK_GREEN_DARK} size={20} strokeWidth={2.5} />
         <View style={styles.infoContent}>
           <Text style={styles.infoTitle}>How P2P Borrowing Works</Text>
           <Text style={styles.infoText}>
@@ -364,8 +370,8 @@ export default function P2PMarketplaceScreen() {
             <View key={request.id} style={styles.myRequestCard}>
               <View style={styles.myRequestHeader}>
                 <Text style={styles.myRequestPurpose}>{request.purpose}</Text>
-                <View style={[styles.statusBadge, { backgroundColor: request.status === 'funding' ? colors.warning + '20' : colors.success + '20' }]}>
-                  <Text style={[styles.statusText, { color: request.status === 'funding' ? colors.warning : colors.success }]}>
+                <View style={[styles.statusBadge, { backgroundColor: request.status === 'funding' ? '#FEF3C7' : '#D1FAE5' }]}>
+                  <Text style={[styles.statusText, { color: request.status === 'funding' ? '#D97706' : '#059669' }]}>
                     {request.status === 'funding' ? 'Seeking Funds' : 'Funded'}
                   </Text>
                 </View>
@@ -391,7 +397,7 @@ export default function P2PMarketplaceScreen() {
 
       {myLoanRequests.length === 0 && (
         <View style={styles.emptyState}>
-          <HandCoins color={colors.textTertiary} size={48} strokeWidth={1.5} />
+          <HandCoins color={CK_TEXT_SECONDARY} size={48} strokeWidth={1.5} />
           <Text style={styles.emptyStateTitle}>No active loan requests</Text>
           <Text style={styles.emptyStateText}>Submit a request to get funded by investors</Text>
         </View>
@@ -403,15 +409,9 @@ export default function P2PMarketplaceScreen() {
     <>
       <Stack.Screen options={{ headerShown: false }} />
       <View style={styles.root}>
-        <LinearGradient
-          colors={["#F5F5F7", "#FAFAFA", "#F0F0F2"]}
-          style={StyleSheet.absoluteFill}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-        />
-        <View style={styles.bgOrb1} pointerEvents="none" />
-        <View style={styles.bgOrb2} pointerEvents="none" />
-        <View style={styles.bgOrb3} pointerEvents="none" />
+        <View style={styles.bgGradientTop} />
+        <View style={styles.bgAccent1} pointerEvents="none" />
+        <View style={styles.bgAccent2} pointerEvents="none" />
 
         <View style={[styles.container, { paddingTop: insets.top }]}>
           <View style={styles.header}>
@@ -420,7 +420,7 @@ export default function P2PMarketplaceScreen() {
             onPress={() => router.back()}
             activeOpacity={0.7}
           >
-            <ArrowLeft color="#1D1D1F" size={24} strokeWidth={2} />
+            <ArrowLeft color={CK_TEXT} size={24} strokeWidth={2} />
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
             <Text style={styles.headerTitle}>P2P Lending</Text>
@@ -431,7 +431,7 @@ export default function P2PMarketplaceScreen() {
             onPress={() => router.push('/subscription')}
             activeOpacity={0.7}
           >
-            <Zap color={tokens <= 2 ? '#FF6B6B' : '#34C759'} size={14} fill={tokens <= 2 ? '#FF6B6B' : '#34C759'} />
+            <Zap color={tokens <= 2 ? '#EF4444' : CK_GREEN} size={14} fill={tokens <= 2 ? '#EF4444' : CK_GREEN} />
             <Text style={[styles.tokenBadgeText, tokens <= 2 && styles.tokenBadgeTextLow]}>{tokens}</Text>
           </TouchableOpacity>
         </View>
@@ -449,11 +449,11 @@ export default function P2PMarketplaceScreen() {
             style={[
               styles.tabIndicator,
               {
-                width: Math.max(0, (tabContainerWidth - 12) / 2),
+                width: Math.max(0, (tabContainerWidth - 8) / 2),
                 transform: [{
                   translateX: tabIndicatorAnim.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [0, Math.max(0, (tabContainerWidth - 12) / 2)],
+                    outputRange: [0, Math.max(0, (tabContainerWidth - 8) / 2)],
                   }),
                 }],
               },
@@ -464,7 +464,7 @@ export default function P2PMarketplaceScreen() {
             onPress={() => setActiveTab('invest')}
             activeOpacity={0.7}
           >
-            <PiggyBank color={activeTab === 'invest' ? '#1D1D1F' : '#86868B'} size={18} strokeWidth={2} />
+            <PiggyBank color={activeTab === 'invest' ? CK_GREEN_DARK : CK_TEXT_SECONDARY} size={18} strokeWidth={2} />
             <Text style={[styles.tabText, activeTab === 'invest' && styles.tabTextActive]}>
               Invest
             </Text>
@@ -474,7 +474,7 @@ export default function P2PMarketplaceScreen() {
             onPress={() => setActiveTab('borrow')}
             activeOpacity={0.7}
           >
-            <HandCoins color={activeTab === 'borrow' ? '#1D1D1F' : '#86868B'} size={18} strokeWidth={2} />
+            <HandCoins color={activeTab === 'borrow' ? CK_GREEN_DARK : CK_TEXT_SECONDARY} size={18} strokeWidth={2} />
             <Text style={[styles.tabText, activeTab === 'borrow' && styles.tabTextActive]}>
               Borrow
             </Text>
@@ -506,7 +506,7 @@ export default function P2PMarketplaceScreen() {
                 onPress={() => setSelectedLoan(null)}
                 activeOpacity={0.7}
               >
-                <X color={colors.text} size={24} strokeWidth={2} />
+                <X color={CK_TEXT} size={24} strokeWidth={2} />
               </TouchableOpacity>
             </View>
 
@@ -530,7 +530,7 @@ export default function P2PMarketplaceScreen() {
                   </View>
                   <View style={styles.loanSummaryStat}>
                     <Text style={styles.loanSummaryLabel}>Expected Return</Text>
-                    <Text style={[styles.loanSummaryValue, { color: colors.success }]}>
+                    <Text style={[styles.loanSummaryValue, { color: CK_GREEN_DARK }]}>
                       {selectedLoan.interestRate}% APR
                     </Text>
                   </View>
@@ -547,7 +547,7 @@ export default function P2PMarketplaceScreen() {
                     onChangeText={(text) => setInvestAmount(formatAmount(text))}
                     placeholder="100"
                     keyboardType="numeric"
-                    placeholderTextColor={colors.textTertiary}
+                    placeholderTextColor={CK_TEXT_SECONDARY}
                   />
                 </View>
                 <Text style={styles.amountHint}>Minimum $25 • Maximum ${(selectedLoan.fundingGoal - selectedLoan.fundingProgress).toLocaleString()}</Text>
@@ -562,7 +562,7 @@ export default function P2PMarketplaceScreen() {
                   activeOpacity={0.7}
                 >
                   <View style={styles.paymentOptionContent}>
-                    <Wallet color={paymentMethod === 'wallet' ? colors.primary : colors.textSecondary} size={24} strokeWidth={2} />
+                    <Wallet color={paymentMethod === 'wallet' ? CK_GREEN_DARK : CK_TEXT_SECONDARY} size={24} strokeWidth={2} />
                     <View style={styles.paymentOptionText}>
                       <Text style={[styles.paymentOptionTitle, paymentMethod === 'wallet' && styles.paymentOptionTitleActive]}>
                         Wallet Balance
@@ -570,7 +570,7 @@ export default function P2PMarketplaceScreen() {
                       <Text style={styles.paymentOptionSubtext}>Available: ${balance.toFixed(2)}</Text>
                     </View>
                   </View>
-                  {paymentMethod === 'wallet' && <CheckCircle color={colors.primary} size={22} strokeWidth={2.5} />}
+                  {paymentMethod === 'wallet' && <CheckCircle color={CK_GREEN} size={22} strokeWidth={2.5} />}
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -579,7 +579,7 @@ export default function P2PMarketplaceScreen() {
                   activeOpacity={0.7}
                 >
                   <View style={styles.paymentOptionContent}>
-                    <Building2 color={paymentMethod === 'bank' ? colors.primary : colors.textSecondary} size={24} strokeWidth={2} />
+                    <Building2 color={paymentMethod === 'bank' ? CK_GREEN_DARK : CK_TEXT_SECONDARY} size={24} strokeWidth={2} />
                     <View style={styles.paymentOptionText}>
                       <Text style={[styles.paymentOptionTitle, paymentMethod === 'bank' && styles.paymentOptionTitleActive]}>
                         Bank Account
@@ -589,7 +589,7 @@ export default function P2PMarketplaceScreen() {
                       </Text>
                     </View>
                   </View>
-                  {paymentMethod === 'bank' && <CheckCircle color={colors.primary} size={22} strokeWidth={2.5} />}
+                  {paymentMethod === 'bank' && <CheckCircle color={CK_GREEN} size={22} strokeWidth={2.5} />}
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -598,7 +598,7 @@ export default function P2PMarketplaceScreen() {
                   activeOpacity={0.7}
                 >
                   <View style={styles.paymentOptionContent}>
-                    <CreditCard color={paymentMethod === 'card' ? colors.primary : colors.textSecondary} size={24} strokeWidth={2} />
+                    <CreditCard color={paymentMethod === 'card' ? CK_GREEN_DARK : CK_TEXT_SECONDARY} size={24} strokeWidth={2} />
                     <View style={styles.paymentOptionText}>
                       <Text style={[styles.paymentOptionTitle, paymentMethod === 'card' && styles.paymentOptionTitleActive]}>
                         Debit/Credit Card
@@ -608,7 +608,7 @@ export default function P2PMarketplaceScreen() {
                       </Text>
                     </View>
                   </View>
-                  {paymentMethod === 'card' && <CheckCircle color={colors.primary} size={22} strokeWidth={2.5} />}
+                  {paymentMethod === 'card' && <CheckCircle color={CK_GREEN} size={22} strokeWidth={2.5} />}
                 </TouchableOpacity>
               </View>
 
@@ -621,7 +621,7 @@ export default function P2PMarketplaceScreen() {
                   </View>
                   <View style={styles.returnsRow}>
                     <Text style={styles.returnsLabel}>Expected Interest ({selectedLoan.interestRate}% APR)</Text>
-                    <Text style={[styles.returnsValue, { color: colors.success }]}>
+                    <Text style={[styles.returnsValue, { color: CK_GREEN_DARK }]}>
                       +${(parseFloat(investAmount.replace(/,/g, '')) * selectedLoan.interestRate / 100 * selectedLoan.termMonths / 12).toFixed(2)}
                     </Text>
                   </View>
@@ -635,7 +635,7 @@ export default function P2PMarketplaceScreen() {
               )}
 
               <View style={styles.tokenCostBanner}>
-                <Coins color="#34C759" size={16} strokeWidth={2.5} />
+                <Coins color={CK_GREEN_DARK} size={16} strokeWidth={2.5} />
                 <Text style={styles.tokenCostBannerText}>This action costs 1 token</Text>
                 <Text style={styles.tokenCostBannerBalance}>{tokens} available</Text>
               </View>
@@ -650,7 +650,7 @@ export default function P2PMarketplaceScreen() {
                 activeOpacity={0.85}
               >
                 <LinearGradient
-                  colors={['#34C759', '#30D158']}
+                  colors={[CK_GREEN_DARK, CK_GREEN]}
                   style={styles.investButtonGradient}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 0 }}
@@ -672,34 +672,33 @@ export default function P2PMarketplaceScreen() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: '#FFFFFF',
   },
-  bgOrb1: {
+  bgGradientTop: {
     position: 'absolute',
-    top: -80,
-    left: -60,
-    width: 220,
-    height: 220,
-    borderRadius: 110,
-    backgroundColor: 'rgba(0, 122, 255, 0.06)',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 300,
+    backgroundColor: '#F8FAF5',
   },
-  bgOrb2: {
+  bgAccent1: {
     position: 'absolute',
-    bottom: -100,
-    right: -80,
-    width: 280,
-    height: 280,
-    borderRadius: 140,
-    backgroundColor: 'rgba(52, 199, 89, 0.05)',
+    top: 150,
+    right: -60,
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    backgroundColor: 'rgba(91, 222, 0, 0.06)',
   },
-  bgOrb3: {
+  bgAccent2: {
     position: 'absolute',
-    top: '40%',
-    right: -40,
-    width: 160,
-    height: 160,
-    borderRadius: 80,
-    backgroundColor: 'rgba(175, 82, 222, 0.04)',
+    bottom: 150,
+    left: -80,
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: 'rgba(43, 128, 0, 0.04)',
   },
   container: {
     flex: 1,
@@ -716,17 +715,17 @@ const styles = StyleSheet.create({
   backButton: {
     width: 40,
     height: 40,
-    borderRadius: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.06)',
+    borderColor: CK_BORDER,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
+    elevation: 1,
   },
   headerTitleContainer: {
     alignItems: 'center',
@@ -735,30 +734,23 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 12,
     fontWeight: '500' as const,
-    color: '#86868B',
+    color: CK_TEXT_SECONDARY,
     letterSpacing: -0.1,
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: '700' as const,
-    color: '#1D1D1F',
+    color: CK_TEXT,
     letterSpacing: -0.4,
   },
   tabContainer: {
     flexDirection: 'row',
     marginHorizontal: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.85)',
-    borderRadius: 14,
+    backgroundColor: '#F3F4F6',
+    borderRadius: 12,
     padding: 4,
     marginBottom: 16,
     position: 'relative',
-    borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.04)',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 4,
   },
   tabIndicator: {
     position: 'absolute',
@@ -767,11 +759,11 @@ const styles = StyleSheet.create({
     width: 0,
     height: 40,
     backgroundColor: '#FFFFFF',
-    borderRadius: 10,
+    borderRadius: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
+    shadowOpacity: 0.06,
+    shadowRadius: 3,
     elevation: 2,
   },
   tab: {
@@ -782,15 +774,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     gap: 8,
     zIndex: 1,
-    borderRadius: 10,
+    borderRadius: 8,
   },
   tabText: {
     fontSize: 15,
     fontWeight: '600' as const,
-    color: '#86868B',
+    color: CK_TEXT_SECONDARY,
   },
   tabTextActive: {
-    color: '#1D1D1F',
+    color: CK_GREEN_DARK,
   },
   scrollContent: {
     paddingHorizontal: 20,
@@ -798,11 +790,13 @@ const styles = StyleSheet.create({
   },
   statsContainer: {
     marginBottom: 16,
-    borderRadius: 22,
+    borderRadius: 16,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    ...colors.shadowStrong,
+    shadowColor: CK_GREEN_DARK,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 4,
   },
   statsGradient: {
     padding: 20,
@@ -816,14 +810,14 @@ const styles = StyleSheet.create({
   statsHeaderText: {
     fontSize: 14,
     fontWeight: '600' as const,
-    color: 'rgba(255, 255, 255, 0.9)',
+    color: 'rgba(255, 255, 255, 0.95)',
     letterSpacing: -0.2,
   },
   statsHeaderBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 2,
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 10,
@@ -831,7 +825,7 @@ const styles = StyleSheet.create({
   statsHeaderBadgeText: {
     fontSize: 11,
     fontWeight: '600' as const,
-    color: 'rgba(255, 255, 255, 0.9)',
+    color: 'rgba(255, 255, 255, 0.95)',
   },
   statsRow: {
     flexDirection: 'row',
@@ -845,12 +839,12 @@ const styles = StyleSheet.create({
   statDivider: {
     width: 1,
     height: 40,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
   },
   statValue: {
     fontSize: 22,
     fontWeight: '800' as const,
-    color: colors.white,
+    color: '#FFFFFF',
     marginTop: 6,
     letterSpacing: -0.5,
   },
@@ -862,12 +856,12 @@ const styles = StyleSheet.create({
     letterSpacing: -0.1,
   },
   addFundsCard: {
-    backgroundColor: colors.surface,
-    borderRadius: 14,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
     padding: 16,
     marginBottom: 16,
-    borderWidth: 2,
-    borderColor: colors.primary + '30',
+    borderWidth: 1.5,
+    borderColor: CK_GREEN,
     borderStyle: 'dashed',
   },
   addFundsContent: {
@@ -878,8 +872,8 @@ const styles = StyleSheet.create({
   addFundsIcon: {
     width: 44,
     height: 44,
-    borderRadius: 12,
-    backgroundColor: colors.primary + '15',
+    borderRadius: 10,
+    backgroundColor: 'rgba(91, 222, 0, 0.1)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -889,13 +883,13 @@ const styles = StyleSheet.create({
   addFundsTitle: {
     fontSize: 16,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
     marginBottom: 2,
   },
   addFundsSubtitle: {
     fontSize: 13,
     fontWeight: '500' as const,
-    color: colors.textSecondary,
+    color: CK_TEXT_SECONDARY,
   },
   searchContainer: {
     marginBottom: 14,
@@ -906,16 +900,16 @@ const styles = StyleSheet.create({
     gap: 12,
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: colors.surface,
-    borderRadius: 14,
+    backgroundColor: CK_BG,
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
   },
   searchInput: {
     flex: 1,
     fontSize: 15,
     fontWeight: '500' as const,
-    color: colors.text,
+    color: CK_TEXT,
     letterSpacing: -0.2,
   },
   filtersContainer: {
@@ -929,14 +923,14 @@ const styles = StyleSheet.create({
     gap: 6,
     paddingHorizontal: 14,
     paddingVertical: 8,
-    backgroundColor: colors.surface,
-    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
   },
   filterChipActive: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
+    backgroundColor: CK_GREEN_DARK,
+    borderColor: CK_GREEN_DARK,
   },
   filterDot: {
     width: 6,
@@ -946,11 +940,11 @@ const styles = StyleSheet.create({
   filterChipText: {
     fontSize: 13,
     fontWeight: '600' as const,
-    color: colors.textSecondary,
+    color: CK_TEXT_SECONDARY,
     letterSpacing: -0.1,
   },
   filterChipTextActive: {
-    color: colors.white,
+    color: '#FFFFFF',
   },
   listingsContainer: {
     gap: 14,
@@ -958,7 +952,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
     marginBottom: 6,
     letterSpacing: -0.3,
   },
@@ -970,21 +964,25 @@ const styles = StyleSheet.create({
   emptyStateTitle: {
     fontSize: 17,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
   },
   emptyStateText: {
     fontSize: 14,
     fontWeight: '500' as const,
-    color: colors.textSecondary,
+    color: CK_TEXT_SECONDARY,
     textAlign: 'center',
   },
   listingCard: {
     padding: 18,
-    backgroundColor: colors.surface,
-    borderRadius: 18,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: colors.border,
-    ...colors.shadow,
+    borderColor: CK_BORDER,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.04,
+    shadowRadius: 8,
+    elevation: 2,
   },
   listingHeader: {
     flexDirection: 'row',
@@ -1001,14 +999,14 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: colors.primary,
+    backgroundColor: CK_GREEN_DARK,
     alignItems: 'center',
     justifyContent: 'center',
   },
   borrowerInitial: {
     fontSize: 17,
     fontWeight: '700' as const,
-    color: colors.white,
+    color: '#FFFFFF',
     letterSpacing: -0.3,
   },
   borrowerNameRow: {
@@ -1019,13 +1017,13 @@ const styles = StyleSheet.create({
   borrowerName: {
     fontSize: 15,
     fontWeight: '600' as const,
-    color: colors.text,
+    color: CK_TEXT,
     letterSpacing: -0.3,
   },
   creditScore: {
     fontSize: 12,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_GREEN,
     marginTop: 2,
     letterSpacing: -0.1,
   },
@@ -1042,14 +1040,14 @@ const styles = StyleSheet.create({
   loanPurpose: {
     fontSize: 17,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
     marginBottom: 6,
     letterSpacing: -0.3,
   },
   loanDescription: {
     fontSize: 13,
     fontWeight: '500' as const,
-    color: colors.textSecondary,
+    color: CK_TEXT_SECONDARY,
     lineHeight: 18,
     marginBottom: 14,
     letterSpacing: -0.1,
@@ -1063,16 +1061,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   loanDetailLabel: {
-    fontSize: 11,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontSize: 10,
+    fontWeight: '600' as const,
+    color: '#9CA3AF',
     marginBottom: 4,
-    letterSpacing: -0.1,
+    letterSpacing: 0.5,
   },
   loanDetailValue: {
     fontSize: 16,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
     letterSpacing: -0.3,
   },
   fundingContainer: {
@@ -1087,26 +1085,26 @@ const styles = StyleSheet.create({
   fundingLabel: {
     fontSize: 12,
     fontWeight: '600' as const,
-    color: colors.text,
+    color: '#374151',
     letterSpacing: -0.1,
   },
   fundingPercentage: {
     fontSize: 14,
     fontWeight: '700' as const,
-    color: colors.primary,
+    color: CK_GREEN,
     letterSpacing: -0.2,
   },
   fundingBar: {
-    height: 6,
-    backgroundColor: colors.surfaceTertiary,
-    borderRadius: 3,
+    height: 8,
+    backgroundColor: '#E5E7EB',
+    borderRadius: 4,
     overflow: 'hidden',
     marginBottom: 6,
   },
   fundingFill: {
     height: '100%',
-    backgroundColor: colors.primary,
-    borderRadius: 3,
+    backgroundColor: CK_GREEN,
+    borderRadius: 4,
   },
   fundingFooter: {
     flexDirection: 'row',
@@ -1116,7 +1114,7 @@ const styles = StyleSheet.create({
   fundingAmount: {
     fontSize: 12,
     fontWeight: '500' as const,
-    color: colors.textSecondary,
+    color: CK_TEXT_SECONDARY,
     letterSpacing: -0.1,
   },
   timeRemaining: {
@@ -1127,7 +1125,7 @@ const styles = StyleSheet.create({
   timeRemainingText: {
     fontSize: 11,
     fontWeight: '500' as const,
-    color: colors.textSecondary,
+    color: CK_TEXT_SECONDARY,
     letterSpacing: -0.1,
   },
   investButtonSmall: {
@@ -1135,20 +1133,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
-    backgroundColor: colors.primary + '12',
-    borderRadius: 10,
+    backgroundColor: 'rgba(91, 222, 0, 0.1)',
+    borderRadius: 8,
     gap: 4,
   },
   investButtonSmallText: {
     fontSize: 14,
     fontWeight: '600' as const,
-    color: colors.primary,
+    color: CK_GREEN_DARK,
   },
   requestLoanCard: {
     marginBottom: 20,
-    borderRadius: 20,
+    borderRadius: 16,
     overflow: 'hidden',
-    ...colors.shadowMedium,
+    shadowColor: CK_GREEN_DARK,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
+    elevation: 4,
   },
   requestLoanGradient: {
     padding: 20,
@@ -1173,7 +1175,7 @@ const styles = StyleSheet.create({
   requestLoanTitle: {
     fontSize: 22,
     fontWeight: '800' as const,
-    color: colors.white,
+    color: '#FFFFFF',
     marginBottom: 4,
     letterSpacing: -0.4,
   },
@@ -1196,16 +1198,18 @@ const styles = StyleSheet.create({
   requestLoanButtonText: {
     fontSize: 16,
     fontWeight: '700' as const,
-    color: colors.white,
+    color: '#FFFFFF',
     letterSpacing: -0.2,
   },
   infoCard: {
     flexDirection: 'row',
     gap: 14,
-    backgroundColor: colors.primary + '10',
+    backgroundColor: '#F0FDF4',
     padding: 16,
-    borderRadius: 14,
+    borderRadius: 12,
     marginBottom: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(91, 222, 0, 0.2)',
   },
   infoContent: {
     flex: 1,
@@ -1213,24 +1217,24 @@ const styles = StyleSheet.create({
   infoTitle: {
     fontSize: 15,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
     marginBottom: 8,
   },
   infoText: {
     fontSize: 13,
     fontWeight: '500' as const,
-    color: colors.textSecondary,
+    color: '#4B5563',
     lineHeight: 20,
   },
   myRequestsSection: {
     gap: 12,
   },
   myRequestCard: {
-    backgroundColor: colors.surface,
-    borderRadius: 14,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
     padding: 16,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
   },
   myRequestHeader: {
     flexDirection: 'row',
@@ -1241,7 +1245,7 @@ const styles = StyleSheet.create({
   myRequestPurpose: {
     fontSize: 16,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
   },
   statusBadge: {
     paddingHorizontal: 10,
@@ -1255,12 +1259,12 @@ const styles = StyleSheet.create({
   myRequestAmount: {
     fontSize: 24,
     fontWeight: '800' as const,
-    color: colors.text,
+    color: CK_TEXT,
     marginBottom: 12,
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: '#FFFFFF',
   },
   modalHeader: {
     flexDirection: 'row',
@@ -1269,18 +1273,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: CK_BORDER,
   },
   modalTitle: {
     fontSize: 18,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
   },
   modalCloseButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.surface,
+    backgroundColor: '#F3F4F6',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -1288,12 +1292,12 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   loanSummaryCard: {
-    backgroundColor: colors.surface,
-    borderRadius: 16,
+    backgroundColor: CK_BG,
+    borderRadius: 12,
     padding: 18,
     marginBottom: 24,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
   },
   loanSummaryStats: {
     flexDirection: 'row',
@@ -1306,13 +1310,13 @@ const styles = StyleSheet.create({
   loanSummaryLabel: {
     fontSize: 12,
     fontWeight: '500' as const,
-    color: colors.textSecondary,
+    color: CK_TEXT_SECONDARY,
     marginBottom: 4,
   },
   loanSummaryValue: {
     fontSize: 20,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
   },
   investSection: {
     marginBottom: 24,
@@ -1320,51 +1324,51 @@ const styles = StyleSheet.create({
   investSectionTitle: {
     fontSize: 15,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
     marginBottom: 12,
   },
   amountInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.surface,
+    backgroundColor: '#FFFFFF',
     borderWidth: 2,
-    borderColor: colors.border,
-    borderRadius: 14,
+    borderColor: CK_BORDER,
+    borderRadius: 12,
     paddingHorizontal: 18,
     paddingVertical: 16,
   },
   dollarSign: {
     fontSize: 28,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
     marginRight: 8,
   },
   amountInput: {
     flex: 1,
     fontSize: 28,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
   },
   amountHint: {
     fontSize: 12,
     fontWeight: '500' as const,
-    color: colors.textTertiary,
+    color: '#9CA3AF',
     marginTop: 8,
   },
   paymentOption: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.surface,
-    borderRadius: 14,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
     padding: 16,
     marginBottom: 10,
     borderWidth: 2,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
   },
   paymentOptionActive: {
-    borderColor: colors.primary,
-    backgroundColor: colors.primary + '08',
+    borderColor: CK_GREEN,
+    backgroundColor: 'rgba(91, 222, 0, 0.05)',
   },
   paymentOptionContent: {
     flexDirection: 'row',
@@ -1377,27 +1381,29 @@ const styles = StyleSheet.create({
   paymentOptionTitle: {
     fontSize: 15,
     fontWeight: '600' as const,
-    color: colors.text,
+    color: CK_TEXT,
     marginBottom: 2,
   },
   paymentOptionTitleActive: {
-    color: colors.primary,
+    color: CK_GREEN_DARK,
   },
   paymentOptionSubtext: {
     fontSize: 13,
     fontWeight: '500' as const,
-    color: colors.textSecondary,
+    color: CK_TEXT_SECONDARY,
   },
   returnsCard: {
-    backgroundColor: colors.successLight || 'rgba(52, 199, 89, 0.1)',
-    borderRadius: 14,
+    backgroundColor: '#F0FDF4',
+    borderRadius: 12,
     padding: 18,
     marginBottom: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(91, 222, 0, 0.2)',
   },
   returnsTitle: {
     fontSize: 15,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
     marginBottom: 14,
   },
   returnsRow: {
@@ -1408,16 +1414,16 @@ const styles = StyleSheet.create({
   returnsLabel: {
     fontSize: 14,
     fontWeight: '500' as const,
-    color: colors.textSecondary,
+    color: CK_TEXT_SECONDARY,
   },
   returnsValue: {
     fontSize: 14,
     fontWeight: '600' as const,
-    color: colors.text,
+    color: CK_TEXT,
   },
   returnsTotalRow: {
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: 'rgba(91, 222, 0, 0.2)',
     paddingTop: 12,
     marginTop: 4,
     marginBottom: 0,
@@ -1425,18 +1431,22 @@ const styles = StyleSheet.create({
   returnsTotalLabel: {
     fontSize: 15,
     fontWeight: '700' as const,
-    color: colors.text,
+    color: CK_TEXT,
   },
   returnsTotalValue: {
     fontSize: 18,
     fontWeight: '800' as const,
-    color: colors.success,
+    color: CK_GREEN_DARK,
   },
   investButton: {
-    borderRadius: 16,
+    borderRadius: 12,
     overflow: 'hidden',
     marginBottom: 20,
-    ...colors.shadowMedium,
+    shadowColor: CK_GREEN_DARK,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
   },
   investButtonDisabled: {
     opacity: 0.5,
@@ -1451,32 +1461,32 @@ const styles = StyleSheet.create({
   investButtonText: {
     fontSize: 17,
     fontWeight: '700' as const,
-    color: colors.white,
+    color: '#FFFFFF',
   },
   tokenBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: 'rgba(52, 199, 89, 0.12)',
+    backgroundColor: 'rgba(91, 222, 0, 0.1)',
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: 'rgba(52, 199, 89, 0.25)',
+    borderColor: 'rgba(91, 222, 0, 0.25)',
   },
   tokenBadgeText: {
     fontSize: 14,
     fontWeight: '700' as const,
-    color: '#34C759',
+    color: CK_GREEN_DARK,
   },
   tokenBadgeTextLow: {
-    color: '#FF6B6B',
+    color: '#EF4444',
   },
   investButtonCost: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: 'rgba(52, 199, 89, 0.15)',
+    backgroundColor: 'rgba(91, 222, 0, 0.15)',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
@@ -1485,30 +1495,30 @@ const styles = StyleSheet.create({
   investButtonCostText: {
     fontSize: 11,
     fontWeight: '600' as const,
-    color: '#34C759',
+    color: CK_GREEN_DARK,
   },
   tokenCostBanner: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: 'rgba(52, 199, 89, 0.1)',
+    backgroundColor: 'rgba(91, 222, 0, 0.08)',
     paddingVertical: 12,
     paddingHorizontal: 16,
-    borderRadius: 12,
+    borderRadius: 10,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: 'rgba(52, 199, 89, 0.2)',
+    borderColor: 'rgba(91, 222, 0, 0.2)',
   },
   tokenCostBannerText: {
     fontSize: 14,
     fontWeight: '600' as const,
-    color: '#34C759',
+    color: CK_GREEN_DARK,
     flex: 1,
   },
   tokenCostBannerBalance: {
     fontSize: 13,
     fontWeight: '700' as const,
-    color: colors.textSecondary,
+    color: CK_TEXT_SECONDARY,
   },
 });
