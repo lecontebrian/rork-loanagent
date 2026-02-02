@@ -156,7 +156,7 @@ export const autoLoanTypes: LoanTypeDetail[] = [
     name: 'New Car Loan',
     description: 'Financing for brand new vehicles with lower rates and better terms',
     minAmount: 5000,
-    maxAmount: 150000,
+    maxAmount: 250000,
     typicalTerm: '24-72 months',
     rates: '5.0% - 9.0%',
     bestFor: [
@@ -173,7 +173,7 @@ export const autoLoanTypes: LoanTypeDetail[] = [
     name: 'Used Car Loan',
     description: 'Financing for pre-owned vehicles, flexible options for various budgets',
     minAmount: 3000,
-    maxAmount: 100000,
+    maxAmount: 250000,
     typicalTerm: '24-60 months',
     rates: '6.0% - 12.0%',
     bestFor: [
@@ -190,7 +190,7 @@ export const autoLoanTypes: LoanTypeDetail[] = [
     name: 'Auto Refinance',
     description: 'Refinance existing car loan to lower rate or reduce monthly payments',
     minAmount: 5000,
-    maxAmount: 100000,
+    maxAmount: 250000,
     typicalTerm: '24-72 months',
     rates: '5.0% - 8.0%',
     bestFor: [
@@ -207,7 +207,7 @@ export const autoLoanTypes: LoanTypeDetail[] = [
     name: 'Lease Buyout Loan',
     description: 'Finance the purchase of your leased vehicle at lease end',
     minAmount: 10000,
-    maxAmount: 100000,
+    maxAmount: 250000,
     typicalTerm: '24-60 months',
     rates: '5.5% - 9.0%',
     bestFor: [
