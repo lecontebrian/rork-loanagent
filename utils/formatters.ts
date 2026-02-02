@@ -124,6 +124,29 @@ export const formatPercent = (value: number, decimals: number = 0): string => {
   return `${value.toFixed(decimals)}%`;
 };
 
+export const formatCompactNumber = (value: number): string => {
+  if (isNaN(value) || value === null || value === undefined) return '0';
+
+  const absValue = Math.abs(value);
+  const sign = value < 0 ? '-' : '';
+
+  if (absValue >= 1_000_000_000) {
+    const billions = absValue / 1_000_000_000;
+    const formatted = billions % 1 === 0 ? billions.toFixed(0) : billions.toFixed(1).replace(/\.0$/, '');
+    return `${sign}${formatted}B`;
+  } else if (absValue >= 1_000_000) {
+    const millions = absValue / 1_000_000;
+    const formatted = millions % 1 === 0 ? millions.toFixed(0) : millions.toFixed(1).replace(/\.0$/, '');
+    return `${sign}${formatted}M`;
+  } else if (absValue >= 1_000) {
+    const thousands = absValue / 1_000;
+    const formatted = thousands % 1 === 0 ? thousands.toFixed(0) : thousands.toFixed(1).replace(/\.0$/, '');
+    return `${sign}${formatted}K`;
+  }
+
+  return `${sign}${Math.round(absValue)}`;
+};
+
 export const formatSmartCurrency = (value: number): string => {
   if (isNaN(value) || value === null || value === undefined) return '$0';
 
