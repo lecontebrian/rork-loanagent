@@ -134,45 +134,40 @@ export default function P2PMarketplaceScreen() {
         activeOpacity={0.9}
         onPress={() => router.push('/p2p/portfolio')}
       >
-        <Animated.View style={[styles.portfolioCard, { opacity: fadeAnim }]}>
-          <View style={styles.portfolioHeader}>
-            <View style={styles.portfolioTitleRow}>
-              <View style={styles.portfolioIconCircle}>
-                <TrendingUp color={CK_GREEN_DARK} size={18} strokeWidth={2.5} />
-              </View>
-              <View>
-                <Text style={styles.portfolioTitle}>My Portfolio</Text>
-                <Text style={styles.portfolioSubtitle}>Track your P2P investments</Text>
+        <Animated.View style={[styles.statsContainer, { opacity: fadeAnim }]}>
+          <LinearGradient
+            colors={[CK_GREEN_DARK, CK_GREEN]}
+            style={styles.statsGradient}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+          >
+            <View style={styles.statsHeaderRow}>
+              <Text style={styles.statsHeaderText}>My Portfolio</Text>
+              <View style={styles.statsHeaderBadge}>
+                <Text style={styles.statsHeaderBadgeText}>Tap to view</Text>
+                <ChevronRight color="rgba(255,255,255,0.9)" size={14} strokeWidth={2.5} />
               </View>
             </View>
-            <View style={styles.portfolioViewBadge}>
-              <Text style={styles.portfolioViewText}>View</Text>
-              <ChevronRight color={CK_GREEN_DARK} size={14} strokeWidth={2.5} />
-            </View>
-          </View>
-          <View style={styles.portfolioStatsGrid}>
-            <View style={styles.portfolioStatCard}>
-              <View style={styles.portfolioStatIconBg}>
-                <Wallet color={CK_GREEN_DARK} size={16} strokeWidth={2.5} />
+            <View style={styles.statsRow}>
+              <View style={styles.statItem}>
+                <Wallet color="#FFFFFF" size={20} strokeWidth={2.5} />
+                <Text style={styles.statValue}>${balance.toFixed(0)}</Text>
+                <Text style={styles.statLabel}>Wallet Balance</Text>
               </View>
-              <Text style={styles.portfolioStatValue}>${balance.toFixed(0)}</Text>
-              <Text style={styles.portfolioStatLabel}>Balance</Text>
-            </View>
-            <View style={styles.portfolioStatCard}>
-              <View style={[styles.portfolioStatIconBg, { backgroundColor: 'rgba(34, 197, 94, 0.1)' }]}>
-                <TrendingUp color="#22C55E" size={16} strokeWidth={2.5} />
+              <View style={styles.statDivider} />
+              <View style={styles.statItem}>
+                <TrendingUp color="#FFFFFF" size={20} strokeWidth={2.5} />
+                <Text style={styles.statValue}>${totalInvested.toLocaleString()}</Text>
+                <Text style={styles.statLabel}>Invested</Text>
               </View>
-              <Text style={styles.portfolioStatValue}>${totalInvested.toLocaleString()}</Text>
-              <Text style={styles.portfolioStatLabel}>Invested</Text>
-            </View>
-            <View style={styles.portfolioStatCard}>
-              <View style={[styles.portfolioStatIconBg, { backgroundColor: 'rgba(59, 130, 246, 0.1)' }]}>
-                <Users color="#3B82F6" size={16} strokeWidth={2.5} />
+              <View style={styles.statDivider} />
+              <View style={styles.statItem}>
+                <Users color="#FFFFFF" size={20} strokeWidth={2.5} />
+                <Text style={styles.statValue}>{availableListings.length}</Text>
+                <Text style={styles.statLabel}>Available</Text>
               </View>
-              <Text style={styles.portfolioStatValue}>{availableListings.length}</Text>
-              <Text style={styles.portfolioStatLabel}>Available</Text>
             </View>
-          </View>
+          </LinearGradient>
         </Animated.View>
       </TouchableOpacity>
 
@@ -793,96 +788,70 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 2,
   },
-  portfolioCard: {
+  statsContainer: {
     marginBottom: 16,
     borderRadius: 16,
-    backgroundColor: '#FFFFFF',
-    padding: 18,
-    borderWidth: 1,
-    borderColor: CK_BORDER,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 3,
+    overflow: 'hidden',
+    shadowColor: CK_GREEN_DARK,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 4,
   },
-  portfolioHeader: {
+  statsGradient: {
+    padding: 20,
+  },
+  statsHeaderRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 18,
+    marginBottom: 14,
   },
-  portfolioTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
+  statsHeaderText: {
+    fontSize: 14,
+    fontWeight: '600' as const,
+    color: 'rgba(255, 255, 255, 0.95)',
+    letterSpacing: -0.2,
   },
-  portfolioIconCircle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: 'rgba(91, 222, 0, 0.12)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  portfolioTitle: {
-    fontSize: 17,
-    fontWeight: '700' as const,
-    color: CK_TEXT,
-    letterSpacing: -0.3,
-  },
-  portfolioSubtitle: {
-    fontSize: 12,
-    fontWeight: '500' as const,
-    color: CK_TEXT_SECONDARY,
-    marginTop: 2,
-    letterSpacing: -0.1,
-  },
-  portfolioViewBadge: {
+  statsHeaderBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 2,
-    backgroundColor: 'rgba(91, 222, 0, 0.1)',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 10,
   },
-  portfolioViewText: {
-    fontSize: 12,
+  statsHeaderBadgeText: {
+    fontSize: 11,
     fontWeight: '600' as const,
-    color: CK_GREEN_DARK,
-    letterSpacing: -0.1,
+    color: 'rgba(255, 255, 255, 0.95)',
   },
-  portfolioStatsGrid: {
+  statsRow: {
     flexDirection: 'row',
-    gap: 10,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  portfolioStatCard: {
+  statItem: {
     flex: 1,
-    backgroundColor: CK_BG,
-    borderRadius: 12,
-    padding: 14,
     alignItems: 'center',
   },
-  portfolioStatIconBg: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: 'rgba(91, 222, 0, 0.1)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 8,
+  statDivider: {
+    width: 1,
+    height: 40,
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
   },
-  portfolioStatValue: {
-    fontSize: 18,
+  statValue: {
+    fontSize: 22,
     fontWeight: '800' as const,
-    color: CK_TEXT,
-    letterSpacing: -0.4,
+    color: '#FFFFFF',
+    marginTop: 6,
+    letterSpacing: -0.5,
   },
-  portfolioStatLabel: {
+  statLabel: {
     fontSize: 11,
     fontWeight: '500' as const,
-    color: CK_TEXT_SECONDARY,
+    color: 'rgba(255, 255, 255, 0.85)',
     marginTop: 4,
     letterSpacing: -0.1,
   },
