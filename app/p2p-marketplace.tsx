@@ -3,6 +3,7 @@ import { Stack, useRouter } from 'expo-router';
 import { ArrowLeft, Search, TrendingUp, Shield, Clock, Users, ChevronRight, Plus, Wallet, CreditCard, Building2, X, CheckCircle, PiggyBank, HandCoins, Coins, Zap } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState, useRef, useEffect, useMemo } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useP2PWallet, P2PLoanRequest } from '@/contexts/P2PWalletContext';
 import { useApp } from '@/contexts/AppContext';
 import colors from '@/constants/colors';
