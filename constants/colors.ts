@@ -23,28 +23,27 @@ export default {
   info: '#1D9BF0',
   infoLight: 'rgba(29, 155, 240, 0.12)',
   
-  // Light Theme (Credit Karma inspired)
-  background: '#F9FAFB',
-  backgroundElevated: '#FFFFFF',
-  surface: '#FFFFFF',
-  surfaceLight: '#F3F4F6',
-  surfaceSecondary: '#F3F4F6',
-  surfaceTertiary: '#E5E7EB',
+  background: '#000000',
+  backgroundElevated: '#16181C',
+  surface: '#16181C',
+  surfaceLight: '#1C1F26',
+  surfaceSecondary: '#202327',
+  surfaceTertiary: '#2F3336',
   
-  text: '#111827',
-  textSecondary: '#6B7280',
-  textTertiary: '#9CA3AF',
-  textQuaternary: '#D1D5DB',
+  text: '#E7E9EA',
+  textSecondary: '#71767B',
+  textTertiary: '#545A60',
+  textQuaternary: '#3E4347',
   
-  border: '#E5E7EB',
-  borderLight: '#F3F4F6',
-  borderSecondary: '#D1D5DB',
+  border: '#2F3336',
+  borderLight: '#202327',
+  borderSecondary: '#3E4347',
   
   white: '#FFFFFF',
   black: '#000000',
   
-  overlay: 'rgba(0, 0, 0, 0.4)',
-  overlayLight: 'rgba(0, 0, 0, 0.2)',
+  overlay: 'rgba(91, 112, 131, 0.4)',
+  overlayLight: 'rgba(91, 112, 131, 0.2)',
   overlayHeavy: 'rgba(0, 0, 0, 0.8)',
   
   appleGreen: '#19c534',
@@ -72,27 +71,27 @@ export default {
   shadow: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 1,
   },
   
   shadowMedium: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
     elevation: 3,
   },
   
   shadowStrong: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowOpacity: 0.5,
+    shadowRadius: 12,
+    elevation: 6,
   },
   
-  glassBackground: 'rgba(255, 255, 255, 0.8)',
-  glassBorder: 'rgba(229, 231, 235, 0.5)',
+  glassBackground: 'rgba(22, 24, 28, 0.72)',
+  glassBorder: 'rgba(47, 51, 54, 0.5)',
 };

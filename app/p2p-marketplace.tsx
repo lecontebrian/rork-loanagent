@@ -1,17 +1,17 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Animated, Modal, Alert } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft, Search, TrendingUp, Shield, Clock, Users, ChevronRight, Plus, Wallet, CreditCard, Building2, X, CheckCircle, PiggyBank, HandCoins, Coins, Zap } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useP2PWallet, P2PLoanRequest } from '@/contexts/P2PWalletContext';
 import { useApp } from '@/contexts/AppContext';
-import colors from '@/constants/colors';
 
 type TabType = 'invest' | 'borrow';
 type PaymentMethod = 'wallet' | 'bank' | 'card';
 
-const CK_GREEN = colors.primary;
-const CK_GREEN_DARK = colors.primaryDark;
+const CK_GREEN = '#5BDE00';
+const CK_GREEN_DARK = '#2B8000';
 const CK_TEXT = '#111827';
 const CK_TEXT_SECONDARY = '#6B7280';
 const CK_BORDER = '#E5E7EB';
@@ -135,36 +135,39 @@ export default function P2PMarketplaceScreen() {
         onPress={() => router.push('/p2p/portfolio')}
       >
         <Animated.View style={[styles.statsContainer, { opacity: fadeAnim }]}>
-          <View
-            style={[styles.statsGradient, { backgroundColor: colors.surfaceSecondary }]}
+          <LinearGradient
+            colors={[CK_GREEN_DARK, CK_GREEN]}
+            style={styles.statsGradient}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
           >
             <View style={styles.statsHeaderRow}>
               <Text style={styles.statsHeaderText}>My Portfolio</Text>
               <View style={styles.statsHeaderBadge}>
                 <Text style={styles.statsHeaderBadgeText}>Tap to view</Text>
-                <ChevronRight color={colors.textSecondary} size={14} strokeWidth={2.5} />
+                <ChevronRight color="rgba(255,255,255,0.9)" size={14} strokeWidth={2.5} />
               </View>
             </View>
             <View style={styles.statsRow}>
               <View style={styles.statItem}>
-                <Wallet color={colors.primary} size={20} strokeWidth={2.5} />
+                <Wallet color="#FFFFFF" size={20} strokeWidth={2.5} />
                 <Text style={styles.statValue}>${balance.toFixed(0)}</Text>
                 <Text style={styles.statLabel}>Wallet Balance</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <TrendingUp color={colors.primary} size={20} strokeWidth={2.5} />
+                <TrendingUp color="#FFFFFF" size={20} strokeWidth={2.5} />
                 <Text style={styles.statValue}>${totalInvested.toLocaleString()}</Text>
                 <Text style={styles.statLabel}>Invested</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <Users color={colors.primary} size={20} strokeWidth={2.5} />
+                <Users color="#FFFFFF" size={20} strokeWidth={2.5} />
                 <Text style={styles.statValue}>{availableListings.length}</Text>
                 <Text style={styles.statLabel}>Available</Text>
               </View>
             </View>
-          </View>
+          </LinearGradient>
         </Animated.View>
       </TouchableOpacity>
 
@@ -646,14 +649,17 @@ export default function P2PMarketplaceScreen() {
                 disabled={!investAmount || parseFloat(investAmount.replace(/,/g, '')) < 25 || isInvesting || tokens < 1}
                 activeOpacity={0.85}
               >
-                <View
+                <LinearGradient
+                  colors={[CK_GREEN_DARK, CK_GREEN]}
                   style={styles.investButtonGradient}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
                 >
                   <Zap color="#fff" size={18} strokeWidth={2.5} />
                   <Text style={styles.investButtonText}>
                     {isInvesting ? 'Processing...' : tokens < 1 ? 'Get Tokens to Invest' : `Invest ${investAmount ? `${investAmount}` : ''}`}
                   </Text>
-                </View>
+                </LinearGradient>
               </TouchableOpacity>
             </ScrollView>
           </View>
@@ -786,12 +792,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderRadius: 16,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: colors.border,
+    shadowColor: CK_GREEN_DARK,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 4,
   },
   statsGradient: {
     padding: 20,
-    backgroundColor: colors.surfaceSecondary,
   },
   statsHeaderRow: {
     flexDirection: 'row',
@@ -801,29 +809,28 @@ const styles = StyleSheet.create({
   },
   statsHeaderText: {
     fontSize: 14,
-    fontWeight: '600',
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: 'rgba(255, 255, 255, 0.95)',
     letterSpacing: -0.2,
   },
   statsHeaderBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 2,
-    backgroundColor: colors.surface,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 10,
   },
   statsHeaderBadgeText: {
     fontSize: 11,
-    fontWeight: '600',
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: 'rgba(255, 255, 255, 0.95)',
   },
   statsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 10,
   },
   statItem: {
     flex: 1,
@@ -832,19 +839,19 @@ const styles = StyleSheet.create({
   statDivider: {
     width: 1,
     height: 40,
-    backgroundColor: colors.border,
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
   },
   statValue: {
     fontSize: 22,
-    fontWeight: '800',
-    color: colors.text,
+    fontWeight: '800' as const,
+    color: '#FFFFFF',
     marginTop: 6,
     letterSpacing: -0.5,
   },
   statLabel: {
     fontSize: 11,
-    fontWeight: '500',
-    color: colors.textSecondary,
+    fontWeight: '500' as const,
+    color: 'rgba(255, 255, 255, 0.85)',
     marginTop: 4,
     letterSpacing: -0.1,
   },

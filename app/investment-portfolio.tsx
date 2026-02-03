@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Dimensions } from 'react-native';
 import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 import {
   ArrowLeft,
   TrendingUp,
@@ -24,12 +25,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState, useRef, useEffect } from 'react';
 
 const { width } = Dimensions.get('window');
-
-const CK_TEXT = colors.text;
-const CK_TEXT_SECONDARY = colors.textSecondary;
-const CK_BG = colors.background;
-const CK_SURFACE = colors.surface;
-const CK_BORDER = colors.border;
 
 interface PortfolioDetails {
   id: string;
@@ -60,8 +55,8 @@ const portfolioDetailsMap: Record<string, PortfolioDetails> = {
     risk: 'low',
     duration: '12-36 months',
     icon: PieChart,
-    color: colors.primary,
-    gradient: [colors.primary, colors.primaryDark],
+    color: '#00D66F',
+    gradient: ['#00D66F', '#00B85D'],
     description: 'Spread your investment across multiple loans to minimize risk',
     longDescription: 'Our Diversified Portfolio automatically distributes your investment across 10+ carefully vetted loans from various sectors, credit tiers, and loan types. This strategy minimizes your exposure to any single borrower default while maintaining steady returns.',
     features: [
@@ -246,8 +241,8 @@ const portfolioDetailsMap: Record<string, PortfolioDetails> = {
     risk: 'low',
     duration: '6-24 months',
     icon: Shield,
-    color: colors.primaryDark,
-    gradient: [colors.primaryDark, colors.primary],
+    color: '#00B85D',
+    gradient: ['#00B85D', '#008F4A'],
     description: 'Safe and steady returns with low-risk, verified borrowers',
     longDescription: 'Conservative Growth focuses exclusively on borrowers with excellent credit (720+), stable employment, and low debt-to-income ratios. Shorter loan terms and principal protection features make this ideal for risk-averse investors.',
     features: [
@@ -488,7 +483,7 @@ export default function InvestmentPortfolioScreen() {
             onPress={() => router.back()}
             activeOpacity={0.7}
           >
-            <ArrowLeft color={CK_TEXT} size={24} strokeWidth={2} />
+            <ArrowLeft color={colors.text} size={24} strokeWidth={2} />
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
             <Text style={styles.headerTitle}>{portfolio.name}</Text>
@@ -498,7 +493,7 @@ export default function InvestmentPortfolioScreen() {
             onPress={() => router.push('/notifications' as any)}
             activeOpacity={0.7}
           >
-            <Bell color={CK_TEXT} size={22} strokeWidth={2} />
+            <Bell color={colors.text} size={22} strokeWidth={2} />
           </TouchableOpacity>
         </View>
 
@@ -507,33 +502,36 @@ export default function InvestmentPortfolioScreen() {
           contentContainerStyle={styles.scrollContent}
         >
           <Animated.View style={{ opacity: fadeAnim, transform: [{ scale: scaleAnim }] }}>
-            <View
-              style={[styles.heroCard, { backgroundColor: CK_SURFACE, borderColor: portfolio.color, borderWidth: 1 }]}
+            <LinearGradient
+              colors={portfolio.gradient}
+              style={styles.heroCard}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
             >
-              <View style={[styles.heroIcon, { backgroundColor: portfolio.color + '15' }]}>
-                <Icon color={portfolio.color} size={32} strokeWidth={2.5} />
+              <View style={styles.heroIcon}>
+                <Icon color={colors.white} size={32} strokeWidth={2.5} />
               </View>
-              <Text style={[styles.heroTitle, { color: CK_TEXT }]}>{portfolio.name}</Text>
-              <Text style={[styles.heroDescription, { color: CK_TEXT_SECONDARY }]}>{portfolio.description}</Text>
+              <Text style={styles.heroTitle}>{portfolio.name}</Text>
+              <Text style={styles.heroDescription}>{portfolio.description}</Text>
               
               <View style={styles.heroStats}>
                 <View style={styles.heroStatItem}>
-                  <Text style={[styles.heroStatValue, { color: CK_TEXT }]}>{portfolio.expectedReturn}</Text>
-                  <Text style={[styles.heroStatLabel, { color: CK_TEXT_SECONDARY }]}>Expected Return</Text>
+                  <Text style={styles.heroStatValue}>{portfolio.expectedReturn}</Text>
+                  <Text style={styles.heroStatLabel}>Expected Return</Text>
                 </View>
-                <View style={[styles.heroStatDivider, { backgroundColor: CK_BORDER }]} />
+                <View style={styles.heroStatDivider} />
                 <View style={styles.heroStatItem}>
-                  <Text style={[styles.heroStatValue, { color: CK_TEXT }]}>{portfolio.duration}</Text>
-                  <Text style={[styles.heroStatLabel, { color: CK_TEXT_SECONDARY }]}>Duration</Text>
+                  <Text style={styles.heroStatValue}>{portfolio.duration}</Text>
+                  <Text style={styles.heroStatLabel}>Duration</Text>
                 </View>
-                <View style={[styles.heroStatDivider, { backgroundColor: CK_BORDER }]} />
+                <View style={styles.heroStatDivider} />
                 <View style={styles.heroStatItem}>
-                  <View style={[styles.riskBadge, { backgroundColor: portfolio.color + '15' }]}>
-                    <Text style={[styles.riskBadgeText, { color: portfolio.color }]}>{getRiskLabel(portfolio.risk)}</Text>
+                  <View style={[styles.riskBadge, { backgroundColor: 'rgba(255, 255, 255, 0.25)' }]}>
+                    <Text style={styles.riskBadgeText}>{getRiskLabel(portfolio.risk)}</Text>
                   </View>
                 </View>
               </View>
-            </View>
+            </LinearGradient>
           </Animated.View>
 
           <View style={styles.statsGrid}>
@@ -696,16 +694,19 @@ export default function InvestmentPortfolioScreen() {
               <Text style={styles.bottomBarValue}>${selectedAmount.toLocaleString()}</Text>
             </View>
             <TouchableOpacity
-              style={[styles.investButton, { backgroundColor: portfolio.color }]}
+              style={styles.investButton}
               onPress={handleInvest}
               activeOpacity={0.8}
             >
-              <View
+              <LinearGradient
+                colors={portfolio.gradient}
                 style={styles.investButtonGradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
               >
                 <Text style={styles.investButtonText}>Start Investing</Text>
                 <ChevronRight color={colors.white} size={20} strokeWidth={2.5} />
-              </View>
+              </LinearGradient>
             </TouchableOpacity>
           </View>
         </Animated.View>
@@ -717,7 +718,7 @@ export default function InvestmentPortfolioScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: CK_BG,
+    backgroundColor: colors.background,
   },
   header: {
     flexDirection: 'row',
@@ -730,22 +731,18 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: CK_SURFACE,
+    backgroundColor: colors.surface,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: CK_BORDER,
     ...colors.shadow,
   },
   notificationButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: CK_SURFACE,
+    backgroundColor: colors.surface,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: CK_BORDER,
     ...colors.shadow,
   },
   headerTitleContainer: {
@@ -754,8 +751,8 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 17,
-    fontWeight: '600',
-    color: CK_TEXT,
+    fontWeight: '600' as const,
+    color: colors.text,
     letterSpacing: -0.3,
   },
   scrollContent: {
@@ -779,16 +776,16 @@ const styles = StyleSheet.create({
   },
   heroTitle: {
     fontSize: 28,
-    fontWeight: '800',
-    color: CK_TEXT,
+    fontWeight: '800' as const,
+    color: colors.white,
     marginBottom: 12,
     letterSpacing: -0.5,
     textAlign: 'center',
   },
   heroDescription: {
     fontSize: 15,
-    fontWeight: '500',
-    color: CK_TEXT_SECONDARY,
+    fontWeight: '500' as const,
+    color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
     lineHeight: 22,
     marginBottom: 24,
@@ -806,21 +803,21 @@ const styles = StyleSheet.create({
   },
   heroStatValue: {
     fontSize: 20,
-    fontWeight: '700',
-    color: CK_TEXT,
+    fontWeight: '700' as const,
+    color: colors.white,
     marginBottom: 4,
     letterSpacing: -0.4,
   },
   heroStatLabel: {
     fontSize: 12,
-    fontWeight: '500',
-    color: CK_TEXT_SECONDARY,
+    fontWeight: '500' as const,
+    color: 'rgba(255, 255, 255, 0.8)',
     letterSpacing: -0.1,
   },
   heroStatDivider: {
     width: 1,
     height: 40,
-    backgroundColor: CK_BORDER,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
   },
   riskBadge: {
     paddingHorizontal: 12,
@@ -829,7 +826,8 @@ const styles = StyleSheet.create({
   },
   riskBadgeText: {
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: '700' as const,
+    color: colors.white,
     letterSpacing: 0.3,
   },
   statsGrid: {
@@ -841,29 +839,27 @@ const styles = StyleSheet.create({
   statCard: {
     width: (width - 52) / 2,
     padding: 16,
-    backgroundColor: CK_SURFACE,
+    backgroundColor: colors.surface,
     borderRadius: 16,
-    borderWidth: 1,
-    borderColor: CK_BORDER,
     ...colors.shadow,
   },
   statValue: {
     fontSize: 24,
-    fontWeight: '700',
-    color: CK_TEXT,
+    fontWeight: '700' as const,
+    color: colors.text,
     marginBottom: 4,
     letterSpacing: -0.5,
   },
   statChange: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: '600' as const,
     marginBottom: 4,
     letterSpacing: -0.2,
   },
   statLabel: {
     fontSize: 13,
-    fontWeight: '500',
-    color: CK_TEXT_SECONDARY,
+    fontWeight: '500' as const,
+    color: colors.textSecondary,
     letterSpacing: -0.1,
   },
   section: {
@@ -871,27 +867,25 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: '700',
-    color: CK_TEXT,
+    fontWeight: '700' as const,
+    color: colors.text,
     marginBottom: 16,
     letterSpacing: -0.4,
   },
   sectionText: {
     fontSize: 15,
-    fontWeight: '400',
-    color: CK_TEXT_SECONDARY,
+    fontWeight: '400' as const,
+    color: colors.textSecondary,
     lineHeight: 24,
     letterSpacing: -0.2,
   },
   benefitCard: {
     flexDirection: 'row',
     padding: 16,
-    backgroundColor: CK_SURFACE,
+    backgroundColor: colors.surface,
     borderRadius: 16,
     marginBottom: 12,
     gap: 14,
-    borderWidth: 1,
-    borderColor: CK_BORDER,
     ...colors.shadow,
   },
   benefitIcon: {
@@ -906,15 +900,15 @@ const styles = StyleSheet.create({
   },
   benefitTitle: {
     fontSize: 16,
-    fontWeight: '700',
-    color: CK_TEXT,
+    fontWeight: '700' as const,
+    color: colors.text,
     marginBottom: 6,
     letterSpacing: -0.3,
   },
   benefitDescription: {
     fontSize: 14,
-    fontWeight: '400',
-    color: CK_TEXT_SECONDARY,
+    fontWeight: '400' as const,
+    color: colors.textSecondary,
     lineHeight: 20,
     letterSpacing: -0.1,
   },
@@ -932,15 +926,15 @@ const styles = StyleSheet.create({
   },
   stepNumberText: {
     fontSize: 14,
-    fontWeight: '700',
-    color: '#FFFFFF',
+    fontWeight: '700' as const,
+    color: colors.white,
     letterSpacing: -0.2,
   },
   stepText: {
     flex: 1,
     fontSize: 15,
-    fontWeight: '400',
-    color: CK_TEXT,
+    fontWeight: '400' as const,
+    color: colors.text,
     lineHeight: 22,
     letterSpacing: -0.2,
     paddingTop: 4,
@@ -955,17 +949,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 14,
     paddingVertical: 10,
-    backgroundColor: CK_SURFACE,
+    backgroundColor: colors.surface,
     borderRadius: 12,
     gap: 8,
-    borderWidth: 1,
-    borderColor: CK_BORDER,
     ...colors.shadow,
   },
   idealForText: {
     fontSize: 14,
-    fontWeight: '500',
-    color: CK_TEXT,
+    fontWeight: '500' as const,
+    color: colors.text,
     letterSpacing: -0.1,
   },
   featuresGrid: {
@@ -979,17 +971,17 @@ const styles = StyleSheet.create({
   featureText: {
     flex: 1,
     fontSize: 15,
-    fontWeight: '500',
-    color: CK_TEXT,
+    fontWeight: '500' as const,
+    color: colors.text,
     letterSpacing: -0.1,
   },
   riskSection: {
     padding: 18,
-    backgroundColor: '#FEF2F2',
+    backgroundColor: colors.warningLight,
     borderRadius: 16,
     marginBottom: 28,
     borderWidth: 1,
-    borderColor: '#FEE2E2',
+    borderColor: colors.warning + '30',
   },
   riskHeader: {
     flexDirection: 'row',
@@ -999,8 +991,8 @@ const styles = StyleSheet.create({
   },
   riskTitle: {
     fontSize: 16,
-    fontWeight: '700',
-    color: CK_TEXT,
+    fontWeight: '700' as const,
+    color: colors.text,
     letterSpacing: -0.3,
   },
   riskItem: {
@@ -1018,8 +1010,8 @@ const styles = StyleSheet.create({
   riskText: {
     flex: 1,
     fontSize: 14,
-    fontWeight: '400',
-    color: CK_TEXT,
+    fontWeight: '400' as const,
+    color: colors.text,
     lineHeight: 20,
     letterSpacing: -0.1,
   },
@@ -1032,19 +1024,19 @@ const styles = StyleSheet.create({
   quickAmountButton: {
     paddingHorizontal: 20,
     paddingVertical: 12,
-    backgroundColor: CK_SURFACE,
+    backgroundColor: colors.surface,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: CK_BORDER,
+    borderWidth: 2,
+    borderColor: colors.border,
   },
   quickAmountButtonSelected: {
     borderColor: colors.primary,
-    backgroundColor: colors.primary + '10',
+    backgroundColor: colors.primaryLight,
   },
   quickAmountText: {
     fontSize: 15,
-    fontWeight: '600',
-    color: CK_TEXT,
+    fontWeight: '600' as const,
+    color: colors.text,
     letterSpacing: -0.2,
   },
   quickAmountTextSelected: {
@@ -1052,16 +1044,14 @@ const styles = StyleSheet.create({
   },
   projectionCard: {
     padding: 18,
-    backgroundColor: CK_SURFACE,
+    backgroundColor: colors.surface,
     borderRadius: 16,
-    borderWidth: 1,
-    borderColor: CK_BORDER,
     ...colors.shadow,
   },
   projectionTitle: {
     fontSize: 16,
-    fontWeight: '700',
-    color: CK_TEXT,
+    fontWeight: '700' as const,
+    color: colors.text,
     marginBottom: 12,
     letterSpacing: -0.3,
   },
@@ -1073,24 +1063,24 @@ const styles = StyleSheet.create({
   },
   projectionLabel: {
     fontSize: 15,
-    fontWeight: '500',
-    color: CK_TEXT_SECONDARY,
+    fontWeight: '500' as const,
+    color: colors.textSecondary,
     letterSpacing: -0.2,
   },
   projectionValue: {
     fontSize: 18,
-    fontWeight: '700',
-    color: CK_TEXT,
+    fontWeight: '700' as const,
+    color: colors.white,
     letterSpacing: -0.3,
   },
   bottomBar: {
-    position: 'absolute',
+    position: 'absolute' as const,
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: CK_SURFACE,
+    backgroundColor: colors.backgroundElevated,
     borderTopWidth: 1,
-    borderTopColor: CK_BORDER,
+    borderTopColor: colors.border,
     paddingTop: 16,
     paddingHorizontal: 20,
     ...colors.shadowStrong,
@@ -1103,15 +1093,15 @@ const styles = StyleSheet.create({
   },
   bottomBarLabel: {
     fontSize: 12,
-    fontWeight: '500',
-    color: CK_TEXT_SECONDARY,
+    fontWeight: '500' as const,
+    color: colors.textSecondary,
     marginBottom: 4,
     letterSpacing: -0.1,
   },
   bottomBarValue: {
     fontSize: 20,
-    fontWeight: '700',
-    color: CK_TEXT,
+    fontWeight: '700' as const,
+    color: colors.text,
     letterSpacing: -0.4,
   },
   investButton: {

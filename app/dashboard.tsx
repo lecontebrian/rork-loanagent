@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Animated, Dimensions } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 import { TrendingUp, Plus, FileText, Settings, ArrowRight, DollarSign, Activity, AlertCircle, ChevronRight, Zap, TrendingDown, Grid, Bell, Clock, Eye } from 'lucide-react-native';
 import colors from '@/constants/colors';
 import { useApp } from '@/contexts/AppContext';
@@ -78,13 +79,13 @@ export default function DashboardScreen() {
     const score = creditInfo.score;
     
     if (score >= 800) {
-      return { color: colors.primaryDark, label: 'EXCELLENT' }; // Dark green
+      return { color: '#15803D', label: 'EXCELLENT' }; // Dark green
     }
     if (score >= 740) {
-      return { color: colors.primary, label: 'VERY GOOD' }; // Green
+      return { color: '#22C55E', label: 'VERY GOOD' }; // Green
     }
     if (score >= 670) {
-      return { color: colors.primaryLight, label: 'GOOD' }; // Green (app theme)
+      return { color: '#3dd657', label: 'GOOD' }; // Green (app theme)
     }
     if (score >= 580) {
       return { color: '#F97316', label: 'FAIR' }; // Orange
@@ -183,31 +184,31 @@ export default function DashboardScreen() {
                 {
                   opacity: fadeAnim,
                   transform: [{ scale: scaleAnim }],
-                  backgroundColor: colors.surface,
-                  borderColor: colors.primary,
-                  borderWidth: 1,
                 },
               ]}
             >
-              <View
+              <LinearGradient
+                colors={colors.gradients.ocean as any}
                 style={styles.refinanceGradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
               >
-                <View style={[styles.refinanceBadge, { backgroundColor: colors.primary + '20' }]}>
-                  <Zap color={colors.primary} size={14} strokeWidth={2.5} />
-                  <Text style={[styles.refinanceBadgeText, { color: colors.primary }]}>OPPORTUNITY</Text>
+                <View style={styles.refinanceBadge}>
+                  <Zap color={colors.white} size={14} strokeWidth={2.5} />
+                  <Text style={styles.refinanceBadgeText}>OPPORTUNITY</Text>
                 </View>
-                <Text style={[styles.refinanceTitle, { color: colors.text }]}>You Could Save</Text>
-                <Text style={[styles.refinanceSavings, { color: colors.primary }]}>${refinanceSavings}/month</Text>
-                <Text style={[styles.refinanceSubtext, { color: colors.textSecondary }]}>by refinancing your current loans</Text>
+                <Text style={styles.refinanceTitle}>You Could Save</Text>
+                <Text style={styles.refinanceSavings}>${refinanceSavings}/month</Text>
+                <Text style={styles.refinanceSubtext}>by refinancing your current loans</Text>
                 <TouchableOpacity
-                  style={[styles.refinanceButton, { backgroundColor: colors.primary }]}
+                  style={styles.refinanceButton}
                   activeOpacity={0.8}
                   onPress={() => router.push('/refinance' as any)}
                 >
                   <Text style={styles.refinanceButtonText}>Explore Refinance Options</Text>
                   <ArrowRight color={colors.white} size={18} strokeWidth={2.5} />
                 </TouchableOpacity>
-              </View>
+              </LinearGradient>
             </Animated.View>
           )}
 
@@ -433,8 +434,11 @@ export default function DashboardScreen() {
                 </View>
                 <View style={styles.ongoingProgress}>
                   <View style={styles.progressBar}>
-                    <View
-                      style={[styles.progressFill, { width: applications[0].status === 'submitted' ? '25%' : applications[0].status === 'processing' ? '50%' : applications[0].status === 'approved' ? '75%' : '100%', backgroundColor: colors.primary }]}
+                    <LinearGradient
+                      colors={colors.gradients.ocean as any}
+                      style={[styles.progressFill, { width: applications[0].status === 'submitted' ? '25%' : applications[0].status === 'processing' ? '50%' : applications[0].status === 'approved' ? '75%' : '100%' }]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
                     />
                   </View>
                   <Text style={styles.progressText}>
@@ -446,14 +450,17 @@ export default function DashboardScreen() {
           ) : null}
 
           <TouchableOpacity
-            style={[styles.applyButton, { backgroundColor: colors.primary }]}
+            style={styles.applyButton}
             onPress={() => router.push('/loan-categories' as any)}
             activeOpacity={0.85}
           >
-            <View
+            <LinearGradient
+              colors={colors.gradients.ocean as any}
               style={styles.applyButtonGradient}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
             >
-              <View style={[styles.applyButtonIcon, { backgroundColor: 'rgba(255, 255, 255, 0.2)' }]}>
+              <View style={styles.applyButtonIcon}>
                 <Plus color={colors.white} size={24} strokeWidth={3} />
               </View>
               <View style={styles.applyButtonText}>
@@ -463,7 +470,7 @@ export default function DashboardScreen() {
                 <Text style={styles.applyButtonSubtitle}>Smart matching in seconds</Text>
               </View>
               <ArrowRight color="rgba(255, 255, 255, 0.6)" size={20} strokeWidth={2.5} />
-            </View>
+            </LinearGradient>
           </TouchableOpacity>
 
           {applications.length === 0 ? (
@@ -682,14 +689,16 @@ export default function DashboardScreen() {
                       </View>
                       <View style={styles.pendingProgressContainer}>
                         <View style={styles.pendingProgressBar}>
-                          <View
+                          <LinearGradient
+                            colors={[colors.warning, '#E6BE00'] as any}
                             style={[
                               styles.pendingProgressFill,
                               {
-                                width: app.status === 'submitted' ? '50%' : '75%',
-                                backgroundColor: colors.warning
+                                width: app.status === 'submitted' ? '50%' : '75%'
                               }
                             ]}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
                           />
                         </View>
                         <Text style={styles.pendingProgressText}>
@@ -714,32 +723,35 @@ export default function DashboardScreen() {
 
           {!isAffiliate && (
             <View style={styles.affiliateSection}>
-              <View
-                style={[styles.affiliateGradient, { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border }]}
+              <LinearGradient
+                colors={['#FF6B5A', '#FFB347']}
+                style={styles.affiliateGradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
               >
-                <View style={[styles.affiliateIcon, { backgroundColor: colors.surfaceSecondary }]}>
+                <View style={styles.affiliateIcon}>
                   <Text style={styles.affiliateIconText}>💰</Text>
                 </View>
-                <Text style={[styles.affiliateTitle, { color: colors.text }]}>Earn Money with Referrals</Text>
-                <Text style={[styles.affiliateSubtext, { color: colors.textSecondary }]}>
+                <Text style={styles.affiliateTitle}>Earn Money with Referrals</Text>
+                <Text style={styles.affiliateSubtext}>
                   Join our affiliate program and earn up to $300 per funded loan
                 </Text>
                 <View style={styles.affiliateFeatures}>
                   <View style={styles.affiliateFeature}>
-                    <View style={[styles.affiliateFeatureDot, { backgroundColor: colors.text }]} />
-                    <Text style={[styles.affiliateFeatureText, { color: colors.text }]}>Up to $30 per registration</Text>
+                    <View style={styles.affiliateFeatureDot} />
+                    <Text style={styles.affiliateFeatureText}>Up to $30 per registration</Text>
                   </View>
                   <View style={styles.affiliateFeature}>
-                    <View style={[styles.affiliateFeatureDot, { backgroundColor: colors.text }]} />
-                    <Text style={[styles.affiliateFeatureText, { color: colors.text }]}>$75 per application</Text>
+                    <View style={styles.affiliateFeatureDot} />
+                    <Text style={styles.affiliateFeatureText}>$75 per application</Text>
                   </View>
                   <View style={styles.affiliateFeature}>
-                    <View style={[styles.affiliateFeatureDot, { backgroundColor: colors.text }]} />
-                    <Text style={[styles.affiliateFeatureText, { color: colors.text }]}>$300 per funded loan</Text>
+                    <View style={styles.affiliateFeatureDot} />
+                    <Text style={styles.affiliateFeatureText}>$300 per funded loan</Text>
                   </View>
                 </View>
                 <TouchableOpacity
-                  style={[styles.affiliateButton, { backgroundColor: colors.surfaceSecondary }]}
+                  style={styles.affiliateButton}
                   activeOpacity={0.8}
                   onPress={() => {
                     if (userProfile) {
@@ -750,10 +762,10 @@ export default function DashboardScreen() {
                     }
                   }}
                 >
-                  <Text style={[styles.affiliateButtonText, { color: colors.text }]}>Join Affiliate Program</Text>
-                  <ArrowRight color={colors.text} size={18} strokeWidth={2.5} />
+                  <Text style={styles.affiliateButtonText}>Join Affiliate Program</Text>
+                  <ArrowRight color={colors.white} size={18} strokeWidth={2.5} />
                 </TouchableOpacity>
-              </View>
+              </LinearGradient>
             </View>
           )}
 
@@ -763,41 +775,44 @@ export default function DashboardScreen() {
               activeOpacity={0.85}
               onPress={() => router.push('/affiliate-dashboard' as any)}
             >
-              <View
-                style={[styles.affiliateDashboardGradient, { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border }]}
+              <LinearGradient
+                colors={['#9B59B6', '#E74C3C']}
+                style={styles.affiliateDashboardGradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
               >
                 <View style={styles.affiliateDashboardHeader}>
-                  <View style={[styles.affiliateDashboardBadge, { backgroundColor: colors.successLight }]}>
-                    <DollarSign color={colors.success} size={14} strokeWidth={2.5} />
-                    <Text style={[styles.affiliateDashboardBadgeText, { color: colors.success }]}>AFFILIATE</Text>
+                  <View style={styles.affiliateDashboardBadge}>
+                    <DollarSign color={colors.white} size={14} strokeWidth={2.5} />
+                    <Text style={styles.affiliateDashboardBadgeText}>AFFILIATE</Text>
                   </View>
-                  <ArrowRight color={colors.text} size={20} strokeWidth={2.5} />
+                  <ArrowRight color={colors.white} size={20} strokeWidth={2.5} />
                 </View>
-                <Text style={[styles.affiliateDashboardTitle, { color: colors.text }]}>Affiliate Dashboard</Text>
+                <Text style={styles.affiliateDashboardTitle}>Affiliate Dashboard</Text>
                 <View style={styles.affiliateDashboardStats}>
                   <View style={styles.affiliateDashboardStat}>
-                    <Text style={[styles.affiliateDashboardStatValue, { color: colors.text }]}>
+                    <Text style={styles.affiliateDashboardStatValue}>
                       ${affiliateProfile?.totalEarnings.toFixed(0) || '0'}
                     </Text>
-                    <Text style={[styles.affiliateDashboardStatLabel, { color: colors.textSecondary }]}>Total Earned</Text>
+                    <Text style={styles.affiliateDashboardStatLabel}>Total Earned</Text>
                   </View>
-                  <View style={[styles.affiliateDashboardDivider, { backgroundColor: colors.border }]} />
+                  <View style={styles.affiliateDashboardDivider} />
                   <View style={styles.affiliateDashboardStat}>
-                    <Text style={[styles.affiliateDashboardStatValue, { color: colors.text }]}>
+                    <Text style={styles.affiliateDashboardStatValue}>
                       {affiliateProfile?.totalReferrals || 0}
                     </Text>
-                    <Text style={[styles.affiliateDashboardStatLabel, { color: colors.textSecondary }]}>Referrals</Text>
+                    <Text style={styles.affiliateDashboardStatLabel}>Referrals</Text>
                   </View>
-                  <View style={[styles.affiliateDashboardDivider, { backgroundColor: colors.border }]} />
+                  <View style={styles.affiliateDashboardDivider} />
                   <View style={styles.affiliateDashboardStat}>
-                    <Text style={[styles.affiliateDashboardStatValue, { color: colors.text }]}>
+                    <Text style={styles.affiliateDashboardStatValue}>
                       ${affiliateProfile?.pendingEarnings.toFixed(0) || '0'}
                     </Text>
-                    <Text style={[styles.affiliateDashboardStatLabel, { color: colors.textSecondary }]}>Pending</Text>
+                    <Text style={styles.affiliateDashboardStatLabel}>Pending</Text>
                   </View>
                 </View>
-                <Text style={[styles.affiliateDashboardCta, { color: colors.primary }]}>View full dashboard →</Text>
-              </View>
+                <Text style={styles.affiliateDashboardCta}>View full dashboard →</Text>
+              </LinearGradient>
             </TouchableOpacity>
           )}
 
