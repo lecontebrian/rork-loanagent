@@ -22,6 +22,15 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useP2PWallet } from '@/contexts/P2PWalletContext';
 
+const CK_GREEN = '#5BDE00';
+const CK_GREEN_DARK = '#2B8000';
+const CK_TEXT = '#111827';
+const CK_TEXT_SECONDARY = '#6B7280';
+const CK_BORDER = '#E5E7EB';
+const CK_BG = '#F9FAFB';
+const CK_SURFACE = '#FFFFFF';
+const CK_SURFACE_SUBTLE = '#F3F4F6';
+
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 type ViewMode = 'overview' | 'investments' | 'earnings';
@@ -98,7 +107,7 @@ export default function P2PPortfolioScreen() {
     <Animated.View style={[{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
       <View style={styles.portfolioValueCard}>
         <LinearGradient
-          colors={['#0A84FF', '#5E5CE6', '#BF5AF2']}
+          colors={[CK_GREEN, '#3ACB00', '#18A300']}
           style={styles.portfolioValueGradient}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
@@ -107,11 +116,11 @@ export default function P2PPortfolioScreen() {
             <Text style={styles.portfolioValueLabel}>Portfolio Value</Text>
             <View style={[styles.roiBadge, totalROI >= 0 ? styles.roiBadgePositive : styles.roiBadgeNegative]}>
               {totalROI >= 0 ? (
-                <TrendingUp color="#34C759" size={12} strokeWidth={2.5} />
+                <TrendingUp color={CK_GREEN} size={12} strokeWidth={2.5} />
               ) : (
-                <TrendingDown color="#FF3B30" size={12} strokeWidth={2.5} />
+                <TrendingDown color="#EF4444" size={12} strokeWidth={2.5} />
               )}
-              <Text style={[styles.roiBadgeText, { color: totalROI >= 0 ? '#34C759' : '#FF3B30' }]}>
+              <Text style={[styles.roiBadgeText, { color: totalROI >= 0 ? CK_GREEN : '#EF4444' }]}>
                 {totalROI >= 0 ? '+' : ''}{totalROI.toFixed(2)}%
               </Text>
             </View>
@@ -126,7 +135,7 @@ export default function P2PPortfolioScreen() {
             <View style={styles.portfolioStatDivider} />
             <View style={styles.portfolioStatItem}>
               <Text style={styles.portfolioStatLabel}>Total Earnings</Text>
-              <Text style={[styles.portfolioStatValue, { color: '#34C759' }]}>
+              <Text style={[styles.portfolioStatValue, { color: CK_GREEN }]}>
                 +${totalEarnings.toFixed(2)}
               </Text>
             </View>
@@ -140,8 +149,8 @@ export default function P2PPortfolioScreen() {
           onPress={() => router.push('/p2p/withdraw')}
           activeOpacity={0.8}
         >
-          <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(52, 199, 89, 0.15)' }]}>
-            <Building2 color={colors.success} size={22} strokeWidth={2} />
+          <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(91, 222, 0, 0.14)' }]}>
+            <Building2 color={CK_GREEN_DARK} size={22} strokeWidth={2} />
           </View>
           <Text style={styles.quickActionTitle}>Withdraw</Text>
           <Text style={styles.quickActionSubtitle}>To Bank</Text>
@@ -152,8 +161,8 @@ export default function P2PPortfolioScreen() {
           onPress={() => router.push('/p2p/add-funds')}
           activeOpacity={0.8}
         >
-          <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(10, 132, 255, 0.15)' }]}>
-            <CircleDollarSign color={colors.primary} size={22} strokeWidth={2} />
+          <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(91, 222, 0, 0.12)' }]}>
+            <CircleDollarSign color={CK_GREEN_DARK} size={22} strokeWidth={2} />
           </View>
           <Text style={styles.quickActionTitle}>Add Funds</Text>
           <Text style={styles.quickActionSubtitle}>Invest More</Text>
@@ -164,8 +173,8 @@ export default function P2PPortfolioScreen() {
           onPress={() => router.push('/p2p-marketplace')}
           activeOpacity={0.8}
         >
-          <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(175, 82, 222, 0.15)' }]}>
-            <PiggyBank color="#AF52DE" size={22} strokeWidth={2} />
+          <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(17, 24, 39, 0.06)' }]}>
+            <PiggyBank color={CK_TEXT} size={22} strokeWidth={2} />
           </View>
           <Text style={styles.quickActionTitle}>Browse</Text>
           <Text style={styles.quickActionSubtitle}>New Loans</Text>
@@ -201,7 +210,7 @@ export default function P2PPortfolioScreen() {
                       styles.bar,
                       { 
                         height: `${(data.return / maxReturn) * 100}%`,
-                        backgroundColor: data.return >= avgMonthlyReturn ? colors.success : colors.primary,
+                        backgroundColor: data.return >= avgMonthlyReturn ? CK_GREEN : CK_TEXT_SECONDARY,
                       },
                     ]}
                   />
@@ -214,11 +223,11 @@ export default function P2PPortfolioScreen() {
 
         <View style={styles.chartLegend}>
           <View style={styles.legendItem}>
-            <View style={[styles.legendDot, { backgroundColor: colors.success }]} />
+            <View style={[styles.legendDot, { backgroundColor: CK_GREEN }]} />
             <Text style={styles.legendText}>Above Avg</Text>
           </View>
           <View style={styles.legendItem}>
-            <View style={[styles.legendDot, { backgroundColor: colors.primary }]} />
+            <View style={[styles.legendDot, { backgroundColor: CK_TEXT_SECONDARY }]} />
             <Text style={styles.legendText}>Below Avg</Text>
           </View>
           <Text style={styles.legendAvg}>Avg: {avgMonthlyReturn.toFixed(2)}%/mo</Text>
@@ -228,14 +237,14 @@ export default function P2PPortfolioScreen() {
       <View style={styles.metricsGrid}>
         <View style={styles.metricCard}>
           <View style={styles.metricIconContainer}>
-            <TrendingUp color={colors.success} size={18} strokeWidth={2.5} />
+            <TrendingUp color={CK_GREEN_DARK} size={18} strokeWidth={2.5} />
           </View>
           <Text style={styles.metricValue}>{avgMonthlyReturn.toFixed(2)}%</Text>
           <Text style={styles.metricLabel}>Avg Monthly</Text>
         </View>
         <View style={styles.metricCard}>
           <View style={styles.metricIconContainer}>
-            <ArrowUpRight color={colors.primary} size={18} strokeWidth={2.5} />
+            <ArrowUpRight color={CK_TEXT} size={18} strokeWidth={2.5} />
           </View>
           <Text style={styles.metricValue}>{Math.max(...monthlyData.map(d => d.return)).toFixed(2)}%</Text>
           <Text style={styles.metricLabel}>Best Month</Text>
@@ -249,7 +258,7 @@ export default function P2PPortfolioScreen() {
         </View>
         <View style={styles.metricCard}>
           <View style={styles.metricIconContainer}>
-            <Calendar color={colors.warning} size={18} strokeWidth={2.5} />
+            <Calendar color={CK_TEXT_SECONDARY} size={18} strokeWidth={2.5} />
           </View>
           <Text style={styles.metricValue}>{totalROI.toFixed(1)}%</Text>
           <Text style={styles.metricLabel}>Total ROI</Text>
@@ -279,13 +288,13 @@ export default function P2PPortfolioScreen() {
 
       {investmentTransactions.length === 0 ? (
         <View style={styles.emptyState}>
-          <PiggyBank color={colors.textTertiary} size={48} strokeWidth={1.5} />
+          <PiggyBank color={CK_TEXT_SECONDARY} size={48} strokeWidth={1.5} />
           <Text style={styles.emptyStateTitle}>No investments yet</Text>
           <Text style={styles.emptyStateText}>Start investing in P2P loans to see your portfolio here</Text>
           <TouchableOpacity
             style={styles.emptyStateButton}
             onPress={() => router.push('/p2p-marketplace')}
-            activeOpacity={0.8}
+            activeOpacity={0.85}
           >
             <Text style={styles.emptyStateButtonText}>Browse Loans</Text>
           </TouchableOpacity>
@@ -406,11 +415,11 @@ export default function P2PPortfolioScreen() {
     <Animated.View style={[{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
       <View style={styles.earningsOverview}>
         <LinearGradient
-          colors={['rgba(52, 199, 89, 0.15)', 'rgba(52, 199, 89, 0.05)']}
+          colors={['rgba(91, 222, 0, 0.16)', 'rgba(91, 222, 0, 0.05)']}
           style={styles.earningsGradient}
         >
           <View style={styles.earningsHeader}>
-            <TrendingUp color={colors.success} size={24} strokeWidth={2} />
+            <TrendingUp color={CK_GREEN_DARK} size={24} strokeWidth={2} />
             <Text style={styles.earningsTitle}>Total Earnings</Text>
           </View>
           <Text style={styles.earningsAmount}>+${totalEarnings.toFixed(2)}</Text>
@@ -449,7 +458,7 @@ export default function P2PPortfolioScreen() {
             activeOpacity={0.85}
           >
             <LinearGradient
-              colors={['#34C759', '#30B350']}
+              colors={[CK_GREEN, '#39C900']}
               style={styles.withdrawButtonGradient}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
@@ -495,13 +504,11 @@ export default function P2PPortfolioScreen() {
       <Stack.Screen options={{ headerShown: false }} />
       <View style={styles.root}>
         <LinearGradient
-          colors={["#050607", "#0B0D10", "#050607"]}
+          colors={[CK_BG, '#FFFFFF']}
           style={StyleSheet.absoluteFill}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
         />
-        <View style={styles.bgOrb1} pointerEvents="none" />
-        <View style={styles.bgOrb2} pointerEvents="none" />
 
         <View style={[styles.container, { paddingTop: insets.top }]}>
           <View style={styles.header}>
@@ -510,18 +517,18 @@ export default function P2PPortfolioScreen() {
               onPress={() => router.back()}
               activeOpacity={0.7}
             >
-              <ArrowLeft color={colors.text} size={24} strokeWidth={2} />
+              <ArrowLeft color={CK_TEXT} size={24} strokeWidth={2} />
             </TouchableOpacity>
             <View style={styles.headerTitleContainer}>
               <Text style={styles.headerTitle}>My Portfolio</Text>
-              <Text style={styles.headerSubtitle}>Track your P2P investments</Text>
+              <Text style={styles.headerSubtitle}>Overview • Investments • Earnings</Text>
             </View>
             <TouchableOpacity
               style={styles.walletButton}
               onPress={() => router.push('/p2p-wallet')}
               activeOpacity={0.7}
             >
-              <Wallet color={colors.text} size={20} strokeWidth={2} />
+              <Wallet color={CK_TEXT} size={20} strokeWidth={2} />
             </TouchableOpacity>
           </View>
 
@@ -558,25 +565,7 @@ export default function P2PPortfolioScreen() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.background,
-  },
-  bgOrb1: {
-    position: 'absolute',
-    top: -120,
-    left: -120,
-    width: 280,
-    height: 280,
-    borderRadius: 140,
-    backgroundColor: 'rgba(10, 132, 255, 0.12)',
-  },
-  bgOrb2: {
-    position: 'absolute',
-    bottom: -160,
-    right: -120,
-    width: 340,
-    height: 340,
-    borderRadius: 170,
-    backgroundColor: 'rgba(52, 199, 89, 0.10)',
+    backgroundColor: CK_BG,
   },
   container: {
     flex: 1,
@@ -594,47 +583,57 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(22, 24, 28, 0.72)',
+    backgroundColor: CK_SURFACE,
     borderWidth: 1,
-    borderColor: 'rgba(47, 51, 54, 0.6)',
+    borderColor: CK_BORDER,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
   },
   headerTitleContainer: {
     alignItems: 'center',
   },
   headerTitle: {
     fontSize: 20,
-    fontWeight: '700' as const,
-    color: colors.text,
+    fontWeight: '800' as const,
+    color: CK_TEXT,
     letterSpacing: -0.4,
   },
   headerSubtitle: {
     marginTop: 3,
     fontSize: 12,
     fontWeight: '600' as const,
-    color: colors.textSecondary,
+    color: CK_TEXT_SECONDARY,
     letterSpacing: -0.1,
   },
   walletButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(22, 24, 28, 0.72)',
+    backgroundColor: CK_SURFACE,
     borderWidth: 1,
-    borderColor: 'rgba(47, 51, 54, 0.6)',
+    borderColor: CK_BORDER,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
   },
   tabContainer: {
     flexDirection: 'row',
     marginHorizontal: 20,
-    backgroundColor: 'rgba(14, 16, 20, 0.92)',
-    borderRadius: 14,
+    backgroundColor: CK_SURFACE,
+    borderRadius: 16,
     padding: 4,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: CK_BORDER,
   },
   tab: {
     flex: 1,
@@ -643,17 +642,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   tabActive: {
-    backgroundColor: 'rgba(10, 132, 255, 0.2)',
+    backgroundColor: 'rgba(91, 222, 0, 0.16)',
     borderWidth: 1,
-    borderColor: 'rgba(10, 132, 255, 0.3)',
+    borderColor: 'rgba(91, 222, 0, 0.35)',
   },
   tabText: {
     fontSize: 14,
-    fontWeight: '600' as const,
-    color: colors.textSecondary,
+    fontWeight: '700' as const,
+    color: CK_TEXT_SECONDARY,
   },
   tabTextActive: {
-    color: colors.primary,
+    color: CK_GREEN_DARK,
   },
   scrollContent: {
     paddingHorizontal: 20,
@@ -664,7 +663,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: 'rgba(0, 0, 0, 0.06)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.12,
+    shadowRadius: 18,
+    elevation: 5,
   },
   portfolioValueGradient: {
     padding: 24,
@@ -676,9 +680,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   portfolioValueLabel: {
-    fontSize: 14,
-    fontWeight: '600' as const,
-    color: 'rgba(255, 255, 255, 0.8)',
+    fontSize: 13,
+    fontWeight: '700' as const,
+    color: 'rgba(255, 255, 255, 0.86)',
   },
   roiBadge: {
     flexDirection: 'row',
@@ -689,10 +693,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   roiBadgePositive: {
-    backgroundColor: 'rgba(52, 199, 89, 0.2)',
+    backgroundColor: 'rgba(0, 0, 0, 0.18)',
   },
   roiBadgeNegative: {
-    backgroundColor: 'rgba(255, 59, 48, 0.2)',
+    backgroundColor: 'rgba(0, 0, 0, 0.18)',
   },
   roiBadgeText: {
     fontSize: 13,
@@ -707,7 +711,7 @@ const styles = StyleSheet.create({
   },
   portfolioStatsRow: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
     borderRadius: 16,
     padding: 16,
   },
@@ -737,12 +741,17 @@ const styles = StyleSheet.create({
   },
   quickActionCard: {
     flex: 1,
-    backgroundColor: colors.surface,
-    borderRadius: 16,
+    backgroundColor: CK_SURFACE,
+    borderRadius: 18,
     padding: 16,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.06,
+    shadowRadius: 14,
+    elevation: 2,
   },
   quickActionIcon: {
     width: 44,
@@ -754,22 +763,27 @@ const styles = StyleSheet.create({
   },
   quickActionTitle: {
     fontSize: 14,
-    fontWeight: '700' as const,
-    color: colors.text,
+    fontWeight: '800' as const,
+    color: CK_TEXT,
     marginBottom: 2,
   },
   quickActionSubtitle: {
     fontSize: 11,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
   },
   chartSection: {
-    backgroundColor: colors.surface,
-    borderRadius: 20,
+    backgroundColor: CK_SURFACE,
+    borderRadius: 22,
     padding: 20,
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.06,
+    shadowRadius: 18,
+    elevation: 3,
   },
   chartHeader: {
     flexDirection: 'row',
@@ -779,8 +793,8 @@ const styles = StyleSheet.create({
   },
   chartTitle: {
     fontSize: 16,
-    fontWeight: '700' as const,
-    color: colors.text,
+    fontWeight: '800' as const,
+    color: CK_TEXT,
   },
   timeRangeRow: {
     flexDirection: 'row',
@@ -789,19 +803,22 @@ const styles = StyleSheet.create({
   timeRangeChip: {
     paddingHorizontal: 10,
     paddingVertical: 6,
-    borderRadius: 8,
-    backgroundColor: colors.surfaceSecondary,
+    borderRadius: 10,
+    backgroundColor: CK_SURFACE_SUBTLE,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.05)',
   },
   timeRangeChipActive: {
-    backgroundColor: colors.primary,
+    backgroundColor: 'rgba(91, 222, 0, 0.18)',
+    borderColor: 'rgba(91, 222, 0, 0.35)',
   },
   timeRangeText: {
     fontSize: 11,
-    fontWeight: '600' as const,
-    color: colors.textSecondary,
+    fontWeight: '700' as const,
+    color: CK_TEXT_SECONDARY,
   },
   timeRangeTextActive: {
-    color: colors.white,
+    color: CK_GREEN_DARK,
   },
   chartContainer: {
     height: 140,
@@ -852,14 +869,14 @@ const styles = StyleSheet.create({
   },
   legendText: {
     fontSize: 11,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
   },
   legendAvg: {
     marginLeft: 'auto',
     fontSize: 11,
-    fontWeight: '600' as const,
-    color: colors.textSecondary,
+    fontWeight: '700' as const,
+    color: CK_TEXT_SECONDARY,
   },
   metricsGrid: {
     flexDirection: 'row',
@@ -869,40 +886,52 @@ const styles = StyleSheet.create({
   },
   metricCard: {
     width: (SCREEN_WIDTH - 52) / 2,
-    backgroundColor: colors.surface,
-    borderRadius: 16,
+    backgroundColor: CK_SURFACE,
+    borderRadius: 18,
     padding: 16,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.05,
+    shadowRadius: 16,
+    elevation: 2,
   },
   metricIconContainer: {
     width: 36,
     height: 36,
-    borderRadius: 10,
-    backgroundColor: colors.surfaceSecondary,
+    borderRadius: 12,
+    backgroundColor: CK_SURFACE_SUBTLE,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.05)',
   },
   metricValue: {
     fontSize: 22,
-    fontWeight: '800' as const,
-    color: colors.text,
+    fontWeight: '900' as const,
+    color: CK_TEXT,
     marginBottom: 4,
   },
   metricLabel: {
     fontSize: 12,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
   },
   investmentSummary: {
     flexDirection: 'row',
-    backgroundColor: colors.surface,
-    borderRadius: 16,
+    backgroundColor: CK_SURFACE,
+    borderRadius: 18,
     padding: 18,
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.06,
+    shadowRadius: 18,
+    elevation: 3,
   },
   investmentSummaryItem: {
     flex: 1,
@@ -910,18 +939,18 @@ const styles = StyleSheet.create({
   },
   investmentSummaryDivider: {
     width: 1,
-    backgroundColor: colors.border,
+    backgroundColor: CK_BORDER,
   },
   investmentSummaryValue: {
     fontSize: 18,
-    fontWeight: '700' as const,
-    color: colors.text,
+    fontWeight: '800' as const,
+    color: CK_TEXT,
     marginBottom: 4,
   },
   investmentSummaryLabel: {
     fontSize: 12,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
   },
   emptyState: {
     alignItems: 'center',
@@ -930,13 +959,13 @@ const styles = StyleSheet.create({
   },
   emptyStateTitle: {
     fontSize: 17,
-    fontWeight: '700' as const,
-    color: colors.text,
+    fontWeight: '800' as const,
+    color: CK_TEXT,
   },
   emptyStateText: {
     fontSize: 14,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
     textAlign: 'center',
     paddingHorizontal: 20,
   },
@@ -944,8 +973,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
     paddingHorizontal: 24,
     paddingVertical: 12,
-    backgroundColor: colors.primary,
-    borderRadius: 12,
+    backgroundColor: CK_GREEN,
+    borderRadius: 14,
   },
   emptyStateButtonText: {
     fontSize: 15,
@@ -956,15 +985,20 @@ const styles = StyleSheet.create({
     gap: 14,
   },
   investmentCard: {
-    backgroundColor: colors.surface,
+    backgroundColor: CK_SURFACE,
     borderRadius: 18,
     padding: 18,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.06,
+    shadowRadius: 18,
+    elevation: 3,
   },
   investmentCardSelected: {
-    borderColor: colors.primary,
-    backgroundColor: 'rgba(10, 132, 255, 0.05)',
+    borderColor: 'rgba(91, 222, 0, 0.55)',
+    backgroundColor: 'rgba(91, 222, 0, 0.06)',
   },
   investmentCardHeader: {
     flexDirection: 'row',
@@ -981,7 +1015,7 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: colors.primary,
+    backgroundColor: CK_GREEN,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -992,13 +1026,13 @@ const styles = StyleSheet.create({
   },
   investmentBorrowerName: {
     fontSize: 15,
-    fontWeight: '600' as const,
-    color: colors.text,
+    fontWeight: '700' as const,
+    color: CK_TEXT,
   },
   investmentPurpose: {
     fontSize: 12,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
     marginTop: 2,
   },
   investmentStatus: {
@@ -1012,10 +1046,12 @@ const styles = StyleSheet.create({
   },
   investmentAmounts: {
     flexDirection: 'row',
-    backgroundColor: colors.surfaceSecondary,
-    borderRadius: 12,
+    backgroundColor: CK_SURFACE_SUBTLE,
+    borderRadius: 14,
     padding: 14,
     marginBottom: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.05)',
   },
   investmentAmountItem: {
     flex: 1,
@@ -1023,35 +1059,39 @@ const styles = StyleSheet.create({
   },
   investmentAmountLabel: {
     fontSize: 11,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
     marginBottom: 4,
   },
   investmentAmountValue: {
     fontSize: 15,
-    fontWeight: '700' as const,
-    color: colors.text,
+    fontWeight: '800' as const,
+    color: CK_TEXT,
   },
   roiPill: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 2,
-    backgroundColor: 'rgba(52, 199, 89, 0.15)',
+    backgroundColor: 'rgba(91, 222, 0, 0.18)',
     paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: 8,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(91, 222, 0, 0.28)',
   },
   roiPillText: {
     fontSize: 13,
-    fontWeight: '700' as const,
-    color: colors.success,
+    fontWeight: '900' as const,
+    color: CK_GREEN_DARK,
   },
   investmentDetails: {
-    backgroundColor: colors.surfaceSecondary,
-    borderRadius: 12,
+    backgroundColor: CK_SURFACE_SUBTLE,
+    borderRadius: 14,
     padding: 14,
     marginBottom: 12,
     gap: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.05)',
   },
   investmentDetailRow: {
     flexDirection: 'row',
@@ -1060,13 +1100,13 @@ const styles = StyleSheet.create({
   },
   investmentDetailLabel: {
     fontSize: 13,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
   },
   investmentDetailValue: {
     fontSize: 13,
-    fontWeight: '600' as const,
-    color: colors.text,
+    fontWeight: '700' as const,
+    color: CK_TEXT,
   },
   investmentCardFooter: {
     flexDirection: 'row',
@@ -1075,15 +1115,20 @@ const styles = StyleSheet.create({
   },
   investmentDate: {
     fontSize: 12,
-    fontWeight: '500' as const,
-    color: colors.textTertiary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
   },
   earningsOverview: {
-    borderRadius: 20,
+    borderRadius: 22,
     overflow: 'hidden',
     marginBottom: 24,
     borderWidth: 1,
-    borderColor: 'rgba(52, 199, 89, 0.3)',
+    borderColor: 'rgba(91, 222, 0, 0.32)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.08,
+    shadowRadius: 20,
+    elevation: 4,
   },
   earningsGradient: {
     padding: 24,
@@ -1097,56 +1142,61 @@ const styles = StyleSheet.create({
   },
   earningsTitle: {
     fontSize: 16,
-    fontWeight: '600' as const,
-    color: colors.text,
+    fontWeight: '800' as const,
+    color: CK_TEXT,
   },
   earningsAmount: {
     fontSize: 44,
-    fontWeight: '800' as const,
-    color: colors.success,
+    fontWeight: '900' as const,
+    color: CK_GREEN_DARK,
     letterSpacing: -1,
     marginBottom: 4,
   },
   earningsSubtext: {
     fontSize: 14,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
   },
   withdrawSection: {
     marginBottom: 24,
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '700' as const,
-    color: colors.text,
+    fontWeight: '900' as const,
+    color: CK_TEXT,
     marginBottom: 14,
   },
   withdrawCard: {
-    backgroundColor: colors.surface,
-    borderRadius: 18,
+    backgroundColor: CK_SURFACE,
+    borderRadius: 20,
     padding: 20,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.06,
+    shadowRadius: 20,
+    elevation: 4,
   },
   withdrawInfo: {
     marginBottom: 16,
   },
   withdrawLabel: {
     fontSize: 13,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '700' as const,
+    color: CK_TEXT_SECONDARY,
     marginBottom: 4,
   },
   withdrawAmount: {
     fontSize: 32,
-    fontWeight: '800' as const,
-    color: colors.text,
+    fontWeight: '900' as const,
+    color: CK_TEXT,
     letterSpacing: -0.5,
   },
   withdrawNote: {
     fontSize: 12,
-    fontWeight: '500' as const,
-    color: colors.textTertiary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
     marginTop: 4,
   },
   withdrawBankInfo: {
@@ -1155,14 +1205,16 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingVertical: 12,
     paddingHorizontal: 14,
-    backgroundColor: colors.surfaceSecondary,
-    borderRadius: 12,
+    backgroundColor: CK_SURFACE_SUBTLE,
+    borderRadius: 14,
     marginBottom: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.05)',
   },
   withdrawBankText: {
     fontSize: 14,
-    fontWeight: '500' as const,
-    color: colors.text,
+    fontWeight: '700' as const,
+    color: CK_TEXT,
   },
   withdrawButton: {
     borderRadius: 14,
@@ -1187,12 +1239,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: colors.surface,
-    borderRadius: 14,
+    backgroundColor: CK_SURFACE,
+    borderRadius: 16,
     padding: 16,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: CK_BORDER,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.05,
+    shadowRadius: 18,
+    elevation: 3,
   },
   earningsItemLeft: {
     flexDirection: 'row',
@@ -1203,7 +1260,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.primary,
+    backgroundColor: CK_GREEN,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -1214,13 +1271,13 @@ const styles = StyleSheet.create({
   },
   earningsItemName: {
     fontSize: 15,
-    fontWeight: '600' as const,
-    color: colors.text,
+    fontWeight: '700' as const,
+    color: CK_TEXT,
   },
   earningsItemRate: {
     fontSize: 12,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
     marginTop: 2,
   },
   earningsItemRight: {
@@ -1228,13 +1285,13 @@ const styles = StyleSheet.create({
   },
   earningsItemAmount: {
     fontSize: 16,
-    fontWeight: '700' as const,
-    color: colors.success,
+    fontWeight: '900' as const,
+    color: CK_GREEN_DARK,
   },
   earningsItemPrincipal: {
     fontSize: 12,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
+    fontWeight: '600' as const,
+    color: CK_TEXT_SECONDARY,
     marginTop: 2,
   },
 });
