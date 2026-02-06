@@ -9,7 +9,13 @@ import SocialAuthButtons from '@/components/SocialAuthButtons';
 export default function SignupScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    dateOfBirth: string;
+  }>({
     firstName: '',
     lastName: '',
     email: '',
@@ -17,8 +23,19 @@ export default function SignupScreen() {
     dateOfBirth: '',
   });
 
+
   const handleContinue = () => {
-    router.push('/onboarding/profile-setup' as any);
+    console.log('[Signup] Continue with form data', formData);
+    router.push({
+      pathname: '/onboarding/profile-setup' as any,
+      params: {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        dateOfBirth: formData.dateOfBirth,
+      },
+    });
   };
 
   const isFormValid = formData.firstName && formData.lastName && formData.email && formData.phone;
@@ -64,7 +81,8 @@ export default function SignupScreen() {
               <InputField
                 icon={<User color={colors.textSecondary} size={20} strokeWidth={2} />}
                 label="First Name"
-                placeholder="John"
+                placeholder="First name"
+                testID="signup-first-name"
                 value={formData.firstName}
                 onChangeText={(text) => setFormData({ ...formData, firstName: text })}
               />
@@ -72,7 +90,8 @@ export default function SignupScreen() {
               <InputField
                 icon={<User color={colors.textSecondary} size={20} strokeWidth={2} />}
                 label="Last Name"
-                placeholder="Doe"
+                placeholder="Last name"
+                testID="signup-last-name"
                 value={formData.lastName}
                 onChangeText={(text) => setFormData({ ...formData, lastName: text })}
               />
@@ -80,7 +99,8 @@ export default function SignupScreen() {
               <InputField
                 icon={<Mail color={colors.textSecondary} size={20} strokeWidth={2} />}
                 label="Email"
-                placeholder="john@example.com"
+                placeholder="you@example.com"
+                testID="signup-email"
                 value={formData.email}
                 onChangeText={(text) => setFormData({ ...formData, email: text })}
                 keyboardType="email-address"
@@ -91,6 +111,7 @@ export default function SignupScreen() {
                 icon={<Phone color={colors.textSecondary} size={20} strokeWidth={2} />}
                 label="Phone Number"
                 placeholder="(555) 123-4567"
+                testID="signup-phone"
                 value={formData.phone}
                 onChangeText={(text) => setFormData({ ...formData, phone: text })}
                 keyboardType="phone-pad"
@@ -100,6 +121,7 @@ export default function SignupScreen() {
                 icon={<Calendar color={colors.textSecondary} size={20} strokeWidth={2} />}
                 label="Date of Birth"
                 placeholder="MM/DD/YYYY"
+                testID="signup-dob"
                 value={formData.dateOfBirth}
                 onChangeText={(text) => setFormData({ ...formData, dateOfBirth: text })}
                 keyboardType="numbers-and-punctuation"
@@ -119,7 +141,7 @@ export default function SignupScreen() {
             disabled={!isFormValid}
             activeOpacity={0.85}
           >
-            <Text style={styles.continueButtonText}>Continue</Text>
+            <Text style={styles.continueButtonText} testID="signup-continue-text">Continue</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

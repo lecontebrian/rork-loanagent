@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Animated, Platform } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
+import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ArrowLeft, DollarSign, Building2, CheckCircle, Shield, CreditCard, Landmark, ChevronRight, Zap, Lock } from 'lucide-react-native';
 import colors from '@/constants/colors';
@@ -12,8 +12,13 @@ export default function ProfileSetupScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { setUserProfile, setCreditInfo, connectBank } = useApp();
-  
-  const [formData, setFormData] = useState({
+  const params = useLocalSearchParams();
+
+  const [formData, setFormData] = useState<{
+    annualIncome: string;
+    employer: string;
+    employmentStatus: string;
+  }>({
     annualIncome: '',
     employer: '',
     employmentStatus: '',
@@ -107,14 +112,20 @@ export default function ProfileSetupScreen() {
     if (Platform.OS !== 'web') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
-    
+
+    const firstNameParam = typeof params.firstName === 'string' ? params.firstName : '';
+    const lastNameParam = typeof params.lastName === 'string' ? params.lastName : '';
+    const emailParam = typeof params.email === 'string' ? params.email : '';
+    const phoneParam = typeof params.phone === 'string' ? params.phone : '';
+    const dateOfBirthParam = typeof params.dateOfBirth === 'string' ? params.dateOfBirth : '';
+
     const profile: UserProfile = {
       id: `user-${Date.now()}`,
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john@example.com',
-      phone: '(555) 123-4567',
-      dateOfBirth: '01/01/1990',
+      firstName: firstNameParam || 'User',
+      lastName: lastNameParam || '',
+      email: emailParam || 'user@example.com',
+      phone: phoneParam || '',
+      dateOfBirth: dateOfBirthParam || '01/01/1990',
       address: {
         street: '123 Main St',
         city: 'San Francisco',
@@ -130,6 +141,14 @@ export default function ProfileSetupScreen() {
       faceVerified: false,
       idVerified: false,
     };
+
+    console.log('[ProfileSetup] Creating profile from signup params', {
+      firstNameParam,
+      lastNameParam,
+      emailParam,
+      phoneParam,
+      dateOfBirthParam,
+    });
 
     const score = creditScore || 720;
     let rating: 'excellent' | 'good' | 'fair' | 'poor' = 'good';
