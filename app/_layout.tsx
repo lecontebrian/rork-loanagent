@@ -12,7 +12,18 @@ import { View } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      networkMode: 'offlineFirst',
+    },
+    mutations: {
+      retry: 0,
+      networkMode: 'offlineFirst',
+    },
+  },
+});
 
 function RootLayoutNav() {
   return (
