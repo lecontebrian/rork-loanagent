@@ -37,7 +37,7 @@ export default function CongratulationsScreen() {
     ]).start();
 
     const timer = setTimeout(() => {
-      router.replace('/onboarding/face-verify');
+      router.replace('/onboarding/face-verify' as any);
     }, 4000);
 
     return () => clearTimeout(timer);

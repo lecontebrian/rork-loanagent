@@ -33,17 +33,28 @@ function RootLayoutNav() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
+      <Stack.Screen name="onboarding/welcome" />
       <Stack.Screen name="onboarding/signup" />
+      <Stack.Screen name="onboarding/what-it-does" />
+      <Stack.Screen name="onboarding/how-ai-works" />
+      <Stack.Screen name="onboarding/why-choose" />
       <Stack.Screen name="onboarding/face-verify" options={{ presentation: 'modal' }} />
       <Stack.Screen name="onboarding/profile-setup" />
+      <Stack.Screen name="onboarding/congratulations" />
       <Stack.Screen name="dashboard" />
       <Stack.Screen name="loan-categories" />
       <Stack.Screen name="loan-offers" />
+      <Stack.Screen name="investment-options" />
+      <Stack.Screen name="investment-portfolio" />
+      <Stack.Screen name="p2p-marketplace" />
       <Stack.Screen name="p2p-wallet" />
+      <Stack.Screen name="p2p/portfolio" />
       <Stack.Screen name="p2p/withdraw" options={{ presentation: 'modal' }} />
       <Stack.Screen name="p2p/add-funds" options={{ presentation: 'modal' }} />
       <Stack.Screen name="p2p/send" options={{ presentation: 'modal' }} />
       <Stack.Screen name="p2p/request-loan" />
+      <Stack.Screen name="premium" />
+      <Stack.Screen name="subscription" />
     </Stack>
   );
 }

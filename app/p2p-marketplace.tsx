@@ -85,7 +85,7 @@ export default function P2PMarketplaceScreen() {
         'You need 1 token to invest in P2P loans. Upgrade your plan to get more tokens.',
         [
           { text: 'Cancel', style: 'cancel' },
-          { text: 'Get Tokens', onPress: () => router.push('/subscription') }
+          { text: 'Get Tokens', onPress: () => router.push('/subscription' as any) }
         ]
       );
       return;
@@ -132,7 +132,7 @@ export default function P2PMarketplaceScreen() {
     <>
       <TouchableOpacity 
         activeOpacity={0.9}
-        onPress={() => router.push('/p2p/portfolio')}
+        onPress={() => router.push('/p2p/portfolio' as any)}
       >
         <Animated.View style={[styles.statsContainer, { opacity: fadeAnim }]}>
           <LinearGradient
@@ -174,7 +174,7 @@ export default function P2PMarketplaceScreen() {
       <TouchableOpacity
         style={styles.addFundsCard}
         activeOpacity={0.8}
-        onPress={() => router.push('/p2p/add-funds')}
+        onPress={() => router.push('/p2p/add-funds' as any)}
       >
         <View style={styles.addFundsContent}>
           <View style={styles.addFundsIcon}>
@@ -428,7 +428,7 @@ export default function P2PMarketplaceScreen() {
           </View>
           <TouchableOpacity 
             style={styles.tokenBadge}
-            onPress={() => router.push('/subscription')}
+            onPress={() => router.push('/subscription' as any)}
             activeOpacity={0.7}
           >
             <Zap color={tokens <= 2 ? '#EF4444' : CK_GREEN} size={14} fill={tokens <= 2 ? '#EF4444' : CK_GREEN} />

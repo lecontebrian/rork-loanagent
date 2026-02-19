@@ -24,7 +24,7 @@ export default function FaceVerifyScreen() {
     }
     
     setTimeout(() => {
-      router.push('/onboarding/profile-setup');
+      router.push('/onboarding/profile-setup' as any);
     }, 1500);
   };
 

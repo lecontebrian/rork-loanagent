@@ -108,7 +108,7 @@ export default function HowAIWorksScreen() {
       >
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/onboarding/why-choose")}
+          onPress={() => router.push("/onboarding/why-choose" as any)}
           activeOpacity={0.8}
         >
           <Text style={styles.buttonText}>Continue</Text>

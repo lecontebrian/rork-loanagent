@@ -105,7 +105,7 @@ export default function WelcomeScreen() {
       scrollViewRef.current?.scrollTo({ x: width * nextIndex, animated: true });
       setCurrentIndex(nextIndex);
     } else {
-      router.push("/onboarding/signup");
+      router.push("/onboarding/signup" as any);
     }
   };
 
@@ -147,7 +147,7 @@ export default function WelcomeScreen() {
         </View>
         <TouchableOpacity
           style={styles.skipButton}
-          onPress={() => router.push("/onboarding/signup")}
+          onPress={() => router.push("/onboarding/signup" as any)}
           activeOpacity={0.7}
         >
           <Text style={styles.skipText}>Skip</Text>

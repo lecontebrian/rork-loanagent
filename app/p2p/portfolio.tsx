@@ -146,7 +146,7 @@ export default function P2PPortfolioScreen() {
       <View style={styles.quickActionsRow}>
         <TouchableOpacity 
           style={styles.quickActionCard}
-          onPress={() => router.push('/p2p/withdraw')}
+          onPress={() => router.push('/p2p/withdraw' as any)}
           activeOpacity={0.8}
         >
           <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(91, 222, 0, 0.14)' }]}>
@@ -158,7 +158,7 @@ export default function P2PPortfolioScreen() {
 
         <TouchableOpacity 
           style={styles.quickActionCard}
-          onPress={() => router.push('/p2p/add-funds')}
+          onPress={() => router.push('/p2p/add-funds' as any)}
           activeOpacity={0.8}
         >
           <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(91, 222, 0, 0.12)' }]}>
@@ -170,7 +170,7 @@ export default function P2PPortfolioScreen() {
 
         <TouchableOpacity 
           style={styles.quickActionCard}
-          onPress={() => router.push('/p2p-marketplace')}
+          onPress={() => router.push('/p2p-marketplace' as any)}
           activeOpacity={0.8}
         >
           <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(17, 24, 39, 0.06)' }]}>
@@ -293,7 +293,7 @@ export default function P2PPortfolioScreen() {
           <Text style={styles.emptyStateText}>Start investing in P2P loans to see your portfolio here</Text>
           <TouchableOpacity
             style={styles.emptyStateButton}
-            onPress={() => router.push('/p2p-marketplace')}
+            onPress={() => router.push('/p2p-marketplace' as any)}
             activeOpacity={0.85}
           >
             <Text style={styles.emptyStateButtonText}>Browse Loans</Text>
@@ -454,7 +454,7 @@ export default function P2PPortfolioScreen() {
 
           <TouchableOpacity
             style={styles.withdrawButton}
-            onPress={() => router.push('/p2p/withdraw')}
+            onPress={() => router.push('/p2p/withdraw' as any)}
             activeOpacity={0.85}
           >
             <LinearGradient
@@ -525,7 +525,7 @@ export default function P2PPortfolioScreen() {
             </View>
             <TouchableOpacity
               style={styles.walletButton}
-              onPress={() => router.push('/p2p-wallet')}
+              onPress={() => router.push('/p2p-wallet' as any)}
               activeOpacity={0.7}
             >
               <Wallet color={CK_TEXT} size={20} strokeWidth={2} />

@@ -200,11 +200,11 @@ export default function InvestmentOptionsScreen() {
             router.push(`/p2p-marketplace?amount=${customAmount}&rate=${customRate}` as any);
         } else {
             // If they didn't fill it, just go with defaults
-             router.push('/p2p-marketplace');
+             router.push('/p2p-marketplace' as any);
         }
     } else if (selectedOption) {
       console.log('Selected investment option:', selectedOption);
-      router.push('/p2p-marketplace');
+      router.push('/p2p-marketplace' as any);
     }
   };
 

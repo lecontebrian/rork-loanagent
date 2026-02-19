@@ -36,7 +36,7 @@ export default function TokenGate({ actionType, onSuccess, onCancel, children }:
 
   const handleUpgrade = () => {
     setShowModal(false);
-    router.push('/premium');
+    router.push('/premium' as any);
   };
 
   const handleContinue = () => {

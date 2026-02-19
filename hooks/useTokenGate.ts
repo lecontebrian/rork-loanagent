@@ -22,7 +22,7 @@ export function useTokenGate() {
     }
     
     console.log(`❌ Insufficient tokens for ${action.name}. Current: ${tokens}, Required: ${action.cost}`);
-    router.push('/premium');
+    router.push('/premium' as any);
     return false;
   }, [tokens, consumeToken, router]);
 
@@ -48,6 +48,6 @@ export function useTokenGate() {
     checkAndConsumeToken,
     canAfford,
     getTokenInfo,
-    navigateToPremium: () => router.push('/premium'),
+    navigateToPremium: () => router.push('/premium' as any),
   };
 }

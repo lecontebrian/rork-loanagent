@@ -59,7 +59,7 @@ export default function InvestmentPortfolioScreen() {
 
   const handleInvest = () => {
     console.log('Investing', selectedAmount, 'in', data?.name);
-    router.push('/p2p-marketplace');
+    router.push('/p2p-marketplace' as any);
   };
 
   if (!data) return null;

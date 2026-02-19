@@ -90,7 +90,7 @@ export default function WhyChooseScreen() {
       >
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/onboarding/signup")}
+          onPress={() => router.push("/onboarding/signup" as any)}
           activeOpacity={0.8}
         >
           <Text style={styles.buttonText}>Start My Journey</Text>
@@ -98,7 +98,7 @@ export default function WhyChooseScreen() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.secondaryButton}
-          onPress={() => router.push("/onboarding/signup")}
+          onPress={() => router.push("/onboarding/signup" as any)}
           activeOpacity={0.7}
         >
           <Text style={styles.secondaryButtonText}>Already have an account? Sign In</Text>

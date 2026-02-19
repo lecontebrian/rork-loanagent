@@ -35,7 +35,7 @@ export default function PremiumScreen() {
 
   const handleUpgrade = (tier: SubscriptionTier) => {
     upgradeTier(tier);
-    router.replace('/dashboard');
+    router.replace('/dashboard' as any);
   };
 
   const renderTierCard = (tier: SubscriptionTier) => {

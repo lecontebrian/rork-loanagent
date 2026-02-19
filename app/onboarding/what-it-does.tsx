@@ -98,7 +98,7 @@ export default function WhatItDoesScreen() {
       >
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/onboarding/how-ai-works")}
+          onPress={() => router.push("/onboarding/how-ai-works" as any)}
           activeOpacity={0.8}
         >
           <Text style={styles.buttonText}>Continue</Text>

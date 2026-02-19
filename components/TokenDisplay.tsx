@@ -18,7 +18,7 @@ export default function TokenDisplay({ variant = 'default', showUpgrade = true }
   const isOutOfTokens = tokens === 0;
 
   const handleUpgrade = () => {
-    router.push('/premium');
+    router.push('/premium' as any);
   };
 
   if (variant === 'inline') {

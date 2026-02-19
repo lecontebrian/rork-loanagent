@@ -72,7 +72,7 @@ export default function RequestP2PLoanScreen() {
         [
           {
             text: 'View Marketplace',
-            onPress: () => router.replace('/p2p-marketplace'),
+            onPress: () => router.replace('/p2p-marketplace' as any),
           },
         ]
       );

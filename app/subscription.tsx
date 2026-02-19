@@ -78,7 +78,7 @@ export default function SubscriptionScreen() {
   const handleUpgrade = (tier: SubscriptionTier) => {
     upgradeTier(tier);
     completeOnboarding();
-    router.replace('/dashboard');
+    router.replace('/dashboard' as any);
   };
 
   const currentTierConfig = TIER_CONFIG[selectedTier];
@@ -103,7 +103,7 @@ export default function SubscriptionScreen() {
         <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
           <TouchableOpacity
             style={styles.closeButton}
-            onPress={() => router.replace('/dashboard')}
+            onPress={() => router.replace('/dashboard' as any)}
             activeOpacity={0.7}
           >
             <X color="rgba(255,255,255,0.7)" size={22} strokeWidth={2.5} />
