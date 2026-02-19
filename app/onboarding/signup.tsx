@@ -158,6 +158,7 @@ function InputField({
   icon: React.ReactNode;
   label: string;
   placeholder: string;
+  testID?: string;
   value: string;
   onChangeText: (text: string) => void;
   keyboardType?: 'default' | 'email-address' | 'phone-pad' | 'numbers-and-punctuation';

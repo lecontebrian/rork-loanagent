@@ -15,11 +15,15 @@ SplashScreen.preventAutoHideAsync();
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 1,
+      retry: false,
       networkMode: 'offlineFirst',
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 10,
     },
     mutations: {
-      retry: 0,
+      retry: false,
       networkMode: 'offlineFirst',
     },
   },
@@ -28,21 +32,18 @@ const queryClient = new QueryClient({
 function RootLayoutNav() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="onboarding/signup" options={{ headerShown: false }} />
-      <Stack.Screen name="onboarding/face-verify" options={{ headerShown: false, presentation: 'modal' }} />
-      <Stack.Screen name="onboarding/profile-setup" options={{ headerShown: false }} />
-      <Stack.Screen name="dashboard" options={{ headerShown: false }} />
-      <Stack.Screen name="loan-categories" options={{ headerShown: false }} />
-      <Stack.Screen name="loan-offers" options={{ headerShown: false }} />
-      <Stack.Screen name="loan-details" options={{ headerShown: false }} />
-      <Stack.Screen name="application-tracking" options={{ headerShown: false }} />
-
-      <Stack.Screen name="p2p-wallet" options={{ headerShown: false }} />
-      <Stack.Screen name="p2p/withdraw" options={{ headerShown: false, presentation: 'modal' }} />
-      <Stack.Screen name="p2p/add-funds" options={{ headerShown: false, presentation: 'modal' }} />
-      <Stack.Screen name="p2p/send" options={{ headerShown: false, presentation: 'modal' }} />
-      <Stack.Screen name="p2p/request-loan" options={{ headerShown: false }} />
+      <Stack.Screen name="index" />
+      <Stack.Screen name="onboarding/signup" />
+      <Stack.Screen name="onboarding/face-verify" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="onboarding/profile-setup" />
+      <Stack.Screen name="dashboard" />
+      <Stack.Screen name="loan-categories" />
+      <Stack.Screen name="loan-offers" />
+      <Stack.Screen name="p2p-wallet" />
+      <Stack.Screen name="p2p/withdraw" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="p2p/add-funds" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="p2p/send" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="p2p/request-loan" />
     </Stack>
   );
 }
@@ -51,10 +52,11 @@ export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsReady(true);
       SplashScreen.hideAsync();
-    }, 100);
+    }, 50);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!isReady) {
@@ -64,17 +66,17 @@ export default function RootLayout() {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        <AppProvider>
-          <AffiliateProvider>
-            <P2PWalletProvider>
-              <GestureHandlerRootView style={{ flex: 1 }}>
-                <ErrorBoundary>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <ErrorBoundary>
+            <AppProvider>
+              <AffiliateProvider>
+                <P2PWalletProvider>
                   <RootLayoutNav />
-                </ErrorBoundary>
-              </GestureHandlerRootView>
-            </P2PWalletProvider>
-          </AffiliateProvider>
-        </AppProvider>
+                </P2PWalletProvider>
+              </AffiliateProvider>
+            </AppProvider>
+          </ErrorBoundary>
+        </GestureHandlerRootView>
       </QueryClientProvider>
     </trpc.Provider>
   );
