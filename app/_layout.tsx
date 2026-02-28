@@ -33,28 +33,38 @@ function RootLayoutNav() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
-      <Stack.Screen name="onboarding/welcome" />
-      <Stack.Screen name="onboarding/signup" />
-      <Stack.Screen name="onboarding/what-it-does" />
-      <Stack.Screen name="onboarding/how-ai-works" />
-      <Stack.Screen name="onboarding/why-choose" />
-      <Stack.Screen name="onboarding/face-verify" options={{ presentation: 'modal' }} />
-      <Stack.Screen name="onboarding/profile-setup" />
-      <Stack.Screen name="onboarding/congratulations" />
+      <Stack.Screen name="onboarding" />
       <Stack.Screen name="dashboard" />
       <Stack.Screen name="loan-categories" />
       <Stack.Screen name="loan-offers" />
+      <Stack.Screen name="loan-type-selection" />
+      <Stack.Screen name="loan-simulator" />
       <Stack.Screen name="investment-options" />
       <Stack.Screen name="investment-portfolio" />
       <Stack.Screen name="p2p-marketplace" />
       <Stack.Screen name="p2p-wallet" />
-      <Stack.Screen name="p2p/portfolio" />
-      <Stack.Screen name="p2p/withdraw" options={{ presentation: 'modal' }} />
-      <Stack.Screen name="p2p/add-funds" options={{ presentation: 'modal' }} />
-      <Stack.Screen name="p2p/send" options={{ presentation: 'modal' }} />
-      <Stack.Screen name="p2p/request-loan" />
+      <Stack.Screen name="p2p" />
       <Stack.Screen name="premium" />
+      <Stack.Screen name="premium-experience" />
       <Stack.Screen name="subscription" />
+      <Stack.Screen name="application" />
+      <Stack.Screen name="refinance" />
+      <Stack.Screen name="settings" />
+      <Stack.Screen name="admin" />
+      <Stack.Screen name="legal" />
+      <Stack.Screen name="ai-assistant" />
+      <Stack.Screen name="budget-tracker" />
+      <Stack.Screen name="credit-builder" />
+      <Stack.Screen name="credit-disputes" />
+      <Stack.Screen name="consumer-rights" />
+      <Stack.Screen name="document-vault" />
+      <Stack.Screen name="features-menu" />
+      <Stack.Screen name="financial-coach" />
+      <Stack.Screen name="local-lenders" />
+      <Stack.Screen name="notifications" />
+      <Stack.Screen name="affiliate-dashboard" />
+      <Stack.Screen name="legal-compliance" />
+      <Stack.Screen name="+not-found" />
     </Stack>
   );
 }
