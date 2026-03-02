@@ -2,13 +2,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect, useState } from "react";
+import { View } from "react-native";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AppProvider } from "@/contexts/AppContext";
 import { AffiliateProvider } from "@/contexts/AffiliateContext";
 import { P2PWalletProvider } from "@/contexts/P2PWalletContext";
 import { trpc, trpcClient } from "@/lib/trpc";
-import { View } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
