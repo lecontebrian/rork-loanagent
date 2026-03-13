@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Animated, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Animated, Dimensions, type DimensionValue } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TrendingUp, Plus, FileText, Settings, ArrowRight, DollarSign, Activity, AlertCircle, ChevronRight, Zap, TrendingDown, Grid, Bell, Clock, Eye } from 'lucide-react-native';
@@ -283,7 +283,7 @@ export default function DashboardScreen() {
                 snapToInterval={width - 80}
                 decelerationRate="fast"
               >
-                {suggestedOffers.map((offer, index) => (
+                {suggestedOffers.map((offer) => (
                   <TouchableOpacity
                     key={offer.id}
                     style={styles.offerCard}
@@ -755,7 +755,7 @@ export default function DashboardScreen() {
                   activeOpacity={0.8}
                   onPress={() => {
                     if (userProfile) {
-                      enrollAsAffiliate(userProfile.id, userProfile.email);
+                      void enrollAsAffiliate(userProfile.id, userProfile.email);
                       setTimeout(() => {
                         router.push('/affiliate-dashboard' as any);
                       }, 500);
@@ -853,7 +853,8 @@ function CreditFactorItem({ label, value, color }: { label: string; value: numbe
 function ActiveLoanCard({ loan }: { loan: any }) {
   const router = useRouter();
   const utilization = ((loan.currentBalance / loan.originalAmount) * 100).toFixed(0);
-  
+  const utilizationWidth = `${utilization}%` as DimensionValue;
+
   return (
     <View style={styles.accountCard}>
       <View style={styles.accountHeader}>
@@ -888,7 +889,7 @@ function ActiveLoanCard({ loan }: { loan: any }) {
         </View>
       </View>
       <View style={styles.accountUtilizationBar}>
-        <View style={[styles.accountUtilizationFill, { width: `${utilization}%` }]} />
+        <View style={[styles.accountUtilizationFill, { width: utilizationWidth }]} />
       </View>
       <View style={styles.accountFooter}>
         <Text style={styles.accountPaymentText}>Next payment: {new Date(loan.nextPaymentDate).toLocaleDateString()}</Text>
