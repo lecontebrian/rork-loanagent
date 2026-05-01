@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Animated, Dimensions, type DimensionValue } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { TrendingUp, Plus, FileText, Settings, ArrowRight, DollarSign, Activity, AlertCircle, ChevronRight, Zap, TrendingDown, Grid, Bell, Clock, Eye } from 'lucide-react-native';
+import { TrendingUp, Plus, FileText, Settings, ArrowRight, DollarSign, Activity, AlertCircle, ChevronRight, Zap, TrendingDown, Grid, Bell, Clock, Eye, Users, Brain, Wallet, Calculator, FolderLock, MapPin, Bot } from 'lucide-react-native';
 import colors from '@/constants/colors';
+import { ICON_SIZES, ICON_STROKE, PremiumIcon, PremiumIconContainer } from '@/components/PremiumIcon';
 import { useApp } from '@/contexts/AppContext';
 import { useAffiliate } from '@/contexts/AffiliateContext';
 import React, { useEffect, useRef, useState } from 'react';
@@ -160,7 +161,7 @@ export default function DashboardScreen() {
                 onPress={() => router.push('/notifications' as any)}
                 activeOpacity={0.7}
               >
-                <Bell color={colors.text} size={22} strokeWidth={2} />
+                <PremiumIcon icon={Bell} color={colors.text} size={ICON_SIZES.header} strokeWidth={ICON_STROKE.regular} />
                 <View style={styles.notificationBadge}>
                   <Text style={styles.notificationBadgeText}>{applications.length > 0 ? applications.length : ''}</Text>
                 </View>
@@ -170,7 +171,7 @@ export default function DashboardScreen() {
                 onPress={() => router.push('/settings' as any)}
                 activeOpacity={0.7}
               >
-                <Settings color={colors.text} size={22} strokeWidth={2} />
+                <PremiumIcon icon={Settings} color={colors.text} size={ICON_SIZES.header} strokeWidth={ICON_STROKE.regular} />
               </TouchableOpacity>
             </View>
           </View>
@@ -194,7 +195,7 @@ export default function DashboardScreen() {
                 end={{ x: 1, y: 1 }}
               >
                 <View style={styles.refinanceBadge}>
-                  <Zap color={colors.white} size={14} strokeWidth={2.5} />
+                  <PremiumIcon icon={Zap} color={colors.white} size={14} strokeWidth={ICON_STROKE.emphasized} />
                   <Text style={styles.refinanceBadgeText}>OPPORTUNITY</Text>
                 </View>
                 <Text style={styles.refinanceTitle}>You Could Save</Text>
@@ -206,7 +207,7 @@ export default function DashboardScreen() {
                   onPress={() => router.push('/refinance' as any)}
                 >
                   <Text style={styles.refinanceButtonText}>Explore Refinance Options</Text>
-                  <ArrowRight color={colors.white} size={18} strokeWidth={2.5} />
+                  <PremiumIcon icon={ArrowRight} color={colors.white} size={18} strokeWidth={ICON_STROKE.emphasized} />
                 </TouchableOpacity>
               </LinearGradient>
             </Animated.View>
@@ -547,95 +548,40 @@ export default function DashboardScreen() {
                 activeOpacity={0.7}
                 onPress={() => router.push('/features-menu' as any)}
               >
-                <Grid color={colors.primary} size={22} strokeWidth={2} />
+                <PremiumIcon icon={Grid} color={colors.primary} size={ICON_SIZES.header} strokeWidth={ICON_STROKE.regular} />
               </TouchableOpacity>
             </View>
             <View style={styles.featuresGrid}>
-              <TouchableOpacity
-                style={styles.featureCard}
-                activeOpacity={0.85}
-                onPress={() => router.push('/p2p-marketplace' as any)}
-              >
-                <View style={[styles.featureIcon, { backgroundColor: colors.secondary + '20' }]}>
-                  <Text style={styles.featureIconText}>👥</Text>
-                </View>
+              <TouchableOpacity style={styles.featureCard} activeOpacity={0.85} onPress={() => router.push('/p2p-marketplace' as any)}>
+                <PremiumIconContainer icon={Users} tone="secondary" size={ICON_SIZES.card} containerSize={44} radius={15} backgroundColor={colors.secondary + '18'} borderColor={colors.secondary + '28'} style={styles.featureIcon} />
                 <Text style={styles.featureTitle}>P2P Lending</Text>
               </TouchableOpacity>
-              
-              <TouchableOpacity
-                style={styles.featureCard}
-                activeOpacity={0.85}
-                onPress={() => router.push('/financial-coach' as any)}
-              >
-                <View style={[styles.featureIcon, { backgroundColor: colors.warning + '20' }]}>
-                  <Text style={styles.featureIconText}>🧠</Text>
-                </View>
+              <TouchableOpacity style={styles.featureCard} activeOpacity={0.85} onPress={() => router.push('/financial-coach' as any)}>
+                <PremiumIconContainer icon={Brain} tone="warning" size={ICON_SIZES.card} containerSize={44} radius={15} backgroundColor={colors.warning + '18'} borderColor={colors.warning + '28'} style={styles.featureIcon} />
                 <Text style={styles.featureTitle}>AI Coach</Text>
               </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.featureCard}
-                activeOpacity={0.85}
-                onPress={() => router.push('/budget-tracker' as any)}
-              >
-                <View style={[styles.featureIcon, { backgroundColor: colors.success + '20' }]}>
-                  <Text style={styles.featureIconText}>💰</Text>
-                </View>
+              <TouchableOpacity style={styles.featureCard} activeOpacity={0.85} onPress={() => router.push('/budget-tracker' as any)}>
+                <PremiumIconContainer icon={Wallet} tone="success" size={ICON_SIZES.card} containerSize={44} radius={15} backgroundColor={colors.success + '18'} borderColor={colors.success + '28'} style={styles.featureIcon} />
                 <Text style={styles.featureTitle}>Budget</Text>
               </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.featureCard}
-                activeOpacity={0.85}
-                onPress={() => router.push('/loan-simulator' as any)}
-              >
-                <View style={[styles.featureIcon, { backgroundColor: colors.info + '20' }]}>
-                  <Text style={styles.featureIconText}>🧮</Text>
-                </View>
+              <TouchableOpacity style={styles.featureCard} activeOpacity={0.85} onPress={() => router.push('/loan-simulator' as any)}>
+                <PremiumIconContainer icon={Calculator} tone="secondary" size={ICON_SIZES.card} containerSize={44} radius={15} backgroundColor={colors.info + '18'} borderColor={colors.info + '28'} style={styles.featureIcon} />
                 <Text style={styles.featureTitle}>Simulator</Text>
               </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.featureCard}
-                activeOpacity={0.85}
-                onPress={() => router.push('/credit-builder' as any)}
-              >
-                <View style={[styles.featureIcon, { backgroundColor: colors.error + '20' }]}>
-                  <Text style={styles.featureIconText}>📈</Text>
-                </View>
+              <TouchableOpacity style={styles.featureCard} activeOpacity={0.85} onPress={() => router.push('/credit-builder' as any)}>
+                <PremiumIconContainer icon={TrendingUp} tone="danger" size={ICON_SIZES.card} containerSize={44} radius={15} backgroundColor={colors.error + '18'} borderColor={colors.error + '28'} style={styles.featureIcon} />
                 <Text style={styles.featureTitle}>Credit Builder</Text>
               </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.featureCard}
-                activeOpacity={0.85}
-                onPress={() => router.push('/document-vault' as any)}
-              >
-                <View style={[styles.featureIcon, { backgroundColor: colors.primary + '20' }]}>
-                  <Text style={styles.featureIconText}>🔒</Text>
-                </View>
+              <TouchableOpacity style={styles.featureCard} activeOpacity={0.85} onPress={() => router.push('/document-vault' as any)}>
+                <PremiumIconContainer icon={FolderLock} tone="primary" size={ICON_SIZES.card} containerSize={44} radius={15} backgroundColor={colors.primary + '18'} borderColor={colors.primary + '28'} style={styles.featureIcon} />
                 <Text style={styles.featureTitle}>Vault</Text>
               </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.featureCard}
-                activeOpacity={0.85}
-                onPress={() => router.push('/local-lenders' as any)}
-              >
-                <View style={[styles.featureIcon, { backgroundColor: colors.success + '20' }]}>
-                  <Text style={styles.featureIconText}>📍</Text>
-                </View>
+              <TouchableOpacity style={styles.featureCard} activeOpacity={0.85} onPress={() => router.push('/local-lenders' as any)}>
+                <PremiumIconContainer icon={MapPin} tone="success" size={ICON_SIZES.card} containerSize={44} radius={15} backgroundColor={colors.success + '18'} borderColor={colors.success + '28'} style={styles.featureIcon} />
                 <Text style={styles.featureTitle}>Local</Text>
               </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.featureCard}
-                activeOpacity={0.85}
-                onPress={() => router.push('/ai-assistant' as any)}
-              >
-                <View style={[styles.featureIcon, { backgroundColor: colors.secondary + '20' }]}>
-                  <Text style={styles.featureIconText}>🤖</Text>
-                </View>
+              <TouchableOpacity style={styles.featureCard} activeOpacity={0.85} onPress={() => router.push('/ai-assistant' as any)}>
+                <PremiumIconContainer icon={Bot} tone="secondary" size={ICON_SIZES.card} containerSize={44} radius={15} backgroundColor={colors.secondary + '18'} borderColor={colors.secondary + '28'} style={styles.featureIcon} />
                 <Text style={styles.featureTitle}>Assistant</Text>
               </TouchableOpacity>
             </View>
@@ -763,7 +709,7 @@ export default function DashboardScreen() {
                   }}
                 >
                   <Text style={styles.affiliateButtonText}>Join Affiliate Program</Text>
-                  <ArrowRight color={colors.white} size={18} strokeWidth={2.5} />
+                  <PremiumIcon icon={ArrowRight} color={colors.white} size={18} strokeWidth={ICON_STROKE.emphasized} />
                 </TouchableOpacity>
               </LinearGradient>
             </View>

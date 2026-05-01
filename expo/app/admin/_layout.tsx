@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import { LayoutDashboard, Users, Settings, FileText } from 'lucide-react-native';
+import { ICON_SIZES, ICON_STROKE, PremiumIcon } from '@/components/PremiumIcon';
 
 // Admin uses a different theme - Light Theme
 const adminColors = {
@@ -35,28 +36,28 @@ export default function AdminLayout() {
         name="index"
         options={{
           title: 'Dashboard',
-          tabBarIcon: ({ color, size }) => <LayoutDashboard color={color} size={size} />,
+          tabBarIcon: ({ color }) => <PremiumIcon icon={LayoutDashboard} color={color} size={ICON_SIZES.tab} strokeWidth={ICON_STROKE.regular} />,
         }}
       />
       <Tabs.Screen
         name="users"
         options={{
           title: 'Users',
-          tabBarIcon: ({ color, size }) => <Users color={color} size={size} />,
+          tabBarIcon: ({ color }) => <PremiumIcon icon={Users} color={color} size={ICON_SIZES.tab} strokeWidth={ICON_STROKE.regular} />,
         }}
       />
       <Tabs.Screen
         name="loans"
         options={{
           title: 'Loans',
-          tabBarIcon: ({ color, size }) => <FileText color={color} size={size} />,
+          tabBarIcon: ({ color }) => <PremiumIcon icon={FileText} color={color} size={ICON_SIZES.tab} strokeWidth={ICON_STROKE.regular} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color, size }) => <Settings color={color} size={size} />,
+          tabBarIcon: ({ color }) => <PremiumIcon icon={Settings} color={color} size={ICON_SIZES.tab} strokeWidth={ICON_STROKE.regular} />,
         }}
       />
     </Tabs>

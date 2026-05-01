@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'rea
 import { Stack, useRouter } from 'expo-router';
 import { ArrowLeft, User, Bell, Lock, HelpCircle, LogOut, Trash2, ChevronRight, Shield, CreditCard, Palette, Download, FileText, MessageCircle } from 'lucide-react-native';
 import colors from '@/constants/colors';
+import { ICON_SIZES, ICON_STROKE, PremiumIcon } from '@/components/PremiumIcon';
 import { useApp } from '@/contexts/AppContext';
 import React from "react";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -58,7 +59,7 @@ export default function SettingsScreen() {
             onPress={() => router.back()}
             activeOpacity={0.7}
           >
-            <ArrowLeft color={colors.text} size={24} strokeWidth={2} />
+            <PremiumIcon icon={ArrowLeft} color={colors.text} size={ICON_SIZES.header} strokeWidth={ICON_STROKE.regular} />
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
             <Text style={styles.headerTitle}>Settings</Text>
@@ -89,19 +90,19 @@ export default function SettingsScreen() {
               <Text style={styles.sectionTitle}>ACCOUNT</Text>
               <View style={styles.settingsGroup}>
                 <SettingItem
-                  icon={<User color={colors.primary} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={User} color={colors.primary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Profile Information"
                   subtitle="Update your personal details"
                   onPress={() => router.push('/settings/profile' as any)}
                 />
                 <SettingItem
-                  icon={<Lock color={colors.primary} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={Lock} color={colors.primary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Security & Privacy"
                   subtitle="Password, biometrics, and privacy"
                   onPress={() => router.push('/settings/security' as any)}
                 />
                 <SettingItem
-                  icon={<CreditCard color={colors.primary} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={CreditCard} color={colors.primary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Connected Accounts"
                   subtitle="Bank accounts and integrations"
                   onPress={() => router.push('/settings/accounts' as any)}
@@ -114,19 +115,19 @@ export default function SettingsScreen() {
               <Text style={styles.sectionTitle}>PREFERENCES</Text>
               <View style={styles.settingsGroup}>
                 <SettingItem
-                  icon={<Bell color={colors.primary} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={Bell} color={colors.primary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Notifications"
                   subtitle="Manage your notification preferences"
                   onPress={() => router.push('/settings/notifications' as any)}
                 />
                 <SettingItem
-                  icon={<Palette color={colors.primary} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={Palette} color={colors.primary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="App Preferences"
                   subtitle="Theme, language, and display options"
                   onPress={() => router.push('/settings/preferences' as any)}
                 />
                 <SettingItem
-                  icon={<Download color={colors.primary} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={Download} color={colors.primary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Data & Storage"
                   subtitle="Manage your data and backups"
                   onPress={() => router.push('/settings/data' as any)}
@@ -139,13 +140,13 @@ export default function SettingsScreen() {
               <Text style={styles.sectionTitle}>LEGAL & COMPLIANCE</Text>
               <View style={styles.settingsGroup}>
                 <SettingItem
-                  icon={<Shield color={colors.primary} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={Shield} color={colors.primary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Regulatory Disclosures"
                   subtitle="TILA, RESPA, ECOA, and other disclosures"
                   onPress={() => router.push('/legal-compliance' as any)}
                 />
                 <SettingItem
-                  icon={<Shield color={colors.primary} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={Shield} color={colors.primary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Consumer Rights"
                   subtitle="Your rights and protections"
                   onPress={() => router.push('/consumer-rights' as any)}
@@ -158,19 +159,19 @@ export default function SettingsScreen() {
               <Text style={styles.sectionTitle}>SUPPORT</Text>
               <View style={styles.settingsGroup}>
                 <SettingItem
-                  icon={<HelpCircle color={colors.primary} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={HelpCircle} color={colors.primary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Help & Support"
                   subtitle="Get help with your account"
                   onPress={() => router.push('/settings/help' as any)}
                 />
                 <SettingItem
-                  icon={<MessageCircle color={colors.primary} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={MessageCircle} color={colors.primary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Contact Us"
                   subtitle="Send us a message"
                   onPress={() => router.push('/settings/contact' as any)}
                 />
                 <SettingItem
-                  icon={<FileText color={colors.primary} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={FileText} color={colors.primary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Terms & Policies"
                   subtitle="Privacy policy and terms of service"
                   onPress={() => router.push('/settings/terms' as any)}
@@ -183,14 +184,14 @@ export default function SettingsScreen() {
               <Text style={styles.sectionTitle}>ACTIONS</Text>
               <View style={styles.settingsGroup}>
                 <SettingItem
-                  icon={<LogOut color={colors.error} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={LogOut} color={colors.error} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Logout"
                   subtitle="Sign out of your account"
                   onPress={handleLogout}
                   danger
                 />
                 <SettingItem
-                  icon={<Trash2 color={colors.error} size={20} strokeWidth={2} />}
+                  icon={<PremiumIcon icon={Trash2} color={colors.error} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />}
                   title="Clear All Data"
                   subtitle="Delete all data and start fresh"
                   onPress={handleClearData}
@@ -232,7 +233,7 @@ function SettingItem({
         onPress={onPress}
         activeOpacity={0.7}
       >
-        <View style={[styles.settingIcon, { backgroundColor: danger ? colors.accentTint : colors.primaryTint }]}>
+        <View style={[styles.settingIcon, { backgroundColor: danger ? colors.errorLight : colors.primaryTint, borderColor: danger ? colors.error + '28' : colors.primary + '28' }]}>
           {icon}
         </View>
         <View style={styles.settingContent}>
@@ -241,7 +242,7 @@ function SettingItem({
           </Text>
           <Text style={styles.settingSubtitle}>{subtitle}</Text>
         </View>
-        <ChevronRight color={colors.textTertiary} size={20} strokeWidth={2} />
+        <PremiumIcon icon={ChevronRight} color={colors.textTertiary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />
       </TouchableOpacity>
       {showDivider && <View style={styles.divider} />}
     </>
@@ -347,7 +348,8 @@ const styles = StyleSheet.create({
   settingIcon: {
     width: 44,
     height: 44,
-    borderRadius: 12,
+    borderRadius: 14,
+    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 14,

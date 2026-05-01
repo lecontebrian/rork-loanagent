@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Modal, Animated } from 'react-native';
 import { MoreVertical, X, LucideIcon } from 'lucide-react-native';
 import colors from '@/constants/colors';
+import { ICON_SIZES, ICON_STROKE, PremiumIcon, PremiumIconContainer } from '@/components/PremiumIcon';
 import { useState, useRef, useEffect } from 'react';
 
 export interface ScreenMenuItem {
@@ -64,7 +65,7 @@ export default function ScreenMenu({ items }: ScreenMenuProps) {
         onPress={() => setIsVisible(true)}
         activeOpacity={0.7}
       >
-        <MoreVertical color={colors.text} size={20} strokeWidth={2.5} />
+        <PremiumIcon icon={MoreVertical} color={colors.text} size={ICON_SIZES.header} strokeWidth={ICON_STROKE.regular} />
       </TouchableOpacity>
 
       <Modal
@@ -94,7 +95,7 @@ export default function ScreenMenu({ items }: ScreenMenuProps) {
                 onPress={() => setIsVisible(false)}
                 activeOpacity={0.7}
               >
-                <X color={colors.textSecondary} size={20} strokeWidth={2.5} />
+                <PremiumIcon icon={X} color={colors.textSecondary} size={ICON_SIZES.action} strokeWidth={ICON_STROKE.regular} />
               </TouchableOpacity>
             </View>
 
@@ -106,8 +107,8 @@ export default function ScreenMenu({ items }: ScreenMenuProps) {
                   onPress={() => handleItemPress(item.onPress)}
                   activeOpacity={0.7}
                 >
-                  <View style={[styles.menuItemIcon, { backgroundColor: (item.color || colors.primary) + '20' }]}>
-                    <item.icon color={item.color || colors.primary} size={20} strokeWidth={2.5} />
+                  <View style={styles.menuItemIcon}>
+                    <PremiumIconContainer icon={item.icon} color={item.color || colors.primary} size={ICON_SIZES.action} containerSize={44} radius={14} backgroundColor={(item.color || colors.primary) + '18'} borderColor={(item.color || colors.primary) + '30'} />
                   </View>
                   <Text style={styles.menuItemLabel}>{item.label}</Text>
                 </TouchableOpacity>
@@ -179,7 +180,6 @@ const styles = StyleSheet.create({
   menuItemIcon: {
     width: 44,
     height: 44,
-    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },

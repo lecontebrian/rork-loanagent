@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ArrowLeft, Brain, Wallet, Calculator, Users, FolderLock, AlertTriangle, TrendingUp, MapPin, MessageSquare, Settings } from 'lucide-react-native';
+import { ArrowLeft, Brain, Wallet, Calculator, Users, FolderLock, AlertTriangle, TrendingUp, MapPin, MessageSquare, Settings, LucideIcon } from 'lucide-react-native';
 import colors from '@/constants/colors';
+import { ICON_SIZES, ICON_STROKE, PremiumIcon, PremiumIconContainer } from '@/components/PremiumIcon';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRef, useEffect } from 'react';
 
@@ -23,7 +24,7 @@ export default function FeaturesMenuScreen() {
     id: string;
     title: string;
     description: string;
-    icon: typeof Brain;
+    icon: LucideIcon;
     gradient: [string, string];
     route: string;
   }[] = [
@@ -111,7 +112,7 @@ export default function FeaturesMenuScreen() {
             onPress={() => router.back()}
             activeOpacity={0.7}
           >
-            <ArrowLeft color={colors.text} size={24} strokeWidth={2} />
+            <PremiumIcon icon={ArrowLeft} color={colors.text} size={ICON_SIZES.header} strokeWidth={ICON_STROKE.regular} />
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
             <Text style={styles.headerTitle}>All Features</Text>
@@ -122,7 +123,7 @@ export default function FeaturesMenuScreen() {
             onPress={() => router.push('/settings' as any)}
             activeOpacity={0.7}
           >
-            <Settings color={colors.text} size={22} strokeWidth={2} />
+            <PremiumIcon icon={Settings} color={colors.text} size={ICON_SIZES.header} strokeWidth={ICON_STROKE.regular} />
           </TouchableOpacity>
         </View>
 
@@ -145,9 +146,7 @@ export default function FeaturesMenuScreen() {
                   end={{ x: 1, y: 1 }}
                 >
                   <View style={styles.featureContent}>
-                    <View style={styles.featureIcon}>
-                      <feature.icon color={colors.white} size={28} strokeWidth={2.5} />
-                    </View>
+                    <PremiumIconContainer icon={feature.icon} color={colors.white} size={28} strokeWidth={ICON_STROKE.emphasized} containerSize={64} radius={20} backgroundColor="rgba(255, 255, 255, 0.18)" borderColor="rgba(255, 255, 255, 0.26)" style={styles.featureIcon} />
                     <View style={styles.featureInfo}>
                       <Text style={styles.featureTitle}>{feature.title}</Text>
                       <Text style={styles.featureDescription}>{feature.description}</Text>
@@ -232,7 +231,7 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
     alignItems: 'center',
     justifyContent: 'center',
   },
