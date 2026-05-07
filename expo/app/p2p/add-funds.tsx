@@ -13,7 +13,7 @@ import {
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Path, Polyline } from 'react-native-svg';
-import { ArrowLeft, Building2, CreditCard, Info, TrendingUp } from 'lucide-react-native';
+import { ArrowLeft, Landmark, CreditCard, Info, TrendingUp } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import colors from '@/constants/colors';
@@ -163,7 +163,7 @@ export default function AddFundsScreen() {
             activeOpacity={0.7}
             testID="addFundsBack"
           >
-            <ArrowLeft color={colors.text} size={22} strokeWidth={2.5} />
+            <ArrowLeft color={colors.text} size={21} strokeWidth={2.4} />
           </TouchableOpacity>
           <View style={styles.headerTitles}>
             <Text style={styles.headerTitle}>Add funds</Text>
@@ -190,7 +190,7 @@ export default function AddFundsScreen() {
                 <Text style={styles.heroBalance}>{formatCurrencyExact(balance)}</Text>
               </View>
               <View style={styles.heroChip}>
-                <TrendingUp color={colors.primary} size={16} />
+                <TrendingUp color={colors.primary} size={16} strokeWidth={2.35} />
                 <Text style={styles.heroChipText}>Ready to invest</Text>
               </View>
             </View>
@@ -300,7 +300,7 @@ export default function AddFundsScreen() {
                 testID="addFundsMethod-bank"
               >
                 <View style={styles.methodHeader}>
-                  <Building2 color={method === 'bank' ? colors.primary : colors.textSecondary} size={22} strokeWidth={2} />
+                  <Landmark color={method === 'bank' ? colors.primary : colors.textSecondary} size={20} strokeWidth={2.25} />
                   <View style={styles.methodContent}>
                     <Text style={[styles.methodTitle, method === 'bank' && styles.methodTitleActive]}>Bank account (ACH)</Text>
                     <Text style={styles.methodSubtext}>1–3 business days • Lower fees</Text>
@@ -315,7 +315,7 @@ export default function AddFundsScreen() {
                 testID="addFundsMethod-card"
               >
                 <View style={styles.methodHeader}>
-                  <CreditCard color={method === 'card' ? colors.primary : colors.textSecondary} size={22} strokeWidth={2} />
+                  <CreditCard color={method === 'card' ? colors.primary : colors.textSecondary} size={20} strokeWidth={2.25} />
                   <View style={styles.methodContent}>
                     <Text style={[styles.methodTitle, method === 'card' && styles.methodTitleActive]}>Debit/credit card</Text>
                     <Text style={styles.methodSubtext}>Instant • Standard card fees</Text>
@@ -342,7 +342,7 @@ export default function AddFundsScreen() {
           )}
 
           <View style={styles.infoCard} testID="addFundsInfo">
-            <Info color={colors.info} size={18} />
+            <Info color={colors.info} size={18} strokeWidth={2.25} />
             <View style={styles.infoContent}>
               <Text style={styles.infoTitle}>When will my funds be available?</Text>
               <Text style={styles.infoText}>
@@ -391,12 +391,13 @@ const styles = StyleSheet.create({
   backButton: {
     width: 40,
     height: 40,
-    borderRadius: 20,
+    borderRadius: 14,
     backgroundColor: colors.surface,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: 'rgba(17,24,39,0.08)',
+    ...colors.shadow,
   },
   headerTitles: {
     flex: 1,

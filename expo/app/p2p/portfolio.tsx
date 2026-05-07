@@ -9,13 +9,15 @@ import {
   PiggyBank, 
   ArrowUpRight,
   ChevronRight,
-  Calendar,
-  BarChart3,
-  CircleDollarSign,
-  Building2,
-  Clock,
-  CheckCircle,
-  AlertCircle
+  CalendarDays,
+  ChartColumnIncreasing,
+  BadgeDollarSign,
+  Landmark,
+  Clock3,
+  CircleCheck,
+  CircleAlert,
+  BanknoteArrowDown,
+  Layers3
 } from 'lucide-react-native';
 import colors from '@/constants/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -150,7 +152,7 @@ export default function P2PPortfolioScreen() {
           activeOpacity={0.8}
         >
           <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(91, 222, 0, 0.14)' }]}>
-            <Building2 color={CK_GREEN_DARK} size={22} strokeWidth={2} />
+            <BanknoteArrowDown color={CK_GREEN_DARK} size={20} strokeWidth={2.25} />
           </View>
           <Text style={styles.quickActionTitle}>Withdraw</Text>
           <Text style={styles.quickActionSubtitle}>To Bank</Text>
@@ -162,7 +164,7 @@ export default function P2PPortfolioScreen() {
           activeOpacity={0.8}
         >
           <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(91, 222, 0, 0.12)' }]}>
-            <CircleDollarSign color={CK_GREEN_DARK} size={22} strokeWidth={2} />
+            <BadgeDollarSign color={CK_GREEN_DARK} size={20} strokeWidth={2.25} />
           </View>
           <Text style={styles.quickActionTitle}>Add Funds</Text>
           <Text style={styles.quickActionSubtitle}>Invest More</Text>
@@ -174,7 +176,7 @@ export default function P2PPortfolioScreen() {
           activeOpacity={0.8}
         >
           <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(17, 24, 39, 0.06)' }]}>
-            <PiggyBank color={CK_TEXT} size={22} strokeWidth={2} />
+            <PiggyBank color={CK_TEXT} size={20} strokeWidth={2.25} />
           </View>
           <Text style={styles.quickActionTitle}>Browse</Text>
           <Text style={styles.quickActionSubtitle}>New Loans</Text>
@@ -237,28 +239,28 @@ export default function P2PPortfolioScreen() {
       <View style={styles.metricsGrid}>
         <View style={styles.metricCard}>
           <View style={styles.metricIconContainer}>
-            <TrendingUp color={CK_GREEN_DARK} size={18} strokeWidth={2.5} />
+            <TrendingUp color={CK_GREEN_DARK} size={17} strokeWidth={2.35} />
           </View>
           <Text style={styles.metricValue}>{avgMonthlyReturn.toFixed(2)}%</Text>
           <Text style={styles.metricLabel}>Avg Monthly</Text>
         </View>
         <View style={styles.metricCard}>
           <View style={styles.metricIconContainer}>
-            <ArrowUpRight color={CK_TEXT} size={18} strokeWidth={2.5} />
+            <ArrowUpRight color={CK_TEXT} size={17} strokeWidth={2.35} />
           </View>
           <Text style={styles.metricValue}>{Math.max(...monthlyData.map(d => d.return)).toFixed(2)}%</Text>
           <Text style={styles.metricLabel}>Best Month</Text>
         </View>
         <View style={styles.metricCard}>
           <View style={styles.metricIconContainer}>
-            <BarChart3 color="#AF52DE" size={18} strokeWidth={2.5} />
+            <ChartColumnIncreasing color="#AF52DE" size={17} strokeWidth={2.35} />
           </View>
           <Text style={styles.metricValue}>{myInvestments.length}</Text>
           <Text style={styles.metricLabel}>Active Loans</Text>
         </View>
         <View style={styles.metricCard}>
           <View style={styles.metricIconContainer}>
-            <Calendar color={CK_TEXT_SECONDARY} size={18} strokeWidth={2.5} />
+            <CalendarDays color={CK_TEXT_SECONDARY} size={17} strokeWidth={2.35} />
           </View>
           <Text style={styles.metricValue}>{totalROI.toFixed(1)}%</Text>
           <Text style={styles.metricLabel}>Total ROI</Text>
@@ -288,7 +290,7 @@ export default function P2PPortfolioScreen() {
 
       {investmentTransactions.length === 0 ? (
         <View style={styles.emptyState}>
-          <PiggyBank color={CK_TEXT_SECONDARY} size={48} strokeWidth={1.5} />
+          <PiggyBank color={CK_TEXT_SECONDARY} size={44} strokeWidth={1.75} />
           <Text style={styles.emptyStateTitle}>No investments yet</Text>
           <Text style={styles.emptyStateText}>Start investing in P2P loans to see your portfolio here</Text>
           <TouchableOpacity
@@ -332,9 +334,9 @@ export default function P2PPortfolioScreen() {
                   </View>
                   <View style={styles.investmentStatus}>
                     {loan?.status === 'funded' || loan?.status === 'active' ? (
-                      <CheckCircle color={colors.success} size={16} strokeWidth={2.5} />
+                      <CircleCheck color={colors.success} size={16} strokeWidth={2.35} />
                     ) : (
-                      <Clock color={colors.warning} size={16} strokeWidth={2.5} />
+                      <Clock3 color={colors.warning} size={16} strokeWidth={2.35} />
                     )}
                     <Text style={[
                       styles.investmentStatusText,
@@ -419,7 +421,7 @@ export default function P2PPortfolioScreen() {
           style={styles.earningsGradient}
         >
           <View style={styles.earningsHeader}>
-            <TrendingUp color={CK_GREEN_DARK} size={24} strokeWidth={2} />
+            <Layers3 color={CK_GREEN_DARK} size={22} strokeWidth={2.25} />
             <Text style={styles.earningsTitle}>Total Earnings</Text>
           </View>
           <Text style={styles.earningsAmount}>+${totalEarnings.toFixed(2)}</Text>
@@ -438,14 +440,14 @@ export default function P2PPortfolioScreen() {
           
           {linkedBanks.length > 0 ? (
             <View style={styles.withdrawBankInfo}>
-              <Building2 color={colors.textSecondary} size={18} strokeWidth={2} />
+              <Landmark color={colors.textSecondary} size={18} strokeWidth={2.2} />
               <Text style={styles.withdrawBankText}>
                 {linkedBanks[0].bankName} ••{linkedBanks[0].last4}
               </Text>
             </View>
           ) : (
             <View style={styles.withdrawBankInfo}>
-              <AlertCircle color={colors.warning} size={18} strokeWidth={2} />
+              <CircleAlert color={colors.warning} size={18} strokeWidth={2.2} />
               <Text style={[styles.withdrawBankText, { color: colors.warning }]}>
                 Link a bank account to withdraw
               </Text>
@@ -517,7 +519,7 @@ export default function P2PPortfolioScreen() {
               onPress={() => router.back()}
               activeOpacity={0.7}
             >
-              <ArrowLeft color={CK_TEXT} size={24} strokeWidth={2} />
+              <ArrowLeft color={CK_TEXT} size={21} strokeWidth={2.4} />
             </TouchableOpacity>
             <View style={styles.headerTitleContainer}>
               <Text style={styles.headerTitle}>My Portfolio</Text>
@@ -528,7 +530,7 @@ export default function P2PPortfolioScreen() {
               onPress={() => router.push('/p2p-wallet' as any)}
               activeOpacity={0.7}
             >
-              <Wallet color={CK_TEXT} size={20} strokeWidth={2} />
+              <Wallet color={CK_TEXT} size={19} strokeWidth={2.3} />
             </TouchableOpacity>
           </View>
 
@@ -566,11 +568,11 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: CK_BG },
   container: { flex: 1, backgroundColor: 'transparent' },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingTop: 12, paddingBottom: 14 },
-  backButton: { width: 40, height: 40, borderRadius: 20, backgroundColor: CK_SURFACE, borderWidth: 1, borderColor: CK_BORDER, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 8, elevation: 2 },
+  backButton: { width: 40, height: 40, borderRadius: 14, backgroundColor: 'rgba(255,255,255,0.94)', borderWidth: 1, borderColor: 'rgba(17,24,39,0.08)', alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.06, shadowRadius: 10, elevation: 2 },
   headerTitleContainer: { alignItems: 'center' },
   headerTitle: { fontSize: 20, fontWeight: '800' as const, color: CK_TEXT },
   headerSubtitle: { marginTop: 3, fontSize: 12, fontWeight: '600' as const, color: CK_TEXT_SECONDARY },
-  walletButton: { width: 40, height: 40, borderRadius: 20, backgroundColor: CK_SURFACE, borderWidth: 1, borderColor: CK_BORDER, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 8, elevation: 2 },
+  walletButton: { width: 40, height: 40, borderRadius: 14, backgroundColor: 'rgba(255,255,255,0.94)', borderWidth: 1, borderColor: 'rgba(17,24,39,0.08)', alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.06, shadowRadius: 10, elevation: 2 },
   tabContainer: { flexDirection: 'row', marginHorizontal: 20, backgroundColor: CK_SURFACE, borderRadius: 16, padding: 4, marginBottom: 16, borderWidth: 1, borderColor: CK_BORDER },
   tab: { flex: 1, paddingVertical: 10, alignItems: 'center', borderRadius: 10 },
   tabActive: { backgroundColor: 'rgba(91,222,0,0.16)', borderWidth: 1, borderColor: 'rgba(91,222,0,0.35)' },
@@ -593,7 +595,7 @@ const styles = StyleSheet.create({
   portfolioStatValue: { fontSize: 18, fontWeight: '700' as const, color: colors.white },
   quickActionsRow: { flexDirection: 'row', gap: 12, marginBottom: 24 },
   quickActionCard: { flex: 1, backgroundColor: CK_SURFACE, borderRadius: 18, padding: 16, alignItems: 'center', borderWidth: 1, borderColor: CK_BORDER, shadowColor: '#000', shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.06, shadowRadius: 14, elevation: 2 },
-  quickActionIcon: { width: 44, height: 44, borderRadius: 12, alignItems: 'center', justifyContent: 'center', marginBottom: 10 },
+  quickActionIcon: { width: 42, height: 42, borderRadius: 14, alignItems: 'center', justifyContent: 'center', marginBottom: 10, borderWidth: 1, borderColor: 'rgba(17,24,39,0.06)' },
   quickActionTitle: { fontSize: 14, fontWeight: '800' as const, color: CK_TEXT, marginBottom: 2 },
   quickActionSubtitle: { fontSize: 11, fontWeight: '600' as const, color: CK_TEXT_SECONDARY },
   chartSection: { backgroundColor: CK_SURFACE, borderRadius: 22, padding: 20, marginBottom: 20, borderWidth: 1, borderColor: CK_BORDER, shadowColor: '#000', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.06, shadowRadius: 18, elevation: 3 },
@@ -617,7 +619,7 @@ const styles = StyleSheet.create({
   legendAvg: { marginLeft: 'auto', fontSize: 11, fontWeight: '700' as const, color: CK_TEXT_SECONDARY },
   metricsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginBottom: 20 },
   metricCard: { width: (SCREEN_WIDTH - 52) / 2, backgroundColor: CK_SURFACE, borderRadius: 18, padding: 16, borderWidth: 1, borderColor: CK_BORDER, shadowColor: '#000', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.05, shadowRadius: 16, elevation: 2 },
-  metricIconContainer: { width: 36, height: 36, borderRadius: 12, backgroundColor: CK_SURFACE_SUBTLE, alignItems: 'center', justifyContent: 'center', marginBottom: 12, borderWidth: 1, borderColor: 'rgba(0,0,0,0.05)' },
+  metricIconContainer: { width: 36, height: 36, borderRadius: 13, backgroundColor: CK_SURFACE_SUBTLE, alignItems: 'center', justifyContent: 'center', marginBottom: 12, borderWidth: 1, borderColor: 'rgba(0,0,0,0.05)' },
   metricValue: { fontSize: 22, fontWeight: '900' as const, color: CK_TEXT, marginBottom: 4 },
   metricLabel: { fontSize: 12, fontWeight: '600' as const, color: CK_TEXT_SECONDARY },
   investmentSummary: { flexDirection: 'row', backgroundColor: CK_SURFACE, borderRadius: 18, padding: 18, marginBottom: 20, borderWidth: 1, borderColor: CK_BORDER, shadowColor: '#000', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.06, shadowRadius: 18, elevation: 3 },
@@ -635,7 +637,7 @@ const styles = StyleSheet.create({
   investmentCardSelected: { borderColor: 'rgba(91,222,0,0.55)', backgroundColor: 'rgba(91,222,0,0.06)' },
   investmentCardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 },
   investmentBorrower: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  borrowerAvatar: { width: 42, height: 42, borderRadius: 21, backgroundColor: CK_GREEN, alignItems: 'center', justifyContent: 'center' },
+  borrowerAvatar: { width: 42, height: 42, borderRadius: 14, backgroundColor: CK_GREEN, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'rgba(255,255,255,0.5)' },
   borrowerInitial: { fontSize: 17, fontWeight: '700' as const, color: colors.white },
   investmentBorrowerName: { fontSize: 15, fontWeight: '700' as const, color: CK_TEXT },
   investmentPurpose: { fontSize: 12, fontWeight: '600' as const, color: CK_TEXT_SECONDARY, marginTop: 2 },

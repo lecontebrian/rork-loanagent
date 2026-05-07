@@ -13,7 +13,7 @@ import {
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Path, Polyline } from 'react-native-svg';
-import { ArrowLeft, Building2, Zap, Info, Percent, TrendingUp } from 'lucide-react-native';
+import { ArrowLeft, Landmark, Zap, Info, Percent, TrendingUp } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import colors from '@/constants/colors';
@@ -229,7 +229,7 @@ export default function WithdrawScreen() {
             activeOpacity={0.7}
             testID="withdrawBack"
           >
-            <ArrowLeft color={colors.text} size={22} strokeWidth={2.5} />
+            <ArrowLeft color={colors.text} size={21} strokeWidth={2.4} />
           </TouchableOpacity>
           <View style={styles.headerTitles}>
             <Text style={styles.headerTitle}>Withdraw cash</Text>
@@ -299,7 +299,7 @@ export default function WithdrawScreen() {
                 testID="withdrawMethod-bank"
               >
                 <View style={styles.methodHeader}>
-                  <Building2 color={method === 'bank' ? colors.primary : colors.textSecondary} size={22} strokeWidth={2} />
+                  <Landmark color={method === 'bank' ? colors.primary : colors.textSecondary} size={20} strokeWidth={2.25} />
                   <View style={styles.methodContent}>
                     <Text style={[styles.methodTitle, method === 'bank' && styles.methodTitleActive]}>Bank (ACH)</Text>
                     <Text style={styles.methodSubtext}>3–5 business days • Lowest fee</Text>
@@ -315,7 +315,7 @@ export default function WithdrawScreen() {
                 testID="withdrawMethod-instant"
               >
                 <View style={styles.methodHeader}>
-                  <Zap color={method === 'instant' ? colors.primary : colors.textSecondary} size={22} strokeWidth={2} />
+                  <Zap color={method === 'instant' ? colors.primary : colors.textSecondary} size={20} strokeWidth={2.35} />
                   <View style={styles.methodContent}>
                     <Text style={[styles.methodTitle, method === 'instant' && styles.methodTitleActive]}>Instant (debit)</Text>
                     <Text style={styles.methodSubtext}>Minutes • Higher fee</Text>
@@ -346,7 +346,7 @@ export default function WithdrawScreen() {
             <View style={styles.perfHeaderRow}>
               <Text style={styles.sectionLabel}>Returns & ROI</Text>
               <View style={styles.roiPill} testID="withdrawRoiPill">
-                <Percent color={colors.success} size={14} />
+                <Percent color={colors.success} size={14} strokeWidth={2.35} />
                 <Text style={styles.roiPillText}>{investmentPerformance.roi12m.toFixed(2)}% (12m)</Text>
               </View>
             </View>
@@ -400,7 +400,7 @@ export default function WithdrawScreen() {
               <View style={styles.cumulativeRow} testID="withdrawCumulativeRow">
                 <View style={styles.cumulativeLeft}>
                   <View style={styles.cumulativeTitleRow}>
-                    <TrendingUp color={colors.success} size={16} />
+                    <TrendingUp color={colors.success} size={16} strokeWidth={2.3} />
                     <Text style={styles.cumulativeTitle}>Cumulative earnings</Text>
                   </View>
                   <Text style={styles.cumulativeHint}>Running total over the last 12 months</Text>
@@ -415,7 +415,7 @@ export default function WithdrawScreen() {
           </View>
 
           <View style={styles.infoCard} testID="withdrawInfo">
-            <Info color={colors.info} size={18} />
+            <Info color={colors.info} size={18} strokeWidth={2.25} />
             <View style={styles.infoContent}>
               <Text style={styles.infoTitle}>What happens after I withdraw?</Text>
               <Text style={styles.infoText}>
@@ -451,7 +451,7 @@ export default function WithdrawScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 18, paddingBottom: 10, gap: 12 },
-  backButton: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.border },
+  backButton: { width: 40, height: 40, borderRadius: 14, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'rgba(17,24,39,0.08)', ...colors.shadow },
   headerTitles: { flex: 1 },
   headerTitle: { fontSize: 18, fontWeight: '800' as const, color: colors.text },
   headerSubtitle: { marginTop: 2, fontSize: 12.5, fontWeight: '500' as const, color: colors.textSecondary },

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ArrowLeft, ArrowUpRight, ArrowDownRight, Plus, TrendingUp, Wallet, Info, ArrowDownToLine, Percent } from 'lucide-react-native';
+import { ArrowLeft, ArrowUpRight, ArrowDownRight, Plus, TrendingUp, Wallet, Info, BanknoteArrowDown, Percent, SendHorizontal, HandCoins } from 'lucide-react-native';
 import colors from '@/constants/colors';
 import React, { useMemo } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -136,7 +136,7 @@ export default function P2PWalletScreen() {
             onPress={() => router.back()}
             activeOpacity={0.7}
           >
-            <ArrowLeft color={colors.text} size={24} strokeWidth={2} />
+            <ArrowLeft color={colors.text} size={21} strokeWidth={2.4} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>P2P Wallet</Text>
           <TouchableOpacity
@@ -144,7 +144,7 @@ export default function P2PWalletScreen() {
             onPress={() => {}}
             activeOpacity={0.7}
           >
-            <Info color={colors.textSecondary} size={20} />
+            <Info color={colors.textSecondary} size={19} strokeWidth={2.25} />
           </TouchableOpacity>
         </View>
 
@@ -160,7 +160,7 @@ export default function P2PWalletScreen() {
               end={{ x: 1, y: 1 }}
             >
               <View style={styles.balanceHeader}>
-                <Wallet color={colors.white} size={28} strokeWidth={2} />
+                <Wallet color={colors.white} size={25} strokeWidth={2.25} />
                 <Text style={styles.balanceLabel}>Available Balance</Text>
               </View>
               
@@ -168,7 +168,7 @@ export default function P2PWalletScreen() {
               
               <View style={styles.balanceStats}>
                 <View style={styles.balanceStat}>
-                  <ArrowDownRight color={colors.white} size={16} />
+                  <ArrowDownRight color={colors.white} size={16} strokeWidth={2.35} />
                   <View style={styles.balanceStatContent}>
                     <Text style={styles.balanceStatLabel}>Received</Text>
                     <Text style={styles.balanceStatValue}>{formatCurrencyExact(totalReceived)}</Text>
@@ -176,7 +176,7 @@ export default function P2PWalletScreen() {
                 </View>
                 <View style={styles.balanceStatDivider} />
                 <View style={styles.balanceStat}>
-                  <ArrowUpRight color={colors.white} size={16} />
+                  <ArrowUpRight color={colors.white} size={16} strokeWidth={2.35} />
                   <View style={styles.balanceStatContent}>
                     <Text style={styles.balanceStatLabel}>Sent</Text>
                     <Text style={styles.balanceStatValue}>{formatCurrencyExact(totalSent)}</Text>
@@ -194,7 +194,7 @@ export default function P2PWalletScreen() {
               testID="p2pWalletSend"
             >
               <View style={[styles.actionIcon, { backgroundColor: colors.primary + '20' }]}>
-                <ArrowUpRight color={colors.primary} size={20} strokeWidth={2.5} />
+                <SendHorizontal color={colors.primary} size={19} strokeWidth={2.35} />
               </View>
               <Text style={styles.actionText}>Send</Text>
             </TouchableOpacity>
@@ -206,7 +206,7 @@ export default function P2PWalletScreen() {
               testID="p2pWalletRequest"
             >
               <View style={[styles.actionIcon, { backgroundColor: colors.success + '20' }]}>
-                <ArrowDownRight color={colors.success} size={20} strokeWidth={2.5} />
+                <HandCoins color={colors.success} size={19} strokeWidth={2.35} />
               </View>
               <Text style={styles.actionText}>Request</Text>
             </TouchableOpacity>
@@ -218,7 +218,7 @@ export default function P2PWalletScreen() {
               testID="p2pWalletAddFunds"
             >
               <View style={[styles.actionIcon, { backgroundColor: colors.info + '20' }]}>
-                <Plus color={colors.info} size={20} strokeWidth={2.5} />
+                <Plus color={colors.info} size={19} strokeWidth={2.45} />
               </View>
               <Text style={styles.actionText}>Add Funds</Text>
             </TouchableOpacity>
@@ -230,7 +230,7 @@ export default function P2PWalletScreen() {
               testID="p2pWalletWithdraw"
             >
               <View style={[styles.actionIcon, { backgroundColor: colors.warning + '20' }] }>
-                <ArrowDownToLine color={colors.warning} size={20} strokeWidth={2.5} />
+                <BanknoteArrowDown color={colors.warning} size={19} strokeWidth={2.35} />
               </View>
               <Text style={styles.actionText}>Withdraw</Text>
             </TouchableOpacity>
@@ -240,7 +240,7 @@ export default function P2PWalletScreen() {
             <View style={styles.chartHeader}>
               <Text style={styles.chartTitle}>Balance Trend</Text>
               <View style={styles.chartLegend}>
-                <TrendingUp color={netChange30Days >= 0 ? colors.success : colors.error} size={16} />
+                <TrendingUp color={netChange30Days >= 0 ? colors.success : colors.error} size={16} strokeWidth={2.3} />
                 <Text style={[styles.chartChange, { color: netChange30Days >= 0 ? colors.success : colors.error }]}>
                   {netChange30Days >= 0 ? '+' : ''}{formatCurrencyExact(netChange30Days)} (30d)
                 </Text>
@@ -279,7 +279,7 @@ export default function P2PWalletScreen() {
               <View style={styles.investmentTitleRow}>
                 <Text style={styles.investmentTitle}>Month-to-Month Returns</Text>
                 <View style={styles.roiPill}>
-                  <Percent color={colors.success} size={14} />
+                  <Percent color={colors.success} size={14} strokeWidth={2.35} />
                   <Text style={styles.roiPillText}>{investmentPerformance.roi12m.toFixed(2)}% ROI (12m)</Text>
                 </View>
               </View>
@@ -335,7 +335,7 @@ export default function P2PWalletScreen() {
 
           {recentTransactions.length === 0 ? (
             <View style={styles.emptyState}>
-              <Wallet color={colors.textTertiary} size={48} strokeWidth={1.5} />
+              <Wallet color={colors.textTertiary} size={44} strokeWidth={1.75} />
               <Text style={styles.emptyStateText}>No transactions yet</Text>
               <Text style={styles.emptyStateSubtext}>
                 Send or receive money to see your activity here
@@ -363,14 +363,14 @@ export default function P2PWalletScreen() {
                     {txn.type === 'sent' ? (
                       <ArrowUpRight
                         color={colors.error}
-                        size={18}
-                        strokeWidth={2.5}
+                        size={17}
+                        strokeWidth={2.35}
                       />
                     ) : (
                       <ArrowDownRight
                         color={txn.type === 'pending' ? colors.warning : colors.success}
-                        size={18}
-                        strokeWidth={2.5}
+                        size={17}
+                        strokeWidth={2.35}
                       />
                     )}
                   </View>
@@ -416,7 +416,7 @@ export default function P2PWalletScreen() {
             onPress={() => {}}
             activeOpacity={0.7}
           >
-            <Info color={colors.textSecondary} size={16} />
+            <Info color={colors.textSecondary} size={16} strokeWidth={2.25} />
             <Text style={styles.feesLinkText}>Fees & Limits</Text>
           </TouchableOpacity>
         </ScrollView>
@@ -428,9 +428,9 @@ export default function P2PWalletScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 16 },
-  backButton: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center' },
+  backButton: { width: 40, height: 40, borderRadius: 14, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'rgba(17,24,39,0.08)', ...colors.shadow },
   headerTitle: { fontSize: 18, fontWeight: '700' as const, color: colors.text },
-  infoButton: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center' },
+  infoButton: { width: 40, height: 40, borderRadius: 14, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'rgba(17,24,39,0.08)' },
   scrollContent: { paddingHorizontal: 20 },
   balanceCard: { borderRadius: 20, overflow: 'hidden', marginBottom: 24, ...colors.shadowMedium },
   balanceGradient: { padding: 24 },
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
   balanceStatDivider: { width: 1, height: 30, backgroundColor: 'rgba(255,255,255,0.3)', marginHorizontal: 16 },
   actionButtons: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', gap: 12, marginBottom: 24 },
   actionButton: { width: (width - 40 - 12) / 2, alignItems: 'center', paddingVertical: 16, backgroundColor: colors.surface, borderRadius: 16, borderWidth: 1, borderColor: colors.border },
-  actionIcon: { width: 48, height: 48, borderRadius: 24, alignItems: 'center', justifyContent: 'center', marginBottom: 8 },
+  actionIcon: { width: 46, height: 46, borderRadius: 15, alignItems: 'center', justifyContent: 'center', marginBottom: 8, borderWidth: 1, borderColor: 'rgba(17,24,39,0.06)' },
   actionText: { fontSize: 14, fontWeight: '600' as const, color: colors.text },
   chartCard: { backgroundColor: colors.surface, borderRadius: 16, padding: 20, marginBottom: 24, borderWidth: 1, borderColor: colors.border },
   chartHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
@@ -483,7 +483,7 @@ const styles = StyleSheet.create({
   emptyStateSubtext: { fontSize: 14, fontWeight: '400' as const, color: colors.textTertiary, textAlign: 'center', paddingHorizontal: 40 },
   transactionsList: { gap: 0 },
   transactionItem: { flexDirection: 'row', alignItems: 'center', paddingVertical: 16, borderBottomWidth: 1, borderBottomColor: colors.border },
-  transactionIcon: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center', marginRight: 12 },
+  transactionIcon: { width: 40, height: 40, borderRadius: 14, alignItems: 'center', justifyContent: 'center', marginRight: 12, borderWidth: 1, borderColor: 'rgba(17,24,39,0.05)' },
   transactionContent: { flex: 1 },
   transactionCounterparty: { fontSize: 15, fontWeight: '600' as const, color: colors.text, marginBottom: 3 },
   transactionDate: { fontSize: 13, fontWeight: '400' as const, color: colors.textSecondary },

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ArrowLeft, Calendar, AlertCircle, ShieldCheck, CheckCircle } from 'lucide-react-native';
+import { ArrowLeft, CalendarDays, CircleAlert, ShieldCheck, CircleCheck, Percent } from 'lucide-react-native';
 import colors from '@/constants/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState } from 'react';
@@ -102,7 +102,7 @@ export default function RequestP2PLoanScreen() {
               onPress={() => router.back()}
               activeOpacity={0.7}
             >
-              <ArrowLeft color={colors.text} size={24} strokeWidth={2} />
+              <ArrowLeft color={colors.text} size={21} strokeWidth={2.4} />
             </TouchableOpacity>
             <View style={styles.headerTitleContainer}>
               <Text style={styles.headerTitle}>Request a Loan</Text>
@@ -117,7 +117,7 @@ export default function RequestP2PLoanScreen() {
             keyboardShouldPersistTaps="handled"
           >
             <View style={styles.infoCard}>
-              <ShieldCheck color={colors.success} size={24} strokeWidth={2} />
+              <ShieldCheck color={colors.success} size={22} strokeWidth={2.25} />
               <View style={styles.infoContent}>
                 <Text style={styles.infoTitle}>How it works</Text>
                 <Text style={styles.infoText}>
@@ -146,7 +146,7 @@ export default function RequestP2PLoanScreen() {
               <View style={styles.halfSection}>
                 <Text style={styles.sectionTitle}>Term</Text>
                 <View style={styles.inputWithIcon}>
-                  <Calendar color={colors.textSecondary} size={20} strokeWidth={2} />
+                  <CalendarDays color={colors.textSecondary} size={19} strokeWidth={2.25} />
                   <TextInput
                     style={styles.inputWithIconInput}
                     value={term}
@@ -162,8 +162,9 @@ export default function RequestP2PLoanScreen() {
               <View style={styles.halfSection}>
                 <Text style={styles.sectionTitle}>Max Rate</Text>
                 <View style={styles.inputWithIcon}>
+                  <Percent color={colors.textSecondary} size={19} strokeWidth={2.25} />
                   <TextInput
-                    style={[styles.inputWithIconInput, { paddingLeft: 16 }]}
+                    style={styles.inputWithIconInput}
                     value={maxRate}
                     onChangeText={setMaxRate}
                     placeholder="12"
@@ -189,7 +190,7 @@ export default function RequestP2PLoanScreen() {
                     activeOpacity={0.7}
                   >
                     {selectedPurpose === purpose && (
-                      <CheckCircle color={colors.white} size={14} strokeWidth={2.5} />
+                      <CircleCheck color={colors.white} size={14} strokeWidth={2.35} />
                     )}
                     <Text
                       style={[
@@ -228,7 +229,7 @@ export default function RequestP2PLoanScreen() {
             </View>
 
             <View style={styles.noteContainer}>
-              <AlertCircle color={colors.warning} size={18} strokeWidth={2} />
+              <CircleAlert color={colors.warning} size={18} strokeWidth={2.25} />
               <Text style={styles.noteText}>
                 Your credit score and verification status will be shown to investors. Standard platform fees apply upon funding.
               </Text>
@@ -277,10 +278,12 @@ const styles = StyleSheet.create({
   backButton: {
     width: 40,
     height: 40,
-    borderRadius: 20,
+    borderRadius: 14,
     backgroundColor: colors.surface,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(17,24,39,0.08)',
     ...colors.shadow,
   },
   headerTitleContainer: {
@@ -305,8 +308,10 @@ const styles = StyleSheet.create({
     gap: 14,
     backgroundColor: colors.successLight || 'rgba(52, 199, 89, 0.1)',
     padding: 16,
-    borderRadius: 14,
+    borderRadius: 16,
     marginBottom: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(52,199,89,0.18)',
   },
   infoContent: {
     flex: 1,
@@ -402,7 +407,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 10,
     backgroundColor: colors.surface,
-    borderRadius: 10,
+    borderRadius: 12,
     borderWidth: 2,
     borderColor: colors.border,
   },

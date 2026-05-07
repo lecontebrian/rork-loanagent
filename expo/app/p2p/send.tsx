@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { ArrowLeft, User, DollarSign } from 'lucide-react-native';
+import { ArrowLeft, UserRound, BadgeDollarSign } from 'lucide-react-native';
 import colors from '@/constants/colors';
 import React, { useState, useMemo } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -63,7 +63,7 @@ export default function SendMoneyScreen() {
             onPress={() => router.back()}
             activeOpacity={0.7}
           >
-            <ArrowLeft color={colors.text} size={24} strokeWidth={2} />
+            <ArrowLeft color={colors.text} size={21} strokeWidth={2.4} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Send Money</Text>
           <View style={styles.placeholder} />
@@ -82,7 +82,7 @@ export default function SendMoneyScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionLabel}>Recipient</Text>
             <View style={styles.inputContainer}>
-              <User color={colors.textTertiary} size={20} />
+              <UserRound color={colors.textTertiary} size={19} strokeWidth={2.25} />
               <TextInput
                 style={styles.input}
                 placeholder="Name, email, or username"
@@ -97,7 +97,7 @@ export default function SendMoneyScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionLabel}>Amount</Text>
             <View style={styles.inputContainer}>
-              <DollarSign color={colors.textTertiary} size={20} />
+              <BadgeDollarSign color={colors.textTertiary} size={19} strokeWidth={2.25} />
               <TextInput
                 style={styles.input}
                 placeholder="0.00"
@@ -215,10 +215,13 @@ const styles = StyleSheet.create({
   backButton: {
     width: 40,
     height: 40,
-    borderRadius: 20,
+    borderRadius: 14,
     backgroundColor: colors.surface,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(17,24,39,0.08)',
+    ...colors.shadow,
   },
   headerTitle: {
     fontSize: 18,
