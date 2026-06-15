@@ -16,7 +16,7 @@ import {
   Clock3,
   CircleCheck,
   CircleAlert,
-  BanknoteArrowDown,
+  ArrowDownFromLine,
   Layers3
 } from 'lucide-react-native';
 import colors from '@/constants/colors';
@@ -152,7 +152,7 @@ export default function P2PPortfolioScreen() {
           activeOpacity={0.8}
         >
           <View style={[styles.quickActionIcon, { backgroundColor: 'rgba(91, 222, 0, 0.14)' }]}>
-            <BanknoteArrowDown color={CK_GREEN_DARK} size={20} strokeWidth={2.25} />
+            <ArrowDownFromLine color={CK_GREEN_DARK} size={20} strokeWidth={2.25} />
           </View>
           <Text style={styles.quickActionTitle}>Withdraw</Text>
           <Text style={styles.quickActionSubtitle}>To Bank</Text>

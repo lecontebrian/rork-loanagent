@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AppProvider } from "@/contexts/AppContext";
 import { AffiliateProvider } from "@/contexts/AffiliateContext";
 import { P2PWalletProvider } from "@/contexts/P2PWalletContext";
@@ -85,20 +86,22 @@ export default function RootLayout() {
   }
 
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <ErrorBoundary>
-            <AppProvider>
-              <AffiliateProvider>
-                <P2PWalletProvider>
-                  <RootLayoutNav />
-                </P2PWalletProvider>
-              </AffiliateProvider>
-            </AppProvider>
-          </ErrorBoundary>
-        </GestureHandlerRootView>
-      </QueryClientProvider>
-    </trpc.Provider>
+    <SafeAreaProvider>
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <ErrorBoundary>
+              <AppProvider>
+                <AffiliateProvider>
+                  <P2PWalletProvider>
+                    <RootLayoutNav />
+                  </P2PWalletProvider>
+                </AffiliateProvider>
+              </AppProvider>
+            </ErrorBoundary>
+          </GestureHandlerRootView>
+        </QueryClientProvider>
+      </trpc.Provider>
+    </SafeAreaProvider>
   );
 }

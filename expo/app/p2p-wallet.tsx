@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ArrowLeft, ArrowUpRight, ArrowDownRight, Plus, TrendingUp, Wallet, Info, BanknoteArrowDown, Percent, SendHorizontal, HandCoins } from 'lucide-react-native';
+import { ArrowLeft, ArrowUpRight, ArrowDownRight, Plus, TrendingUp, Wallet, Info, ArrowDownFromLine, Percent, SendHorizontal, HandCoins } from 'lucide-react-native';
 import colors from '@/constants/colors';
 import React, { useMemo } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -230,7 +230,7 @@ export default function P2PWalletScreen() {
               testID="p2pWalletWithdraw"
             >
               <View style={[styles.actionIcon, { backgroundColor: colors.warning + '20' }] }>
-                <BanknoteArrowDown color={colors.warning} size={19} strokeWidth={2.35} />
+                <ArrowDownFromLine color={colors.warning} size={19} strokeWidth={2.35} />
               </View>
               <Text style={styles.actionText}>Withdraw</Text>
             </TouchableOpacity>
