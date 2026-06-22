@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
-import { useState, useEffect, useMemo } from 'react';
-import { ArrowLeft, DollarSign, Car, Home, Info, ChevronRight, Pencil } from 'lucide-react-native';
+import { useState, useEffect } from 'react';
+import { ArrowLeft, DollarSign, Car, Home, Info } from 'lucide-react-native';
 import colors from '@/constants/colors';
 import { LoanType } from '@/types';
 import { loanCategories } from '@/mocks/loanData';
@@ -38,7 +38,7 @@ export default function LoanAmountScreen() {
   const [propertyPrice, setPropertyPrice] = useState('');
   const [propertyLocation, setPropertyLocation] = useState('');
   const [propertyState, setPropertyState] = useState('');
-  const [customRate, setCustomRate] = useState('');
+  const [customRate] = useState('');
 
   const presetAmounts = category
     ? [category.minAmount, Math.floor(category.minAmount * 2), Math.floor((category.minAmount + category.maxAmount) / 2), Math.floor(category.maxAmount * 0.75), category.maxAmount]

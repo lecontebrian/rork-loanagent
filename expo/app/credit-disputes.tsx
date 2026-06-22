@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Linking, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Linking, Alert, Platform } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft, Shield, CheckCircle, Star, Zap, TrendingUp, Award, Lock, ChevronRight, Users, FileText, Clock } from 'lucide-react-native';
@@ -6,7 +6,6 @@ import colors from '@/constants/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import * as Haptics from 'expo-haptics';
-import { Platform } from 'react-native';
 
 const MONTHLY_PRICE = 295.99;
 
@@ -292,7 +291,7 @@ export default function CreditDisputesScreen() {
                     <Text style={styles.scoreBadgeText}>{testimonial.score}</Text>
                   </View>
                 </View>
-                <Text style={styles.testimonialText}>"{testimonial.text}"</Text>
+                <Text style={styles.testimonialText}>&ldquo;{testimonial.text}&rdquo;</Text>
               </View>
             ))}
           </View>
@@ -366,7 +365,7 @@ export default function CreditDisputesScreen() {
           <View style={styles.disclaimerContainer}>
             <Lock color={colors.textTertiary} size={14} strokeWidth={2} />
             <Text style={styles.disclaimerText}>
-              Secure payment processed by Nationwide Credit. By subscribing, you agree to Nationwide Credit's Terms of Service and authorize a recurring charge of ${MONTHLY_PRICE}/month. Results may vary. Nationwide Credit is a registered credit repair organization.
+              Secure payment processed by Nationwide Credit. By subscribing, you agree to Nationwide Credit&apos;s Terms of Service and authorize a recurring charge of ${MONTHLY_PRICE}/month. Results may vary. Nationwide Credit is a registered credit repair organization.
             </Text>
           </View>
 

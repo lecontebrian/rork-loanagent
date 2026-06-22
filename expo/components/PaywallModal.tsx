@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Modal, TouchableOpacity, Animated, Dimensions, ScrollView } from 'react-native';
-import { X, Check, Crown, Shield, Zap } from 'lucide-react-native';
+import { X, Check, Crown, Shield } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import colors from '@/constants/colors';
 import { useApp } from '@/contexts/AppContext';
 
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 interface PaywallModalProps {
   visible: boolean;
