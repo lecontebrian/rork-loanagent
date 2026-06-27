@@ -11,53 +11,61 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ArrowRight, ChevronLeft } from "lucide-react-native";
+import { ArrowRight, ChevronLeft, Sparkles, Target, Bot, ShieldCheck, LayoutDashboard, Zap, TrendingUp, DollarSign, type LucideIcon } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { BANKS } from "@/constants/banks";
 import colors from '@/constants/colors';
+import { PremiumIcon } from '@/components/PremiumIcon';
 
 const { width } = Dimensions.get("window");
 
-const ONBOARDING_SCREENS = [
+const ONBOARDING_SCREENS: {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon: LucideIcon;
+  gradient: [string, string];
+}[] = [
   {
     id: "welcome",
     title: "Welcome to Loan Agent",
     subtitle: "Your all-in-one AI-powered loan platform",
     description: "Access loans, refinancing, and credit management—all in one secure place.",
-    icon: "✨",
-    gradient: ["#000000", "#16181C"],
+    icon: Sparkles,
+    gradient: ["#0A1F12", "#000000"],
   },
   {
     id: "unified",
     title: "One Profile, Every Loan",
     subtitle: "Apply everywhere with a single verified profile",
     description: "Auto, home, business, personal, education, or debt consolidation—all from one profile.",
-    icon: "🎯",
-    gradient: ["#16181C", "#000000"],
+    icon: Target,
+    gradient: ["#000000", "#0A1F12"],
   },
   {
     id: "ai-matching",
     title: "AI-Powered Matching",
     subtitle: "Smart recommendations tailored to you",
     description: "Our AI compares 30+ lenders to deliver the best available offers, rates, and approval odds.",
-    icon: "🤖",
-    gradient: ["#000000", "#16181C"],
+    icon: Bot,
+    gradient: ["#0A1F12", "#000000"],
   },
   {
     id: "secure",
     title: "Bank-Level Security",
     subtitle: "Advanced facial ID and encryption",
     description: "Face verification, license scanning, and encryption protect your identity every step.",
-    icon: "🔒",
-    gradient: ["#16181C", "#000000"],
+    icon: ShieldCheck,
+    gradient: ["#000000", "#0A1F12"],
   },
   {
     id: "dashboard",
     title: "All-in-One Dashboard",
     subtitle: "Track everything that matters",
     description: "Credit score, borrowing power, active accounts, refinance opportunities—all updated in real-time.",
-    icon: "📊",
-    gradient: ["#000000", "#16181C"],
+    icon: LayoutDashboard,
+    gradient: ["#0A1F12", "#000000"],
   },
 ];
 
@@ -185,7 +193,7 @@ export default function WelcomeScreen() {
                 </View>
               ) : (
                 <View style={styles.iconContainer}>
-                  <Text style={styles.iconEmoji}>{screen.icon}</Text>
+                  <PremiumIcon icon={screen.icon} color={colors.primary} size={48} strokeWidth={1.9} />
                 </View>
               )}
 
@@ -214,17 +222,17 @@ export default function WelcomeScreen() {
               {index === 2 && (
                 <View style={styles.aiFeatures}>
                   <AIFeatureItem
-                    icon="⚡"
+                    icon={Zap}
                     title="Instant Matching"
                     description="Get offers in seconds"
                   />
                   <AIFeatureItem
-                    icon="📈"
+                    icon={TrendingUp}
                     title="Credit Insights"
                     description="Personalized improvement tips"
                   />
                   <AIFeatureItem
-                    icon="💰"
+                    icon={DollarSign}
                     title="Smart Savings"
                     description="Find refinance opportunities"
                   />
@@ -259,10 +267,12 @@ export default function WelcomeScreen() {
   );
 }
 
-function AIFeatureItem({ icon, title, description }: { icon: string; title: string; description: string }) {
+function AIFeatureItem({ icon, title, description }: { icon: LucideIcon; title: string; description: string }) {
   return (
     <View style={styles.aiFeatureItem}>
-      <Text style={styles.aiFeatureIcon}>{icon}</Text>
+      <View style={styles.aiFeatureIconWrap}>
+        <PremiumIcon icon={icon} color={colors.primary} size={24} strokeWidth={2} />
+      </View>
       <View style={styles.aiFeatureText}>
         <Text style={styles.aiFeatureTitle}>{title}</Text>
         <Text style={styles.aiFeatureDescription}>{description}</Text>

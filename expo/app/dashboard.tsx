@@ -13,6 +13,7 @@ import { LoanOffer } from '@/types';
 import IntegrationPrompt from '@/components/IntegrationPrompt';
 import { formatCompactNumber } from '@/utils/formatters';
 import ReviewPrompt from '@/components/ReviewPrompt';
+import { GlassScreen } from '@/components/glass';
 
 const { width } = Dimensions.get('window');
 
@@ -141,7 +142,7 @@ export default function DashboardScreen() {
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
-      <View style={styles.container}>
+      <GlassScreen>
         <ScrollView showsVerticalScrollIndicator={false} bounces={true} contentContainerStyle={{ paddingTop: insets.top }}>
           <View style={styles.header}>
             <View style={styles.headerLeft}>
@@ -670,13 +671,13 @@ export default function DashboardScreen() {
           {!isAffiliate && (
             <View style={styles.affiliateSection}>
               <LinearGradient
-                colors={['#FF6B5A', '#FFB347']}
+                colors={['#19c534', '#15a82b']}
                 style={styles.affiliateGradient}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
               >
                 <View style={styles.affiliateIcon}>
-                  <Text style={styles.affiliateIconText}>💰</Text>
+                  <PremiumIcon icon={DollarSign} color={colors.white} size={28} strokeWidth={ICON_STROKE.emphasized} />
                 </View>
                 <Text style={styles.affiliateTitle}>Earn Money with Referrals</Text>
                 <Text style={styles.affiliateSubtext}>
@@ -722,7 +723,7 @@ export default function DashboardScreen() {
               onPress={() => router.push('/affiliate-dashboard' as any)}
             >
               <LinearGradient
-                colors={['#9B59B6', '#E74C3C']}
+                colors={colors.gradients.ocean as any}
                 style={styles.affiliateDashboardGradient}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
@@ -764,7 +765,7 @@ export default function DashboardScreen() {
 
           <View style={{ height: 40 }} />
         </ScrollView>
-      </View>
+      </GlassScreen>
       <ReviewPrompt 
         visible={showReviewPrompt} 
         onClose={() => setShowReviewPrompt(false)}
@@ -868,15 +869,15 @@ const styles = StyleSheet.create({
   greeting: { fontSize: 15, color: colors.textSecondary, fontWeight: '500' as const },
   name: { fontSize: 32, fontWeight: '700' as const, color: colors.text, marginTop: 2 },
   headerButtons: { flexDirection: 'row', gap: 10 },
-  notificationButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center' },
+  notificationButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: colors.glassBackground, borderWidth: 1, borderColor: colors.glassBorder, alignItems: 'center', justifyContent: 'center' },
   notificationBadge: { position: 'absolute' as const, top: 6, right: 6, minWidth: 16, height: 16, borderRadius: 8, backgroundColor: colors.error, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 4 },
   notificationBadgeText: { fontSize: 10, fontWeight: '700' as const, color: colors.white },
-  settingsButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center' },
+  settingsButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: colors.glassBackground, borderWidth: 1, borderColor: colors.glassBorder, alignItems: 'center', justifyContent: 'center' },
   ongoingSection: { marginHorizontal: 28, marginBottom: 24 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
   ongoingSectionTitle: { fontSize: 22, fontWeight: '700' as const, color: colors.text },
   viewAllText: { fontSize: 15, fontWeight: '500' as const, color: colors.white },
-  ongoingCard: { padding: 24, backgroundColor: colors.surface, borderRadius: 20, borderWidth: 1, borderColor: colors.border },
+  ongoingCard: { padding: 24, backgroundColor: colors.glassBackground, borderRadius: 24, borderWidth: 1, borderColor: colors.glassBorder, ...colors.shadow },
   ongoingHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
   ongoingLenderInfo: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   ongoingLenderLogo: { width: 44, height: 44, borderRadius: 12, backgroundColor: colors.surfaceTertiary },
@@ -900,12 +901,12 @@ const styles = StyleSheet.create({
   applyButtonSubtitle: { fontSize: 14, fontWeight: '500' as const, color: 'rgba(255,255,255,0.85)' },
   section: { paddingHorizontal: 28, marginBottom: 32 },
   sectionTitle: { fontSize: 22, fontWeight: '700' as const, color: colors.text, marginBottom: 16 },
-  emptyState: { alignItems: 'center', paddingVertical: 56, paddingHorizontal: 32, marginHorizontal: 28, marginBottom: 32, backgroundColor: colors.surface, borderRadius: 20, borderWidth: 1, borderColor: colors.border },
+  emptyState: { alignItems: 'center', paddingVertical: 56, paddingHorizontal: 32, marginHorizontal: 28, marginBottom: 32, backgroundColor: colors.glassBackground, borderRadius: 24, borderWidth: 1, borderColor: colors.glassBorder, ...colors.shadow },
   emptyIcon: { width: 72, height: 72, borderRadius: 36, backgroundColor: colors.surfaceTertiary, alignItems: 'center', justifyContent: 'center', marginBottom: 20 },
   emptyText: { fontSize: 18, fontWeight: '600' as const, color: colors.text, marginBottom: 6 },
   emptySubtext: { fontSize: 15, color: colors.textSecondary, textAlign: 'center' },
   applicationsList: { gap: 14 },
-  applicationCard: { padding: 20, backgroundColor: colors.surface, borderRadius: 18, borderWidth: 1, borderColor: colors.border },
+  applicationCard: { padding: 20, backgroundColor: colors.glassBackground, borderRadius: 20, borderWidth: 1, borderColor: colors.glassBorder, ...colors.shadow },
   applicationHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
   applicationLenderInfo: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   applicationLenderLogo: { width: 36, height: 36, borderRadius: 10, backgroundColor: colors.surfaceTertiary },
@@ -916,7 +917,7 @@ const styles = StyleSheet.create({
   applicationAmount: { fontSize: 28, fontWeight: '700' as const, color: colors.text, marginBottom: 6 },
   applicationDetails: { fontSize: 14, fontWeight: '500' as const, color: colors.textSecondary },
   statsGrid: { flexDirection: 'row', gap: 14 },
-  statCard: { flex: 1, padding: 20, backgroundColor: colors.surface, borderRadius: 18, borderWidth: 1, borderColor: colors.border },
+  statCard: { flex: 1, padding: 20, backgroundColor: colors.glassBackground, borderRadius: 20, borderWidth: 1, borderColor: colors.glassBorder, ...colors.shadow },
   statColorBar: { width: 32, height: 4, borderRadius: 2, marginBottom: 16 },
   statValue: { fontSize: 26, fontWeight: '700' as const, color: colors.text, marginBottom: 6 },
   statLabel: { fontSize: 13, fontWeight: '500' as const, color: colors.textSecondary },
@@ -930,7 +931,7 @@ const styles = StyleSheet.create({
   refinanceButton: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, paddingVertical: 14, paddingHorizontal: 24, borderRadius: 16, backgroundColor: 'rgba(255,255,255,0.25)' },
   refinanceButtonText: { fontSize: 16, fontWeight: '600' as const, color: colors.white },
   metricsRow: { flexDirection: 'row', gap: 14, paddingHorizontal: 28, marginBottom: 28 },
-  metricCard: { padding: 20, backgroundColor: colors.surface, borderRadius: 20, borderWidth: 1, borderColor: colors.border },
+  metricCard: { padding: 20, backgroundColor: colors.glassBackground, borderRadius: 24, borderWidth: 1, borderColor: colors.glassBorder, ...colors.shadow },
   metricIconContainer: { width: 40, height: 40, borderRadius: 12, backgroundColor: colors.successLight, alignItems: 'center', justifyContent: 'center', marginBottom: 14 },
   metricLabel: { fontSize: 13, fontWeight: '500' as const, color: colors.textSecondary, marginBottom: 8 },
   metricValue: { fontSize: 32, fontWeight: '800' as const, color: colors.text, marginBottom: 10 },
@@ -949,7 +950,7 @@ const styles = StyleSheet.create({
   creditScoreLabelText: { fontSize: 11, fontWeight: '700' as const, color: 'rgba(255,255,255,0.9)' },
   offersSection: { marginBottom: 28 },
   offersScrollContent: { paddingHorizontal: 28, gap: 14 },
-  offerCard: { width: width - 80, padding: 24, backgroundColor: colors.surface, borderRadius: 20, borderWidth: 1, borderColor: colors.border },
+  offerCard: { width: width - 80, padding: 24, backgroundColor: colors.glassBackground, borderRadius: 24, borderWidth: 1, borderColor: colors.glassBorder, ...colors.shadow },
   offerHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
   offerLenderLogo: { width: 48, height: 48, borderRadius: 12, backgroundColor: colors.surfaceTertiary },
   offerPrequalBadge: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 10, backgroundColor: colors.successLight },
@@ -964,7 +965,7 @@ const styles = StyleSheet.create({
   offerApplyButton: { paddingVertical: 14, borderRadius: 14, backgroundColor: colors.primary, alignItems: 'center' },
   offerApplyButtonText: { fontSize: 16, fontWeight: '700' as const, color: colors.black },
   creditHealthSection: { paddingHorizontal: 28, marginBottom: 28 },
-  creditHealthCard: { padding: 24, backgroundColor: colors.surface, borderRadius: 20, borderWidth: 1, borderColor: colors.border },
+  creditHealthCard: { padding: 24, backgroundColor: colors.glassBackground, borderRadius: 24, borderWidth: 1, borderColor: colors.glassBorder, ...colors.shadow },
   creditFactorsGrid: { gap: 20, marginBottom: 24 },
   creditFactorItem: { gap: 8 },
   creditFactorLabel: { fontSize: 14, fontWeight: '500' as const, color: colors.textSecondary },
@@ -978,7 +979,7 @@ const styles = StyleSheet.create({
   creditTipBullet: { width: 5, height: 5, borderRadius: 2.5, backgroundColor: colors.primary, marginTop: 6 },
   creditTipText: { flex: 1, fontSize: 13, fontWeight: '500' as const, color: colors.text, lineHeight: 18 },
   accountsList: { gap: 14 },
-  accountCard: { padding: 20, backgroundColor: colors.surface, borderRadius: 18, borderWidth: 1, borderColor: colors.border },
+  accountCard: { padding: 20, backgroundColor: colors.glassBackground, borderRadius: 20, borderWidth: 1, borderColor: colors.glassBorder, ...colors.shadow },
   accountHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 },
   accountInfo: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   accountLogo: { width: 40, height: 40, borderRadius: 10, backgroundColor: colors.surfaceTertiary },
@@ -998,7 +999,7 @@ const styles = StyleSheet.create({
   accountPaymentAmount: { fontSize: 15, fontWeight: '600' as const, color: colors.text },
   featuresSection: { paddingHorizontal: 28, marginBottom: 32 },
   featuresGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 14 },
-  featureCard: { width: '22%', aspectRatio: 1, padding: 12, backgroundColor: colors.surface, borderRadius: 16, borderWidth: 1, borderColor: colors.border, alignItems: 'center', justifyContent: 'center' },
+  featureCard: { width: '22%', aspectRatio: 1, padding: 12, backgroundColor: colors.glassBackground, borderRadius: 18, borderWidth: 1, borderColor: colors.glassBorder, alignItems: 'center', justifyContent: 'center', ...colors.shadow },
   featureIcon: { width: 44, height: 44, borderRadius: 12, alignItems: 'center', justifyContent: 'center', marginBottom: 8 },
   featureIconText: { fontSize: 24 },
   featureTitle: { fontSize: 11, fontWeight: '600' as const, color: colors.text, textAlign: 'center' },
@@ -1031,7 +1032,7 @@ const styles = StyleSheet.create({
   pendingBadge: { minWidth: 24, height: 24, borderRadius: 12, backgroundColor: colors.warning, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 8 },
   pendingBadgeText: { fontSize: 12, fontWeight: '700' as const, color: colors.white },
   pendingList: { gap: 14 },
-  pendingCard: { backgroundColor: colors.surface, borderRadius: 20, borderWidth: 1, borderColor: colors.warning + '40', overflow: 'hidden' },
+  pendingCard: { backgroundColor: colors.glassBackground, borderRadius: 22, borderWidth: 1, borderColor: colors.warning + '40', overflow: 'hidden', ...colors.shadow },
   pendingCardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 20, paddingBottom: 16, borderBottomWidth: 1, borderBottomColor: colors.border },
   pendingLenderInfo: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   pendingLenderLogo: { width: 44, height: 44, borderRadius: 12, backgroundColor: colors.surfaceTertiary },

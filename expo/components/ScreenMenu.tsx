@@ -1,6 +1,9 @@
-import { View, Text, StyleSheet, TouchableOpacity, Modal, Animated } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, Animated, Platform } from 'react-native';
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { MoreVertical, X, LucideIcon } from 'lucide-react-native';
 import colors from '@/constants/colors';
+import { glass } from '@/constants/theme';
 import { ICON_SIZES, ICON_STROKE, PremiumIcon, PremiumIconContainer } from '@/components/PremiumIcon';
 import { useState, useRef, useEffect } from 'react';
 
@@ -51,7 +54,17 @@ export default function ScreenMenu({ items }: ScreenMenuProps) {
     }
   }, [isVisible, fadeAnim, scaleAnim]);
 
+  const openMenu = () => {
+    if (Platform.OS !== 'web') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    }
+    setIsVisible(true);
+  };
+
   const handleItemPress = (onPress: () => void) => {
+    if (Platform.OS !== 'web') {
+      Haptics.selectionAsync().catch(() => {});
+    }
     setIsVisible(false);
     setTimeout(() => {
       onPress();
@@ -62,9 +75,10 @@ export default function ScreenMenu({ items }: ScreenMenuProps) {
     <>
       <TouchableOpacity
         style={styles.menuButton}
-        onPress={() => setIsVisible(true)}
+        onPress={openMenu}
         activeOpacity={0.7}
       >
+        <BlurView intensity={glass.intensity.chrome} tint={glass.tint} experimentalBlurMethod="dimezisBlurView" style={styles.menuButtonBlur} />
         <PremiumIcon icon={MoreVertical} color={colors.text} size={ICON_SIZES.header} strokeWidth={ICON_STROKE.regular} />
       </TouchableOpacity>
 
@@ -88,6 +102,9 @@ export default function ScreenMenu({ items }: ScreenMenuProps) {
               },
             ]}
           >
+            <BlurView intensity={glass.intensity.chrome} tint={glass.tint} experimentalBlurMethod="dimezisBlurView" style={StyleSheet.absoluteFill} />
+            <View style={[StyleSheet.absoluteFill, styles.modalFill]} pointerEvents="none" />
+            <View style={[StyleSheet.absoluteFill, styles.modalBorder]} pointerEvents="none" />
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Quick Actions</Text>
               <TouchableOpacity
@@ -126,10 +143,16 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.surface,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
+    borderWidth: StyleSheet.hairlineWidth * 1.5,
+    borderColor: glass.border,
     ...colors.shadow,
+  },
+  menuButtonBlur: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: glass.fillSoft,
   },
   modalOverlay: {
     flex: 1,
@@ -141,10 +164,18 @@ const styles = StyleSheet.create({
   modalContent: {
     width: '100%',
     maxWidth: 400,
-    backgroundColor: colors.surface,
-    borderRadius: 24,
+    borderRadius: 28,
     padding: 24,
+    overflow: 'hidden',
     ...colors.shadowStrong,
+  },
+  modalFill: {
+    backgroundColor: glass.fillStrong,
+  },
+  modalBorder: {
+    borderRadius: 28,
+    borderWidth: StyleSheet.hairlineWidth * 1.5,
+    borderColor: glass.border,
   },
   modalHeader: {
     flexDirection: 'row',
@@ -173,8 +204,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: colors.background,
-    borderRadius: 16,
+    backgroundColor: glass.fillSoft,
+    borderRadius: 18,
+    borderWidth: StyleSheet.hairlineWidth * 1.5,
+    borderColor: glass.border,
     gap: 14,
   },
   menuItemIcon: {

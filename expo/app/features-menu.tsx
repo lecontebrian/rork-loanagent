@@ -1,15 +1,15 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Animated, Platform, Pressable } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
-import { ArrowLeft, Brain, Wallet, Calculator, Users, FolderLock, AlertTriangle, TrendingUp, MapPin, MessageSquare, Settings, LucideIcon } from 'lucide-react-native';
+import * as Haptics from 'expo-haptics';
+import { Brain, Wallet, Calculator, Users, FolderLock, AlertTriangle, TrendingUp, MapPin, MessageSquare, Settings, ChevronRight, LucideIcon } from 'lucide-react-native';
 import colors from '@/constants/colors';
+import { spacing, typography } from '@/constants/theme';
 import { ICON_SIZES, ICON_STROKE, PremiumIcon, PremiumIconContainer } from '@/components/PremiumIcon';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { GlassScreen, GlassHeader, GlassCard } from '@/components/glass';
 import { useRef, useEffect } from 'react';
 
 export default function FeaturesMenuScreen() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -25,231 +25,109 @@ export default function FeaturesMenuScreen() {
     title: string;
     description: string;
     icon: LucideIcon;
-    gradient: [string, string];
+    color: string;
     route: string;
   }[] = [
-    {
-      id: 'coach',
-      title: 'AI Financial Coach',
-      description: 'Get personalized financial advice 24/7',
-      icon: Brain,
-      gradient: ['#FF9500', '#FF6B00'],
-      route: '/financial-coach',
-    },
-    {
-      id: 'p2p',
-      title: 'P2P Lending',
-      description: 'Invest in loans and earn returns',
-      icon: Users,
-      gradient: ['#5E5CE6', '#BF5AF2'],
-      route: '/p2p-marketplace',
-    },
-    {
-      id: 'budget',
-      title: 'Budget Tracker',
-      description: 'Track expenses and manage your budget',
-      icon: Wallet,
-      gradient: ['#30D158', '#28B349'],
-      route: '/budget-tracker',
-    },
-    {
-      id: 'simulator',
-      title: 'Loan Simulator',
-      description: 'Simulate what-if scenarios for loans',
-      icon: Calculator,
-      gradient: ['#0A84FF', '#0066D6'],
-      route: '/loan-simulator',
-    },
-    {
-      id: 'credit',
-      title: 'Credit Builder',
-      description: 'Improve and repair your credit score',
-      icon: TrendingUp,
-      gradient: ['#FF375F', '#FF1744'],
-      route: '/credit-builder',
-    },
-    {
-      id: 'vault',
-      title: 'Document Vault',
-      description: 'Securely store your financial documents',
-      icon: FolderLock,
-      gradient: ['#5856D6', '#7C3AED'],
-      route: '/document-vault',
-    },
-    {
-      id: 'local',
-      title: 'Local Lenders',
-      description: 'Find credit unions and local lenders',
-      icon: MapPin,
-      gradient: ['#32ADE6', '#0891B2'],
-      route: '/local-lenders',
-    },
-    {
-      id: 'disputes',
-      title: 'Credit Disputes',
-      description: 'File and track credit bureau disputes',
-      icon: AlertTriangle,
-      gradient: ['#FF9F0A', '#FF6D00'],
-      route: '/credit-disputes',
-    },
-    {
-      id: 'chat',
-      title: 'AI Assistant',
-      description: 'Voice and text-based financial assistant',
-      icon: MessageSquare,
-      gradient: ['#BF5AF2', '#8A2BE2'],
-      route: '/ai-assistant',
-    },
+    { id: 'coach', title: 'AI Financial Coach', description: 'Get personalized financial advice 24/7', icon: Brain, color: colors.warning, route: '/financial-coach' },
+    { id: 'p2p', title: 'P2P Lending', description: 'Invest in loans and earn returns', icon: Users, color: colors.secondary, route: '/p2p-marketplace' },
+    { id: 'budget', title: 'Budget Tracker', description: 'Track expenses and manage your budget', icon: Wallet, color: colors.success, route: '/budget-tracker' },
+    { id: 'simulator', title: 'Loan Simulator', description: 'Simulate what-if scenarios for loans', icon: Calculator, color: colors.secondary, route: '/loan-simulator' },
+    { id: 'credit', title: 'Credit Builder', description: 'Improve and repair your credit score', icon: TrendingUp, color: colors.primary, route: '/credit-builder' },
+    { id: 'vault', title: 'Document Vault', description: 'Securely store your financial documents', icon: FolderLock, color: colors.primary, route: '/document-vault' },
+    { id: 'local', title: 'Local Lenders', description: 'Find credit unions and local lenders', icon: MapPin, color: colors.secondary, route: '/local-lenders' },
+    { id: 'disputes', title: 'Credit Disputes', description: 'File and track credit bureau disputes', icon: AlertTriangle, color: colors.warning, route: '/credit-disputes' },
+    { id: 'chat', title: 'AI Assistant', description: 'Voice and text-based financial assistant', icon: MessageSquare, color: colors.primary, route: '/ai-assistant' },
   ];
+
+  const go = (route: string) => {
+    if (Platform.OS !== 'web') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    }
+    router.push(route as any);
+  };
 
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
-      <View style={[styles.container, { paddingTop: insets.top }]}>
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => router.back()}
-            activeOpacity={0.7}
-          >
-            <PremiumIcon icon={ArrowLeft} color={colors.text} size={ICON_SIZES.header} strokeWidth={ICON_STROKE.regular} />
-          </TouchableOpacity>
-          <View style={styles.headerTitleContainer}>
-            <Text style={styles.headerTitle}>All Features</Text>
-            <Text style={styles.headerSubtitle}>Comprehensive Tools</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.settingsButton}
-            onPress={() => router.push('/settings' as any)}
-            activeOpacity={0.7}
-          >
-            <PremiumIcon icon={Settings} color={colors.text} size={ICON_SIZES.header} strokeWidth={ICON_STROKE.regular} />
-          </TouchableOpacity>
-        </View>
+      <GlassScreen>
+        <GlassHeader
+          title="All Features"
+          subtitle="Comprehensive financial tools"
+          largeTitle
+          right={
+            <Pressable onPress={() => router.push('/settings' as any)} hitSlop={8}>
+              <PremiumIconContainer
+                icon={Settings}
+                tone="neutral"
+                size={ICON_SIZES.header}
+                containerSize={40}
+                radius={20}
+              />
+            </Pressable>
+          }
+        />
 
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
         >
-          <Animated.View style={{ opacity: fadeAnim }}>
+          <Animated.View style={{ opacity: fadeAnim, gap: spacing.md }}>
             {features.map((feature) => (
-              <TouchableOpacity
+              <GlassCard
                 key={feature.id}
-                style={styles.featureCard}
-                activeOpacity={0.85}
-                onPress={() => router.push(feature.route as any)}
+                weight="card"
+                radius={22}
+                onPress={() => go(feature.route)}
+                contentStyle={styles.cardContent}
               >
-                <LinearGradient
-                  colors={feature.gradient}
-                  style={styles.featureGradient}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                >
-                  <View style={styles.featureContent}>
-                    <PremiumIconContainer icon={feature.icon} color={colors.white} size={28} strokeWidth={ICON_STROKE.emphasized} containerSize={64} radius={20} backgroundColor="rgba(255, 255, 255, 0.18)" borderColor="rgba(255, 255, 255, 0.26)" style={styles.featureIcon} />
-                    <View style={styles.featureInfo}>
-                      <Text style={styles.featureTitle}>{feature.title}</Text>
-                      <Text style={styles.featureDescription}>{feature.description}</Text>
-                    </View>
-                  </View>
-                </LinearGradient>
-              </TouchableOpacity>
+                <PremiumIconContainer
+                  icon={feature.icon}
+                  color={feature.color}
+                  size={26}
+                  strokeWidth={ICON_STROKE.emphasized}
+                  containerSize={56}
+                  radius={18}
+                  backgroundColor={feature.color + '20'}
+                  borderColor={feature.color + '38'}
+                />
+                <View style={styles.featureInfo}>
+                  <Text style={styles.featureTitle}>{feature.title}</Text>
+                  <Text style={styles.featureDescription}>{feature.description}</Text>
+                </View>
+                <PremiumIcon icon={ChevronRight} color={colors.textTertiary} size={20} strokeWidth={2.2} />
+              </GlassCard>
             ))}
           </Animated.View>
 
           <View style={{ height: 40 }} />
         </ScrollView>
-      </View>
+      </GlassScreen>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-  },
-  backButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: colors.surface,
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...colors.shadow,
-  },
-  settingsButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: colors.surface,
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...colors.shadow,
-  },
-  headerTitleContainer: {
-    alignItems: 'center',
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: '700' as const,
-    color: colors.text,
-    letterSpacing: -0.4,
-  },
-  headerSubtitle: {
-    fontSize: 13,
-    fontWeight: '500' as const,
-    color: colors.textSecondary,
-    letterSpacing: -0.1,
-    marginTop: 2,
-  },
   scrollContent: {
-    paddingHorizontal: 20,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.base,
   },
-  featureCard: {
-    marginBottom: 16,
-    borderRadius: 20,
-    overflow: 'hidden',
-    ...colors.shadowMedium,
-  },
-  featureGradient: {
-    padding: 24,
-  },
-  featureContent: {
+  cardContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
-  },
-  featureIcon: {
-    width: 64,
-    height: 64,
-    borderRadius: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.18)',
-    alignItems: 'center',
-    justifyContent: 'center',
+    gap: spacing.base,
+    padding: spacing.lg,
   },
   featureInfo: {
     flex: 1,
   },
   featureTitle: {
-    fontSize: 20,
-    fontWeight: '700' as const,
-    color: colors.white,
-    marginBottom: 6,
-    letterSpacing: -0.4,
+    ...typography.headline,
+    color: colors.text,
+    marginBottom: 3,
   },
   featureDescription: {
-    fontSize: 14,
-    fontWeight: '500' as const,
-    color: 'rgba(255, 255, 255, 0.9)',
-    letterSpacing: -0.1,
-    lineHeight: 20,
+    ...typography.footnote,
+    color: colors.textSecondary,
+    lineHeight: 18,
   },
 });
