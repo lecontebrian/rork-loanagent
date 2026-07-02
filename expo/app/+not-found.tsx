@@ -1,42 +1,45 @@
-import { Link, Stack } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
-import colors from "@/constants/colors";
+import { View, StyleSheet, Text, Pressable } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useAppTheme } from '@/contexts/ThemeContext';
+import { GradientButton } from '@/components/GradientButton';
+import { Spacing, Typography } from '@/constants/theme';
 
 export default function NotFoundScreen() {
-  return (
-    <>
-      <Stack.Screen options={{ title: "Oops!" }} />
-      <View style={styles.container}>
-        <Text style={styles.title}>This screen does not exist.</Text>
+  const { theme } = useAppTheme();
+  const router = useRouter();
+  const insets = useSafeAreaInsets();
 
-        <Link href="/" style={styles.link}>
-          <Text style={styles.linkText}>Go to home screen</Text>
-        </Link>
+  return (
+    <View style={[styles.container, { backgroundColor: theme.bg, paddingTop: insets.top }]}>
+      <View style={styles.content}>
+        <Text style={[Typography.largeTitle, { color: theme.text, textAlign: 'center' }]}>
+          404
+        </Text>
+        <Text style={[Typography.title3, { color: theme.textMuted, textAlign: 'center', marginTop: Spacing.md }]}>
+          Page not found
+        </Text>
+        <Text style={[Typography.body, { color: theme.textMuted, textAlign: 'center', marginTop: Spacing.sm }]}>
+          The page you're looking for doesn't exist.
+        </Text>
+        <View style={{ marginTop: Spacing.xxl, width: '100%' }}>
+          <GradientButton
+            label="Go Home"
+            onPress={() => router.replace('/(tabs)/home')}
+            fullWidth
+            size="lg"
+          />
+        </View>
       </View>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-    backgroundColor: colors.background,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "700" as const,
-    color: colors.text,
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-  linkText: {
-    fontSize: 16,
-    fontWeight: "600" as const,
-    color: colors.primary,
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  content: {
+    alignItems: 'center',
+    paddingHorizontal: Spacing.xxl,
+    width: '100%',
   },
 });

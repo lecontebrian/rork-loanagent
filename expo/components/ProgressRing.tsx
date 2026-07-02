@@ -1,99 +1,74 @@
-import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
-import Svg, { Circle } from 'react-native-svg';
+import { useEffect, useRef } from 'react';
+import { Animated } from 'react-native';
+import Svg, { Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
+import { useAppTheme } from '@/contexts/ThemeContext';
 
 interface ProgressRingProps {
-  progress: number;
+  progress: number; // 0-100
   size?: number;
   strokeWidth?: number;
-  color?: string;
-  backgroundColor?: string;
-  showPercentage?: boolean;
   label?: string;
+  sublabel?: string;
+  animated?: boolean;
 }
 
-const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-
-export default function ProgressRing({
+export function AnimatedProgressRing({
   progress,
   size = 120,
-  strokeWidth = 12,
-  color = '#6366F1',
-  backgroundColor = '#E5E5EA',
-  showPercentage = true,
-  label,
+  strokeWidth = 10,
 }: ProgressRingProps) {
+  const { theme } = useAppTheme();
   const animatedValue = useRef(new Animated.Value(0)).current;
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * 2 * Math.PI;
+  const AnimatedCircleComp = useRef<React.ComponentType<any>>(
+    Animated.createAnimatedComponent(Circle)
+  ).current;
 
   useEffect(() => {
     Animated.timing(animatedValue, {
       toValue: progress,
-      duration: 1000,
-      useNativeDriver: true,
+      duration: 1200,
+      useNativeDriver: false,
     }).start();
   }, [progress, animatedValue]);
 
-  const strokeDashoffset = animatedValue.interpolate({
-    inputRange: [0, 100],
-    outputRange: [circumference, 0],
-  });
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (circumference * progress) / 100;
 
   return (
-    <View style={[styles.container, { width: size, height: size }]}>
-      <Svg width={size} height={size}>
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke={backgroundColor}
-          strokeWidth={strokeWidth}
-          fill="transparent"
-        />
-        <AnimatedCircle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke={color}
-          strokeWidth={strokeWidth}
-          fill="transparent"
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
-          rotation="-90"
-          origin={`${size / 2}, ${size / 2}`}
-        />
-      </Svg>
-      <View style={styles.textContainer}>
-        {showPercentage && (
-          <Text style={[styles.percentage, { fontSize: size * 0.2 }]}>
-            {Math.round(progress)}%
-          </Text>
-        )}
-        {label && <Text style={[styles.label, { fontSize: size * 0.1 }]}>{label}</Text>}
-      </View>
-    </View>
+    <Svg width={size} height={size} style={{ transform: [{ rotate: '-90deg' }] }}>
+      <Defs>
+        <LinearGradient id={`ringGrad-${size}`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <Stop offset="0%" stopColor={theme.primaryLight} />
+          <Stop offset="100%" stopColor={theme.primary} />
+        </LinearGradient>
+      </Defs>
+      {/* Track */}
+      <Circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        stroke={theme.isDark ? '#1F2A25' : '#E5E9EB'}
+        strokeWidth={strokeWidth}
+        fill="none"
+      />
+      {/* Progress */}
+      <AnimatedCircleComp
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        stroke={`url(#ringGrad-${size})`}
+        strokeWidth={strokeWidth}
+        strokeDasharray={circumference}
+        strokeDashoffset={
+          animatedValue.interpolate({
+            inputRange: [0, 100],
+            outputRange: [circumference, strokeDashoffset],
+          }) as any
+        }
+        strokeLinecap="round"
+        fill="none"
+      />
+    </Svg>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textContainer: {
-    position: 'absolute',
-    alignItems: 'center',
-  },
-  percentage: {
-    fontWeight: '800' as const,
-    color: '#0F172A',
-    letterSpacing: -1,
-  },
-  label: {
-    fontWeight: '500' as const,
-    color: '#64748B',
-    marginTop: 4,
-  },
-});

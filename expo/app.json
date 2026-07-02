@@ -1,30 +1,30 @@
 {
   "expo": {
-    "name": "loanagent",
+    "name": "Loan Agent",
     "slug": "loanagent",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "rork-app",
+    "scheme": "loanagent",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#050807"
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.rork.loanagent",
       "infoPlist": {
-        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera",
-        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+        "NSCameraUsageDescription": "Loan Agent uses the camera to scan and upload loan documents.",
+        "NSMicrophoneUsageDescription": "Loan Agent uses the microphone for voice input to your AI Loan Agent."
       }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#003D2B"
       },
       "package": "app.rork.loanagent",
       "permissions": [
@@ -48,14 +48,14 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
-          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "cameraPermission": "Loan Agent uses the camera to scan and upload loan documents.",
+          "microphonePermission": "Loan Agent uses the microphone for voice input to your AI Loan Agent.",
           "recordAudioAndroid": true
         }
       ]
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": false
     }
   }
 }
