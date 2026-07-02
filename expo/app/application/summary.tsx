@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated, Alert } from 'react-native';
 import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
 import React, { useState, useRef, useEffect } from 'react';
-import { Check, Download, Share } from 'lucide-react-native';
+import { Check, Download, Share, Bot } from 'lucide-react-native';
 import colors from '@/constants/colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -144,6 +144,27 @@ export default function ApplicationSummaryScreen() {
                 <DataRow label="Signature Date" value={new Date(formData.signatureDate).toLocaleDateString()} />
               </SectionCard>
             )}
+
+            <TouchableOpacity
+              style={styles.agentButton}
+              onPress={() => router.push('/loan-agent' as any)}
+              activeOpacity={0.85}
+            >
+              <LinearGradient
+                colors={['#0A84FF', '#30D158']}
+                style={styles.agentGradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <Bot color={colors.white} size={22} strokeWidth={2} />
+                <View style={styles.agentTextContainer}>
+                  <Text style={styles.agentLabel}>Review with AI Loan Agent</Text>
+                  <Text style={styles.agentSubLabel}>
+                    Multi-agent pipeline: DTI, LTV, risk analysis & policy review
+                  </Text>
+                </View>
+              </LinearGradient>
+            </TouchableOpacity>
 
             <View style={styles.actionButtons}>
               <TouchableOpacity
@@ -310,6 +331,34 @@ const styles = StyleSheet.create({
     letterSpacing: -0.2,
     textAlign: 'right',
     flex: 1,
+  },
+  agentButton: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    marginBottom: 20,
+    ...colors.shadowMedium,
+  },
+  agentGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 18,
+    gap: 14,
+  },
+  agentTextContainer: {
+    flex: 1,
+  },
+  agentLabel: {
+    fontSize: 16,
+    fontWeight: '700' as const,
+    color: colors.white,
+    letterSpacing: -0.3,
+  },
+  agentSubLabel: {
+    fontSize: 12,
+    fontWeight: '400' as const,
+    color: 'rgba(255, 255, 255, 0.85)',
+    letterSpacing: -0.1,
+    marginTop: 3,
   },
   actionButtons: {
     flexDirection: 'row',

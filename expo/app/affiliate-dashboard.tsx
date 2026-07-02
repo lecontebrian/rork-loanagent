@@ -25,7 +25,9 @@ import {
   FileText,
   CheckCircle,
   Clock,
+  ChevronRight,
   Sparkles,
+  BarChart3,
 } from 'lucide-react-native';
 import colors from '@/constants/colors';
 import { useAffiliate, affiliateTiers } from '@/contexts/AffiliateContext';
@@ -40,6 +42,7 @@ export default function AffiliateDashboardScreen() {
   const {
     affiliateProfile,
     referrals,
+    commissions,
     analytics,
     getReferralLink,
   } = useAffiliate();

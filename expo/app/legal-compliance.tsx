@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import { Stack, useRouter } from 'expo-router';
 import { ArrowLeft, FileText, Shield, AlertCircle } from 'lucide-react-native';
 import colors from '@/constants/colors';
+import { REGULATORY_CONTENT } from '@/constants/compliance';
 
 export default function LegalComplianceScreen() {
   const router = useRouter();

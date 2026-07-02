@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ArrowLeft, Brain, Wallet, Calculator, Users, FolderLock, AlertTriangle, TrendingUp, MapPin, MessageSquare, Settings, LucideIcon } from 'lucide-react-native';
+import { ArrowLeft, Brain, Wallet, Calculator, Users, FolderLock, AlertTriangle, TrendingUp, MapPin, MessageSquare, Settings, LucideIcon, Bot } from 'lucide-react-native';
 import colors from '@/constants/colors';
 import { ICON_SIZES, ICON_STROKE, PremiumIcon, PremiumIconContainer } from '@/components/PremiumIcon';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -99,6 +99,14 @@ export default function FeaturesMenuScreen() {
       icon: MessageSquare,
       gradient: ['#BF5AF2', '#8A2BE2'],
       route: '/ai-assistant',
+    },
+    {
+      id: 'agent',
+      title: 'Loan Agent',
+      description: 'Multi-agent underwriting & risk analysis',
+      icon: Bot,
+      gradient: ['#0A84FF', '#30D158'],
+      route: '/loan-agent',
     },
   ];
 

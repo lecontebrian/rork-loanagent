@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Shield, Lock, ChevronRight, CheckCircle, X } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import colors from '@/constants/colors';

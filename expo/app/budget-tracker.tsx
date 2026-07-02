@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Share, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Animated, Share, Alert } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft, Plus, TrendingDown, TrendingUp, Wallet, ShoppingBag, Home, Car, Coffee, ChevronRight, Calendar, Download, Share2, Bell, Settings } from 'lucide-react-native';
@@ -27,8 +27,8 @@ const sampleTransactions: Transaction[] = [
 export default function BudgetTrackerScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const [categories] = useState(sampleCategories);
-  const [transactions] = useState(sampleTransactions);
+  const [categories, setCategories] = useState(sampleCategories);
+  const [transactions, setTransactions] = useState(sampleTransactions);
   const [selectedTab, setSelectedTab] = useState<'overview' | 'transactions'>('overview');
   const fadeAnim = useRef(new Animated.Value(0)).current;
 

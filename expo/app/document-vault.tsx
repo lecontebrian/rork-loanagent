@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Alert } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ArrowLeft, FolderLock, FileText, File, Shield, Calendar, Download, Eye, Trash2, Upload, Search, Settings } from 'lucide-react-native';
+import { ArrowLeft, FolderLock, Plus, FileText, File, Shield, Calendar, Download, Eye, Trash2, Upload, Search, Settings } from 'lucide-react-native';
 import ScreenMenu from '@/components/ScreenMenu';
 import colors from '@/constants/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
