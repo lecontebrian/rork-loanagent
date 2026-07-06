@@ -7,6 +7,7 @@ import {
   Animated,
   TextInput,
   useWindowDimensions,
+  Image,
 } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -43,6 +44,7 @@ import { AGENT_STAGES } from '@/types/loanAgent';
 import { runAgentPipeline } from '@/utils/agentPipeline';
 import { parseRawFinancialText, parseStructuredFormInput } from '@/utils/ocrParser';
 import { formatCurrency, formatPercent } from '@/utils/formatters';
+import { images } from '@/constants/mediaAssets';
 
 const STAGE_LABELS: Record<AgentStage, string> = {
   Draft: 'Draft',
@@ -246,14 +248,11 @@ export default function LoanAgentScreen() {
             <Text style={styles.headerSubtitle}>Multi-Agent Underwriting</Text>
           </View>
           <View style={styles.headerBadge}>
-            <LinearGradient
-              colors={['#0A84FF', '#5E5CE6']}
-              style={styles.headerBadgeGradient}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-            >
-              <Text style={styles.headerBadgeText}>AI</Text>
-            </LinearGradient>
+            <Image
+              source={{ uri: images.aiAgentAvatar }}
+              style={styles.headerBadgeImage}
+              resizeMode="cover"
+            />
           </View>
         </View>
 
@@ -960,6 +959,11 @@ const styles = StyleSheet.create({
     fontWeight: '800' as const,
     color: colors.white,
     letterSpacing: -0.2,
+  },
+  headerBadgeImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 14,
   },
 
   // Body & panels

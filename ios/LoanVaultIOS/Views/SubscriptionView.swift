@@ -46,11 +46,21 @@ struct SubscriptionView: View {
 
     private var hero: some View {
         VStack(spacing: 12) {
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .fill(Theme.premiumGradient)
-                .frame(width: 76, height: 76)
-                .overlay(Image(systemName: "crown.fill").font(.system(size: 34, weight: .bold)).foregroundStyle(.white))
-                .shadow(color: Theme.primary.opacity(0.4), radius: 16, y: 8)
+            Color.clear
+                .frame(height: 160)
+                .overlay {
+                    Image("gold_coin_vault_crown")
+                        .resizable()
+                        .scaledToFill()
+                        .allowsHitTesting(false)
+                }
+                .clipShape(.rect(cornerRadius: 24))
+                .overlay(alignment: .bottom) {
+                    Image(systemName: "crown.fill")
+                        .font(.system(size: 28, weight: .bold))
+                        .foregroundStyle(Theme.accent)
+                        .padding(.bottom, 8)
+                }
             Text("Unlock Your Full Potential").font(.system(size: 24, weight: .bold)).foregroundStyle(Theme.text)
                 .multilineTextAlignment(.center)
             Text("Get more AI tokens, smarter offers, and premium tools.")

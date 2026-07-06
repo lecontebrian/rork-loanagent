@@ -15,6 +15,7 @@ import { ArrowRight, ChevronLeft } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { BANKS } from "@/constants/banks";
 import colors from '@/constants/colors';
+import { images } from '@/constants/mediaAssets';
 
 const { width } = Dimensions.get("window");
 
@@ -181,6 +182,18 @@ export default function WelcomeScreen() {
                     source={{ uri: 'https://r2-pub.rork.com/generated-images/4a376767-2249-4ad3-b355-e8b852b56f24.png' }}
                     style={styles.logoImage}
                     resizeMode="contain"
+                  />
+                </View>
+              ) : index === 2 ? (
+                <View style={styles.heroImageContainer}>
+                  <Image
+                    source={{ uri: images.onboardingAiAgent }}
+                    style={styles.heroImage}
+                    resizeMode="cover"
+                  />
+                  <LinearGradient
+                    colors={['transparent', '#000000']}
+                    style={styles.heroImageFade}
                   />
                 </View>
               ) : (
@@ -369,6 +382,30 @@ const styles = StyleSheet.create({
   },
   iconEmoji: {
     fontSize: 48,
+  },
+  heroImageContainer: {
+    width: width * 0.8,
+    height: 260,
+    borderRadius: 24,
+    marginBottom: 32,
+    overflow: 'hidden',
+    backgroundColor: colors.surface,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 16 },
+    shadowOpacity: 0.4,
+    shadowRadius: 24,
+    elevation: 12,
+  },
+  heroImage: {
+    width: '100%',
+    height: '100%',
+  },
+  heroImageFade: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 60,
   },
   slideTitle: {
     fontSize: 32,

@@ -10,6 +10,8 @@ struct AIAssistantView: View {
     @State private var messages: [ChatMessage] = [
         ChatMessage(role: .assistant, text: "Hi! I'm your AI financial coach. Ask me about loans, credit, budgeting, or anything money-related.")
     ]
+
+    private let avatarImage = "robot_financial_advisor_avatar"
     @State private var draft = ""
 
     private let suggestions = [
@@ -46,7 +48,12 @@ struct AIAssistantView: View {
     }
 
     private var tokenBar: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 10) {
+            Image(avatarImage)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 32, height: 32)
+                .clipShape(.circle)
             Image(systemName: "bolt.fill").font(.caption).foregroundStyle(Theme.accent)
             Text("\(appStore.tokens) tokens remaining").font(.caption.weight(.semibold)).foregroundStyle(Theme.text)
             Spacer()

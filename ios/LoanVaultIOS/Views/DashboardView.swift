@@ -14,6 +14,17 @@ struct DashboardView: View {
             VStack(spacing: 22) {
                 header
 
+                Color.clear
+                    .frame(height: 140)
+                    .overlay {
+                        Image("financial_growth_vault")
+                            .resizable()
+                            .scaledToFill()
+                            .allowsHitTesting(false)
+                    }
+                    .clipShape(.rect(cornerRadius: 22))
+                    .padding(.horizontal, 0)
+
                 if appStore.refinanceSavings > 0 {
                     refinanceBanner
                 }

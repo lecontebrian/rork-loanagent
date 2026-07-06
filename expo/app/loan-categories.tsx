@@ -4,8 +4,10 @@ import { ArrowLeft, Car, Home, Wallet, Briefcase, GraduationCap, Repeat, Bell } 
 import colors from '@/constants/colors';
 import { loanCategories } from '@/mocks/loanData';
 import { LoanType } from '@/types';
+import { categoryImages } from '@/constants/mediaAssets';
 import React, { useRef, useEffect } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Image } from 'react-native';
 
 const iconMap: Record<string, any> = {
   car: Car,
@@ -96,7 +98,15 @@ export default function LoanCategoriesScreen() {
                     activeOpacity={0.85}
                   >
                     <View style={[styles.iconContainer, { backgroundColor: getCategoryColor(index) + '15' }]}>
-                      {Icon && <Icon color={getCategoryColor(index)} size={28} strokeWidth={2} />}
+                      {categoryImages[category.id] ? (
+                        <Image
+                          source={{ uri: categoryImages[category.id] }}
+                          style={styles.categoryImage}
+                          resizeMode="contain"
+                        />
+                      ) : (
+                        Icon && <Icon color={getCategoryColor(index)} size={28} strokeWidth={2} />
+                      )}
                     </View>
                     <Text style={styles.categoryName}>{category.name}</Text>
                     <Text style={styles.categoryDescription}>{category.description}</Text>
@@ -205,6 +215,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
+    overflow: 'hidden',
+  },
+  categoryImage: {
+    width: 36,
+    height: 36,
   },
   categoryName: {
     fontSize: 18,

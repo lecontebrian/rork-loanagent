@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Share, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Share, Alert, Image } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft, TrendingUp, Target, CheckCircle, AlertCircle, Calendar, ChevronRight, Star, Award, Plus, Share2, FileText, Settings } from 'lucide-react-native';
 import ScreenMenu from '@/components/ScreenMenu';
 import colors from '@/constants/colors';
+import { images } from '@/constants/mediaAssets';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState, useRef, useEffect } from 'react';
 import { useApp } from '@/contexts/AppContext';
@@ -157,6 +158,11 @@ export default function CreditBuilderScreen() {
             <Text style={styles.headerTitle}>Credit Builder</Text>
             <Text style={styles.headerSubtitle}>Build & Repair</Text>
           </View>
+          <Image
+            source={{ uri: images.creditBuilderHero }}
+            style={styles.creditHeroImage}
+            resizeMode="cover"
+          />
           <ScreenMenu
             items={[
               {
@@ -393,6 +399,13 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: 20,
+  },
+  creditHeroImage: {
+    width: '100%',
+    height: 140,
+    borderRadius: 20,
+    marginBottom: 20,
+    marginTop: 8,
   },
   scoreCard: {
     marginBottom: 20,
