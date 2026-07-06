@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Animated, Modal, Alert, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Animated, Modal, Alert } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft, Search, TrendingUp, ShieldCheck, Clock3, UsersRound, ChevronRight, Plus, Wallet, CreditCard, X, CircleCheck, PiggyBank, HandCoins, Coins, Zap, Landmark, BadgeDollarSign } from 'lucide-react-native';
@@ -6,7 +6,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useP2PWallet, P2PLoanRequest } from '@/contexts/P2PWalletContext';
 import { useApp } from '@/contexts/AppContext';
-import { images } from '@/constants/mediaAssets';
 
 type TabType = 'invest' | 'borrow';
 type PaymentMethod = 'wallet' | 'bank' | 'card';
@@ -224,11 +223,7 @@ export default function P2PMarketplaceScreen() {
         <Text style={styles.sectionTitle}>Investment Opportunities</Text>
         {availableListings.length === 0 ? (
           <View style={styles.emptyState}>
-            <Image
-              source={{ uri: images.emptyStateP2P }}
-              style={styles.emptyStateImage}
-              resizeMode="contain"
-            />
+            <PiggyBank color={CK_TEXT_SECONDARY} size={44} strokeWidth={1.75} />
             <Text style={styles.emptyStateTitle}>No loans available</Text>
             <Text style={styles.emptyStateText}>Check back soon for new investment opportunities</Text>
           </View>
@@ -720,7 +715,6 @@ const styles = StyleSheet.create({
   listingsContainer: { gap: 14 },
   sectionTitle: { fontSize: 18, fontWeight: '700' as const, color: CK_TEXT, marginBottom: 6 },
   emptyState: { alignItems: 'center', paddingVertical: 40, gap: 12 },
-  emptyStateImage: { width: 100, height: 100, marginBottom: 4 },
   emptyStateTitle: { fontSize: 17, fontWeight: '700' as const, color: CK_TEXT },
   emptyStateText: { fontSize: 14, fontWeight: '500' as const, color: CK_TEXT_SECONDARY, textAlign: 'center' },
   listingCard: { padding: 18, backgroundColor: '#FFFFFF', borderRadius: 12, borderWidth: 1, borderColor: CK_BORDER, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.04, shadowRadius: 8, elevation: 2 },

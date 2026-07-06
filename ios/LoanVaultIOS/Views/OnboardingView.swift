@@ -10,9 +10,9 @@ struct OnboardingView: View {
     @State private var page = 0
 
     private let pages: [OnboardingPage] = [
-        OnboardingPage(symbol: "building.columns.fill", title: "Smarter Borrowing", subtitle: "Compare real offers from 40+ trusted lenders and find your best rate in seconds.", tint: Theme.primary, image: "vault_door_coins"),
-        OnboardingPage(symbol: "chart.line.uptrend.xyaxis", title: "Build Your Credit", subtitle: "Track your score, get personalized tips, and watch your financial health grow.", tint: Theme.secondary, image: "financial_growth_vault"),
-        OnboardingPage(symbol: "person.2.fill", title: "Peer-to-Peer Lending", subtitle: "Invest in vetted loans and earn returns, or fund your goals directly.", tint: Color(hex: 0xBF5AF2), image: "ai_brain_finance_nodes"),
+        OnboardingPage(symbol: "building.columns.fill", title: "Smarter Borrowing", subtitle: "Compare real offers from 40+ trusted lenders and find your best rate in seconds.", tint: Theme.primary),
+        OnboardingPage(symbol: "chart.line.uptrend.xyaxis", title: "Build Your Credit", subtitle: "Track your score, get personalized tips, and watch your financial health grow.", tint: Theme.secondary),
+        OnboardingPage(symbol: "person.2.fill", title: "Peer-to-Peer Lending", subtitle: "Invest in vetted loans and earn returns, or fund your goals directly.", tint: Color(hex: 0xBF5AF2)),
     ]
 
     var body: some View {
@@ -69,7 +69,6 @@ private struct OnboardingPage {
     let title: String
     let subtitle: String
     let tint: Color
-    let image: String
 }
 
 private struct OnboardingPageView: View {
@@ -82,12 +81,12 @@ private struct OnboardingPageView: View {
                 Circle()
                     .fill(page.tint.opacity(0.15))
                     .frame(width: 180, height: 180)
-                Image(page.image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 140, height: 140)
-                    .clipShape(.circle)
-                    .overlay(Circle().stroke(page.tint.opacity(0.3), lineWidth: 2))
+                Circle()
+                    .fill(page.tint.opacity(0.22))
+                    .frame(width: 128, height: 128)
+                Image(systemName: page.symbol)
+                    .font(.system(size: 60, weight: .semibold))
+                    .foregroundStyle(page.tint)
             }
             VStack(spacing: 14) {
                 Text(page.title)

@@ -1,10 +1,9 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Alert, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Alert } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft, FolderLock, Plus, FileText, File, Shield, Calendar, Download, Eye, Trash2, Upload, Search, Settings } from 'lucide-react-native';
 import ScreenMenu from '@/components/ScreenMenu';
 import colors from '@/constants/colors';
-import { images } from '@/constants/mediaAssets';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState, useRef, useEffect } from 'react';
 import { Document } from '@/types';
@@ -277,11 +276,9 @@ export default function DocumentVaultScreen() {
 
           {filteredDocuments.length === 0 && (
             <View style={styles.emptyState}>
-              <Image
-                source={{ uri: images.emptyStateDocuments }}
-                style={styles.emptyStateImage}
-                resizeMode="contain"
-              />
+              <View style={styles.emptyIcon}>
+                <FileText color={colors.textTertiary} size={32} strokeWidth={1.5} />
+              </View>
               <Text style={styles.emptyText}>No documents found</Text>
               <Text style={styles.emptySubtext}>Upload your first document to get started</Text>
             </View>
@@ -545,11 +542,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 56,
     paddingHorizontal: 32,
-  },
-  emptyStateImage: {
-    width: 120,
-    height: 120,
-    marginBottom: 20,
   },
   emptyIcon: {
     width: 72,

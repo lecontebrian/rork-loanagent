@@ -1,10 +1,9 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Animated, Platform, Alert, Share, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Animated, Platform, Alert, Share } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft, Mic, MicOff, Send, User, Bot, Sparkles, Trash2, Share2, FileText, Settings } from 'lucide-react-native';
 import ScreenMenu from '@/components/ScreenMenu';
 import colors from '@/constants/colors';
-import { images } from '@/constants/mediaAssets';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState, useRef, useEffect } from 'react';
 import { useApp } from '@/contexts/AppContext';
@@ -163,11 +162,7 @@ export default function AIAssistantScreen() {
                   end={{ x: 1, y: 1 }}
                 >
                   <View style={styles.welcomeIcon}>
-                    <Image
-                      source={{ uri: images.aiAgentAvatar }}
-                      style={styles.aiAvatarImage}
-                      resizeMode="cover"
-                    />
+                    <Bot color={colors.white} size={32} strokeWidth={2.5} />
                   </View>
                   <Text style={styles.welcomeTitle}>Hi, {userProfile?.firstName || 'there'}!</Text>
                   <Text style={styles.welcomeText}>
@@ -359,12 +354,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
-    overflow: 'hidden',
-  },
-  aiAvatarImage: {
-    width: 72,
-    height: 72,
-    borderRadius: 20,
   },
   welcomeTitle: {
     fontSize: 28,

@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { X, Zap, Crown, Shield, Check } from 'lucide-react-native';
 import colors from '@/constants/colors';
-import { images } from '@/constants/mediaAssets';
 import React, { useEffect, useRef } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useApp, SubscriptionTier } from '@/contexts/AppContext';
@@ -148,19 +147,8 @@ export default function PremiumScreen() {
           contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + 80, paddingBottom: insets.bottom + 40 }]}
         >
           <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}>
-            <View style={styles.premiumHeroContainer}>
-              <Image
-                source={{ uri: images.premiumHero }}
-                style={styles.premiumHeroImage}
-                resizeMode="cover"
-              />
-              <LinearGradient
-                colors={['transparent', '#0A0A0A']}
-                style={styles.premiumHeroFade}
-              />
-              <View style={styles.crownOverlay}>
-                <Crown color="#FFD700" size={36} fill="#FFD700" strokeWidth={2} />
-              </View>
+            <View style={styles.crownContainer}>
+              <Crown color="#FFD700" size={48} fill="#FFD700" strokeWidth={2} />
             </View>
 
             <Text style={styles.mainHeadline}>Choose Your Plan</Text>
@@ -237,33 +225,6 @@ const styles = StyleSheet.create({
   crownContainer: {
     alignItems: 'center',
     marginBottom: 24,
-  },
-  premiumHeroContainer: {
-    alignItems: 'center',
-    marginBottom: 24,
-    width: '100%',
-    height: 180,
-    borderRadius: 24,
-    overflow: 'hidden',
-    position: 'relative',
-  },
-  premiumHeroImage: {
-    width: '100%',
-    height: '100%',
-  },
-  premiumHeroFade: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 60,
-  },
-  crownOverlay: {
-    position: 'absolute',
-    bottom: 12,
-    left: 0,
-    right: 0,
-    alignItems: 'center',
   },
   mainHeadline: {
     fontSize: 32,

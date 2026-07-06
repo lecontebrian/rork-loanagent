@@ -4,19 +4,15 @@ import { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated, Image, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import colors from '@/constants/colors';
-import { preloadSounds, useSound } from '@/hooks/useSound';
 
 export default function IndexScreen() {
   const router = useRouter();
   const { isOnboarded, isLoading } = useApp();
   
-  const { play } = useSound();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0.3)).current;
 
   useEffect(() => {
-    preloadSounds();
-    play('splashSound');
     Animated.parallel([
       Animated.timing(fadeAnim, {
         toValue: 1,

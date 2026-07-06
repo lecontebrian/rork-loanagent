@@ -13,8 +13,6 @@ import { LoanOffer } from '@/types';
 import IntegrationPrompt from '@/components/IntegrationPrompt';
 import { formatCompactNumber } from '@/utils/formatters';
 import ReviewPrompt from '@/components/ReviewPrompt';
-import { images } from '@/constants/mediaAssets';
-import { useSound } from '@/hooks/useSound';
 
 const { width } = Dimensions.get('window');
 
@@ -179,24 +177,6 @@ export default function DashboardScreen() {
           </View>
 
           <IntegrationPrompt />
-
-          {/* Premium dashboard banner */}
-          <Animated.View
-            style={[
-              styles.dashboardBannerWrapper,
-              { opacity: fadeAnim, transform: [{ scale: scaleAnim }] },
-            ]}
-          >
-            <Image
-              source={{ uri: images.dashboardBanner }}
-              style={styles.dashboardBanner}
-              resizeMode="cover"
-            />
-            <LinearGradient
-              colors={['transparent', 'rgba(0,0,0,0.6)']}
-              style={styles.dashboardBannerFade}
-            />
-          </Animated.View>
 
           {refinanceSavings > 0 && (
             <Animated.View
@@ -496,11 +476,9 @@ export default function DashboardScreen() {
 
           {applications.length === 0 ? (
             <View style={styles.emptyState}>
-              <Image
-                source={{ uri: images.emptyStateLoans }}
-                style={styles.emptyStateImage}
-                resizeMode="contain"
-              />
+              <View style={styles.emptyIcon}>
+                <FileText color={colors.textTertiary} size={32} strokeWidth={1.5} />
+              </View>
               <Text style={styles.emptyText}>No Applications Yet</Text>
               <Text style={styles.emptySubtext}>Start your journey to financial freedom</Text>
             </View>
@@ -924,7 +902,6 @@ const styles = StyleSheet.create({
   sectionTitle: { fontSize: 22, fontWeight: '700' as const, color: colors.text, marginBottom: 16 },
   emptyState: { alignItems: 'center', paddingVertical: 56, paddingHorizontal: 32, marginHorizontal: 28, marginBottom: 32, backgroundColor: colors.surface, borderRadius: 20, borderWidth: 1, borderColor: colors.border },
   emptyIcon: { width: 72, height: 72, borderRadius: 36, backgroundColor: colors.surfaceTertiary, alignItems: 'center', justifyContent: 'center', marginBottom: 20 },
-  emptyStateImage: { width: 120, height: 120, marginBottom: 20 },
   emptyText: { fontSize: 18, fontWeight: '600' as const, color: colors.text, marginBottom: 6 },
   emptySubtext: { fontSize: 15, color: colors.textSecondary, textAlign: 'center' },
   applicationsList: { gap: 14 },
@@ -944,9 +921,6 @@ const styles = StyleSheet.create({
   statValue: { fontSize: 26, fontWeight: '700' as const, color: colors.text, marginBottom: 6 },
   statLabel: { fontSize: 13, fontWeight: '500' as const, color: colors.textSecondary },
   refinanceBanner: { marginHorizontal: 28, marginBottom: 20, borderRadius: 24, overflow: 'hidden' },
-  dashboardBannerWrapper: { marginHorizontal: 28, marginBottom: 24, borderRadius: 22, overflow: 'hidden', height: 140 },
-  dashboardBanner: { width: '100%', height: '100%' },
-  dashboardBannerFade: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 50 },
   refinanceGradient: { padding: 28 },
   refinanceBadge: { flexDirection: 'row', alignItems: 'center', gap: 6, alignSelf: 'flex-start' as const, paddingHorizontal: 12, paddingVertical: 6, borderRadius: 12, backgroundColor: 'rgba(255,255,255,0.25)', marginBottom: 16 },
   refinanceBadgeText: { fontSize: 11, fontWeight: '700' as const, color: colors.white },

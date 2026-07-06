@@ -19,15 +19,6 @@ struct CreditBuilderView: View {
         ScrollView {
             VStack(spacing: 18) {
                 scoreRing
-                Color.clear
-                    .frame(height: 130)
-                    .overlay {
-                        Image("credit_score_gauge")
-                            .resizable()
-                            .scaledToFill()
-                            .allowsHitTesting(false)
-                    }
-                    .clipShape(.rect(cornerRadius: 20))
                 SectionHeader(title: "Score Factors").frame(maxWidth: .infinity, alignment: .leading)
                 if let f = appStore.creditInfo?.factors {
                     Card {
